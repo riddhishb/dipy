@@ -1,7 +1,7 @@
 
 import numpy as np
 import matplotlib.pyplot as plt
-from dipy.data import fetch_stanford_hardi
+from dipy.data import fetch_sherbrooke_3shell
 from dipy.data import read_sherbrooke_3shell
 from dipy.denoise.noise_estimate import estimate_sigma
 from time import time
@@ -42,7 +42,7 @@ def ascm_comparision(S0,A1,A2,B1,B2):
 
 if __name__=='__main__':
     
-    # fetch_sherbrook_3shell()
+    fetch_sherbrooke_3shell()
     img, gtab = read_sherbrooke_3shell()
     data = img.get_data()
     mask = data[..., 0] > 80
