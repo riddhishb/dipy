@@ -1,6 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
-from dipy.data import fetch_stanford_hardi
+from dipy.data import fetch_sherbrooke_3shell
 from dipy.data import read_sherbrooke_3shell
 from dipy.denoise.noise_estimate import estimate_sigma
 from time import time
@@ -15,7 +15,7 @@ def nlmeans_ornlm_comparision(S0,patch_size,block_size):
     # the nlmeans
     den = nlmeans(S0, sigma=sigma[0], mask=None,patch_radius=patch_size,block_radius=block_size)
     # the ornlm
-    f=np.array(ornlm(S0, patch_size, block_size, sigma[0]))
+    f=np.array(ornlm.ornlm(S0, patch_size, block_size, sigma[0]))
     plt.figure("Output of ornlm")
     plt.imshow(f[:,:,axial].T,cmap='gray')
     plt.figure("Output of nlmeans")
@@ -29,8 +29,8 @@ def nlmeans_ornlm_comparision(S0,patch_size,block_size):
 def ascm_comparision(S0,A1,A2,B1,B2):
     axial = S0.shape[2]/2 
     sigma = estimate_sigma(S0,N=4)
-    filterd_ornlm=np.array(ascm(S0,A1,A2,sigma[0]))#this is reported to have the top performer
-    filterd_nlmeans=np.array(ascm(S0,B1,B2,sigma[0]))#this is reported to have the top performer   
+    filterd_ornlm=np.array(ascm.ascm(S0,A1,A2,sigma[0]))#this is reported to have the top performer
+    filterd_nlmeans=np.array(ascm.ascm(S0,B1,B2,sigma[0]))#this is reported to have the top performer   
     plt.figure("Output of nlmeans+ascm")
     plt.imshow(filterd_nlmeans[:,:,axial].T,cmap='gray')
     plt.figure("Output of ornlm+ascm")
@@ -42,7 +42,7 @@ def ascm_comparision(S0,A1,A2,B1,B2):
 
 if __name__=='__main__':
     
-    # fetch_sherbrook_3shell()
+    fetch_sherbrooke_3shell()
     img, gtab = read_sherbrooke_3shell()
     data = img.get_data()
     mask = data[..., 0] > 80
@@ -65,7 +65,7 @@ if __name__=='__main__':
     ################# Test 3: nlmeans+ascm and ornlm+ascm comparision ######################
 
     sigma = estimate_sigma(S0,N=4)
-    f2=np.array(ornlm(S0, 3, 3, sigma[0]))
+    f2=np.array(ornlm.ornlm(S0, 3, 3, sigma[0]))
     den2 = nlmeans(S0, sigma=sigma[0], mask=None,patch_radius=3,block_radius=3)
     ascm_comparision(S0,f2,f1,den2,den1)
     plt.show()
