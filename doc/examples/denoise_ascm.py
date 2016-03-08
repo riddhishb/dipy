@@ -47,14 +47,8 @@ def ascm_comparision(S0, A1, A2, B1, B2):
     plt.figure("Error Image")
     plt.imshow(
         np.abs(
-            filterd_nlmeans[
-                :,
-                :,
-                axial].T -
-            filterd_ornlm[
-                :,
-                :,
-                axial].T),
+            filterd_nlmeans[:, :, axial].T -
+            filterd_ornlm[:, :, axial].T),
         cmap='gray')
     rmsd_error = np.sum((filterd_nlmeans.T - filterd_ornlm.T)
                         ** 2) / np.sum((filterd_ornlm.T)**2)
