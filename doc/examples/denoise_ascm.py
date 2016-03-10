@@ -18,10 +18,16 @@ def nlmeans_ornlm_comparision(S0, patch_size, block_size):
         S0,
         sigma=sigma[0],
         mask=None,
-        patch_radius=patch_size,
-        block_radius=block_size)
+        patch_radius=1,
+        block_radius=1)
     # the ornlm
-    f = np.array(ornlm.ornlm(S0, patch_size, block_size, sigma[0]))
+    # f = nlmeans(
+    #     S0,
+    #     sigma=sigma[0],
+    #     mask=None,
+    #     patch_radius=3,
+    #     block_radius=3)
+    f = np.array(ornlm.ornlm(S0, 1, 1, sigma[0]))
     plt.figure("Output of ornlm")
     plt.imshow(f[:, :, axial].T, cmap='gray')
     plt.figure("Output of nlmeans")
@@ -56,7 +62,7 @@ def ascm_comparision(S0, A1, A2, B1, B2):
 
 if __name__ == '__main__':
 
-    fetch_sherbrooke_3shell()
+    # fetch_sherbrooke_3shell()
     img, gtab = read_sherbrooke_3shell()
     data = img.get_data()
     mask = data[..., 0] > 80
@@ -75,17 +81,17 @@ if __name__ == '__main__':
 
     ################# Test 2: Comparision between the nlmeans and the ornlm ##
 
-    [f1, den1] = nlmeans_ornlm_comparision(S0, 3, 5)
+    [f1, den1] = nlmeans_ornlm_comparision(S0, 3, 1)
 
     ################# Test 3: nlmeans+ascm and ornlm+ascm comparision ########
 
-    sigma = estimate_sigma(S0, N=4)
-    f2 = np.array(ornlm.ornlm(S0, 3, 3, sigma[0]))
-    den2 = nlmeans(
-        S0,
-        sigma=sigma[0],
-        mask=None,
-        patch_radius=3,
-        block_radius=3)
-    ascm_comparision(S0, f2, f1, den2, den1)
+    # sigma = estimate_sigma(S0, N=4)
+    # f2 = np.array(ornlm.ornlm(S0, 3, 3, sigma[0]))
+    # den2 = nlmeans(
+    #     S0,
+    #     sigma=sigma[0],
+    #     mask=None,
+    #     patch_radius=3,
+    #     block_radius=3)
+    # ascm_comparision(S0, f2, f1, den2, den1)
     plt.show()

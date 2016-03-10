@@ -298,10 +298,7 @@ def ornlm(double [:,:,:]image, int v, int f, double h):
                                         wmax = w
                                     _average_block(image, ni, nj, nk, average, w)
                                     totalWeight+=w
-                    if(wmax==0.0):#FIXME
-                        wmax=1.0
-                    _average_block(image, i, j, k, average, wmax)
-                    totalWeight+=wmax
+                    
                     if(totalWeight != 0.0):
                         _value_block(Estimate, Label, i, j, k, 
                                      average, totalWeight, hh)
