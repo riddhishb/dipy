@@ -14,12 +14,15 @@ def nlmeans_ornlm_comparision(S0, patch_size, block_size):
     axial = S0.shape[2] / 2
     sigma = estimate_sigma(S0, N=4)
     # the nlmeans
+    t = time()
     den = nlmeans(
         S0,
         sigma=sigma[0],
         mask=None,
         patch_radius=1,
         block_radius=1)
+    print(time() - t)
+    t = time()
     # the ornlm
     # f = nlmeans(
     #     S0,
@@ -28,6 +31,7 @@ def nlmeans_ornlm_comparision(S0, patch_size, block_size):
     #     patch_radius=3,
     #     block_radius=3)
     f = np.array(ornlm.ornlm(S0, 1, 1, sigma[0]))
+    print(time() - t)
     plt.figure("Output of ornlm")
     plt.imshow(f[:, :, axial].T, cmap='gray')
     plt.figure("Output of nlmeans")
