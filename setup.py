@@ -203,6 +203,7 @@ def main(**extra_args):
                           'dipy.boots',
                           'dipy.data',
                           'dipy.utils',
+                          'dipy.data.tests',
                           'dipy.utils.tests',
                           'dipy.fixes',
                           'dipy.external',
