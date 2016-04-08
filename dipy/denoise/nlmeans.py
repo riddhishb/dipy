@@ -2,10 +2,12 @@ from __future__ import division, print_function
 
 import numpy as np
 from dipy.denoise.denspeed import nlmeans_3d
+from dipy.denoise.ornlm import ornlm
+from dipy.denoise.noise_estimate import estimate_sigma
 
 
 def nlmeans(arr, sigma, mask=None, patch_radius=1, block_radius=5,
-            rician=True, num_threads=None):
+            rician=True, num_threads=None,type='voxelwise'):
     """ Non-local means for denoising 3D and 4D images
 
     Parameters
@@ -33,30 +35,42 @@ def nlmeans(arr, sigma, mask=None, patch_radius=1, block_radius=5,
     """
 
     if arr.ndim == 3:
-        sigma = np.ones(arr.shape, dtype=np.float64) * sigma
-        return nlmeans_3d(arr, mask, sigma,
+
+        if type == 'blockwise':
+            sigma = estimate_sigma(arr, N=4)
+            return np.array(ornlm(np.double(arr), patch_radius, block_radius, sigma[0]))
+        else:    
+            sigma = np.ones(arr.shape, dtype=np.float64) * sigma
+            return nlmeans_3d(arr, mask, sigma,
                           patch_radius, block_radius,
                           rician, num_threads).astype(arr.dtype)
 
+
     elif arr.ndim == 4:
         denoised_arr = np.zeros_like(arr)
+        if type == 'blockwise':
+            for i in range(arr.shape[-1]):
+                sigma = estimate_sigma(arr[..., i], N=4)
+                denoised_arr[..., i] = np.array(ornlm(np.double(arr[..., i]),patch_radius,block_radius,sigma[0]))
 
-        if isinstance(sigma, np.ndarray) and sigma.ndim == 3:
-            sigma = (np.ones(arr.shape, dtype=np.float64) *
-                     sigma[..., np.newaxis])
+            return denoised_arr    
         else:
-            sigma = np.ones(arr.shape, dtype=np.float64) * sigma
+            if isinstance(sigma, np.ndarray) and sigma.ndim == 3:
+                sigma = (np.ones(arr.shape, dtype=np.float64) *
+                         sigma[..., np.newaxis])
+            else:
+                sigma = np.ones(arr.shape, dtype=np.float64) * sigma
 
-        for i in range(arr.shape[-1]):
-            denoised_arr[..., i] = nlmeans_3d(arr[..., i],
-                                              mask,
-                                              sigma[..., i],
-                                              patch_radius,
-                                              block_radius,
-                                              rician,
-                                              num_threads).astype(arr.dtype)
+            for i in range(arr.shape[-1]):
+                denoised_arr[..., i] = nlmeans_3d(arr[..., i],
+                                                  mask,
+                                                  sigma[..., i],
+                                                  patch_radius,
+                                                  block_radius,
+                                                  rician,
+                                                  num_threads).astype(arr.dtype)
 
-        return denoised_arr
+            return denoised_arr
 
     else:
         raise ValueError("Only 3D or 4D array are supported!", arr.shape)
