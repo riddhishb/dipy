@@ -86,7 +86,7 @@ def _average_block(double[:,:,:] ima, int x, int y, int z,
                     average[a,b,c]+= weight*(ima[y_pos,x_pos,z_pos]**2)
 
 def _value_block(double[:,:,:] estimate, double[:,:,:] Label, int x, int y, 
-                 int z, double[:,:,:] average, double global_sum, double hh):
+                 int z, double[:,:,:] average, double global_sum, double hh, rician = True):
     cdef int is_outside, a, b, c, x_pos, y_pos, z_pos, count=0
     cdef double value = 0.0
     cdef double denoised_value =0.0
@@ -107,7 +107,10 @@ def _value_block(double[:,:,:] estimate, double[:,:,:] Label, int x, int y,
                     is_outside = 1
                 if (is_outside==0):
                     value = estimate[y_pos, x_pos, z_pos];
-                    denoised_value  = (average[a,b,c]/global_sum) - hh;
+                    if (rician):
+                        denoised_value  = (average[a,b,c]/global_sum) - hh;
+                    else:
+                        denoised_value  = (average[a,b,c]/global_sum) 
                     if (denoised_value > 0):
                         denoised_value = np.sqrt(denoised_value)
                     else:
@@ -222,7 +225,7 @@ cpdef upfir(double[:,:] image, double[:] h):
     _upfir_matrix(image, h, filtered)
     return filtered
 
-def ornlm(double [:,:,:]image, int v, int f, double h):
+def ornlm(double [:,:,:]image, int v, int f, double h, rician = True):
     '''
     Filters the given 3D image using optimized non-local means, proposed by
     P. Coupe et al. Returns the filtered image.
@@ -301,7 +304,7 @@ def ornlm(double [:,:,:]image, int v, int f, double h):
                     
                     if(totalWeight != 0.0):
                         _value_block(Estimate, Label, i, j, k, 
-                                     average, totalWeight, hh)
+                                     average, totalWeight, hh, rician)
     for k in range(0, image.shape[2]):
         for i in range(0, image.shape[1]):
             for j in range(0, image.shape[0]):

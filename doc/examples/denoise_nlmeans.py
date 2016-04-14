@@ -40,7 +40,7 @@ Siemens scanner with a 4 array head coil.
 """
 
 sigma = estimate_sigma(data, N=4)
-den = nlmeans(data, sigma=sigma, mask=None,patch_radius = 1, block_radius = 1,type='blockwise')
+den = nlmeans(data, sigma=sigma, mask=None,patch_radius = 1, block_radius = 1,rician = False, type='blockwise')
 
 print("total time", time() - t)
 print("vol size", den.shape)

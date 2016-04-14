@@ -1234,6 +1234,7 @@ static char __pyx_k_limInf[] = "limInf";
 static char __pyx_k_limSup[] = "limSup";
 static char __pyx_k_name_2[] = "__name__";
 static char __pyx_k_outLen[] = "outLen";
+static char __pyx_k_rician[] = "rician";
 static char __pyx_k_struct[] = "struct";
 static char __pyx_k_unpack[] = "unpack";
 static char __pyx_k_weight[] = "weight";
@@ -1427,6 +1428,7 @@ static PyObject *__pyx_n_s_pyx_getbuffer;
 static PyObject *__pyx_n_s_pyx_vtable;
 static PyObject *__pyx_n_s_pz;
 static PyObject *__pyx_n_s_range;
+static PyObject *__pyx_n_s_rician;
 static PyObject *__pyx_n_s_shape;
 static PyObject *__pyx_n_s_size;
 static PyObject *__pyx_n_s_sqrt;
@@ -1472,13 +1474,13 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_2_upfir_vector(CYTHON_UNUSED PyO
 static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_4_firdn_matrix(CYTHON_UNUSED PyObject *__pyx_self, __Pyx_memviewslice __pyx_v_F, __Pyx_memviewslice __pyx_v_h, __Pyx_memviewslice __pyx_v_out); /* proto */
 static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_6_upfir_matrix(CYTHON_UNUSED PyObject *__pyx_self, __Pyx_memviewslice __pyx_v_F, __Pyx_memviewslice __pyx_v_h, __Pyx_memviewslice __pyx_v_out); /* proto */
 static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_8_average_block(CYTHON_UNUSED PyObject *__pyx_self, __Pyx_memviewslice __pyx_v_ima, int __pyx_v_x, int __pyx_v_y, int __pyx_v_z, __Pyx_memviewslice __pyx_v_average, double __pyx_v_weight); /* proto */
-static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_10_value_block(CYTHON_UNUSED PyObject *__pyx_self, __Pyx_memviewslice __pyx_v_estimate, __Pyx_memviewslice __pyx_v_Label, int __pyx_v_x, int __pyx_v_y, int __pyx_v_z, __Pyx_memviewslice __pyx_v_average, double __pyx_v_global_sum, double __pyx_v_hh); /* proto */
+static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_10_value_block(CYTHON_UNUSED PyObject *__pyx_self, __Pyx_memviewslice __pyx_v_estimate, __Pyx_memviewslice __pyx_v_Label, int __pyx_v_x, int __pyx_v_y, int __pyx_v_z, __Pyx_memviewslice __pyx_v_average, double __pyx_v_global_sum, double __pyx_v_hh, PyObject *__pyx_v_rician); /* proto */
 static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_12_distance(CYTHON_UNUSED PyObject *__pyx_self, __Pyx_memviewslice __pyx_v_image, int __pyx_v_x, int __pyx_v_y, int __pyx_v_z, int __pyx_v_nx, int __pyx_v_ny, int __pyx_v_nz, int __pyx_v_f); /* proto */
 static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_14_local_mean(CYTHON_UNUSED PyObject *__pyx_self, __Pyx_memviewslice __pyx_v_ima, int __pyx_v_x, int __pyx_v_y, int __pyx_v_z); /* proto */
 static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_16_local_variance(CYTHON_UNUSED PyObject *__pyx_self, __Pyx_memviewslice __pyx_v_ima, double __pyx_v_mean, int __pyx_v_x, int __pyx_v_y, int __pyx_v_z); /* proto */
 static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_18firdn(CYTHON_UNUSED PyObject *__pyx_self, __Pyx_memviewslice __pyx_v_image, __Pyx_memviewslice __pyx_v_h); /* proto */
 static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_20upfir(CYTHON_UNUSED PyObject *__pyx_self, __Pyx_memviewslice __pyx_v_image, __Pyx_memviewslice __pyx_v_h); /* proto */
-static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_22ornlm(CYTHON_UNUSED PyObject *__pyx_self, __Pyx_memviewslice __pyx_v_image, int __pyx_v_v, int __pyx_v_f, double __pyx_v_h); /* proto */
+static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_22ornlm(CYTHON_UNUSED PyObject *__pyx_self, __Pyx_memviewslice __pyx_v_image, int __pyx_v_v, int __pyx_v_f, double __pyx_v_h, PyObject *__pyx_v_rician); /* proto */
 static int __pyx_array___pyx_pf_15View_dot_MemoryView_5array___cinit__(struct __pyx_array_obj *__pyx_v_self, PyObject *__pyx_v_shape, Py_ssize_t __pyx_v_itemsize, PyObject *__pyx_v_format, PyObject *__pyx_v_mode, int __pyx_v_allocate_buffer); /* proto */
 static int __pyx_array___pyx_pf_15View_dot_MemoryView_5array_2__getbuffer__(struct __pyx_array_obj *__pyx_v_self, Py_buffer *__pyx_v_info, int __pyx_v_flags); /* proto */
 static void __pyx_array___pyx_pf_15View_dot_MemoryView_5array_4__dealloc__(struct __pyx_array_obj *__pyx_v_self); /* proto */
@@ -3267,7 +3269,7 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_8_average_block(CYTHON_UNUSED Py
  *                     average[a,b,c]+= weight*(ima[y_pos,x_pos,z_pos]**2)
  * 
  * def _value_block(double[:,:,:] estimate, double[:,:,:] Label, int x, int y,             # <<<<<<<<<<<<<<
- *                  int z, double[:,:,:] average, double global_sum, double hh):
+ *                  int z, double[:,:,:] average, double global_sum, double hh, rician = True):
  *     cdef int is_outside, a, b, c, x_pos, y_pos, z_pos, count=0
  */
 
@@ -3283,6 +3285,7 @@ static PyObject *__pyx_pw_4dipy_7denoise_5ornlm_11_value_block(PyObject *__pyx_s
   __Pyx_memviewslice __pyx_v_average = { 0, 0, { 0 }, { 0 }, { 0 } };
   double __pyx_v_global_sum;
   double __pyx_v_hh;
+  PyObject *__pyx_v_rician = 0;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
@@ -3290,12 +3293,22 @@ static PyObject *__pyx_pw_4dipy_7denoise_5ornlm_11_value_block(PyObject *__pyx_s
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("_value_block (wrapper)", 0);
   {
-    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_estimate,&__pyx_n_s_Label,&__pyx_n_s_x,&__pyx_n_s_y,&__pyx_n_s_z,&__pyx_n_s_average,&__pyx_n_s_global_sum,&__pyx_n_s_hh,0};
-    PyObject* values[8] = {0,0,0,0,0,0,0,0};
+    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_estimate,&__pyx_n_s_Label,&__pyx_n_s_x,&__pyx_n_s_y,&__pyx_n_s_z,&__pyx_n_s_average,&__pyx_n_s_global_sum,&__pyx_n_s_hh,&__pyx_n_s_rician,0};
+    PyObject* values[9] = {0,0,0,0,0,0,0,0,0};
+
+    /* "dipy/denoise/ornlm.pyx":89
+ * 
+ * def _value_block(double[:,:,:] estimate, double[:,:,:] Label, int x, int y,
+ *                  int z, double[:,:,:] average, double global_sum, double hh, rician = True):             # <<<<<<<<<<<<<<
+ *     cdef int is_outside, a, b, c, x_pos, y_pos, z_pos, count=0
+ *     cdef double value = 0.0
+ */
+    values[8] = ((PyObject *)Py_True);
     if (unlikely(__pyx_kwds)) {
       Py_ssize_t kw_args;
       const Py_ssize_t pos_args = PyTuple_GET_SIZE(__pyx_args);
       switch (pos_args) {
+        case  9: values[8] = PyTuple_GET_ITEM(__pyx_args, 8);
         case  8: values[7] = PyTuple_GET_ITEM(__pyx_args, 7);
         case  7: values[6] = PyTuple_GET_ITEM(__pyx_args, 6);
         case  6: values[5] = PyTuple_GET_ITEM(__pyx_args, 5);
@@ -3315,53 +3328,61 @@ static PyObject *__pyx_pw_4dipy_7denoise_5ornlm_11_value_block(PyObject *__pyx_s
         case  1:
         if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_Label)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("_value_block", 1, 8, 8, 1); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 88; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+          __Pyx_RaiseArgtupleInvalid("_value_block", 0, 8, 9, 1); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 88; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
         }
         case  2:
         if (likely((values[2] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_x)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("_value_block", 1, 8, 8, 2); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 88; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+          __Pyx_RaiseArgtupleInvalid("_value_block", 0, 8, 9, 2); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 88; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
         }
         case  3:
         if (likely((values[3] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_y)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("_value_block", 1, 8, 8, 3); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 88; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+          __Pyx_RaiseArgtupleInvalid("_value_block", 0, 8, 9, 3); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 88; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
         }
         case  4:
         if (likely((values[4] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_z)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("_value_block", 1, 8, 8, 4); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 88; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+          __Pyx_RaiseArgtupleInvalid("_value_block", 0, 8, 9, 4); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 88; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
         }
         case  5:
         if (likely((values[5] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_average)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("_value_block", 1, 8, 8, 5); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 88; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+          __Pyx_RaiseArgtupleInvalid("_value_block", 0, 8, 9, 5); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 88; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
         }
         case  6:
         if (likely((values[6] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_global_sum)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("_value_block", 1, 8, 8, 6); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 88; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+          __Pyx_RaiseArgtupleInvalid("_value_block", 0, 8, 9, 6); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 88; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
         }
         case  7:
         if (likely((values[7] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_hh)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("_value_block", 1, 8, 8, 7); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 88; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+          __Pyx_RaiseArgtupleInvalid("_value_block", 0, 8, 9, 7); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 88; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+        }
+        case  8:
+        if (kw_args > 0) {
+          PyObject* value = PyDict_GetItem(__pyx_kwds, __pyx_n_s_rician);
+          if (value) { values[8] = value; kw_args--; }
         }
       }
       if (unlikely(kw_args > 0)) {
         if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "_value_block") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 88; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
       }
-    } else if (PyTuple_GET_SIZE(__pyx_args) != 8) {
-      goto __pyx_L5_argtuple_error;
     } else {
-      values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
-      values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
-      values[2] = PyTuple_GET_ITEM(__pyx_args, 2);
-      values[3] = PyTuple_GET_ITEM(__pyx_args, 3);
-      values[4] = PyTuple_GET_ITEM(__pyx_args, 4);
-      values[5] = PyTuple_GET_ITEM(__pyx_args, 5);
-      values[6] = PyTuple_GET_ITEM(__pyx_args, 6);
-      values[7] = PyTuple_GET_ITEM(__pyx_args, 7);
+      switch (PyTuple_GET_SIZE(__pyx_args)) {
+        case  9: values[8] = PyTuple_GET_ITEM(__pyx_args, 8);
+        case  8: values[7] = PyTuple_GET_ITEM(__pyx_args, 7);
+        values[6] = PyTuple_GET_ITEM(__pyx_args, 6);
+        values[5] = PyTuple_GET_ITEM(__pyx_args, 5);
+        values[4] = PyTuple_GET_ITEM(__pyx_args, 4);
+        values[3] = PyTuple_GET_ITEM(__pyx_args, 3);
+        values[2] = PyTuple_GET_ITEM(__pyx_args, 2);
+        values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
+        values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
+        break;
+        default: goto __pyx_L5_argtuple_error;
+      }
     }
     __pyx_v_estimate = __Pyx_PyObject_to_MemoryviewSlice_dsdsds_double(values[0]); if (unlikely(!__pyx_v_estimate.memview)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 88; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
     __pyx_v_Label = __Pyx_PyObject_to_MemoryviewSlice_dsdsds_double(values[1]); if (unlikely(!__pyx_v_Label.memview)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 88; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
@@ -3371,23 +3392,32 @@ static PyObject *__pyx_pw_4dipy_7denoise_5ornlm_11_value_block(PyObject *__pyx_s
     __pyx_v_average = __Pyx_PyObject_to_MemoryviewSlice_dsdsds_double(values[5]); if (unlikely(!__pyx_v_average.memview)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 89; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
     __pyx_v_global_sum = __pyx_PyFloat_AsDouble(values[6]); if (unlikely((__pyx_v_global_sum == (double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 89; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
     __pyx_v_hh = __pyx_PyFloat_AsDouble(values[7]); if (unlikely((__pyx_v_hh == (double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 89; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+    __pyx_v_rician = values[8];
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("_value_block", 1, 8, 8, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 88; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+  __Pyx_RaiseArgtupleInvalid("_value_block", 0, 8, 9, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 88; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
   __pyx_L3_error:;
   __Pyx_AddTraceback("dipy.denoise.ornlm._value_block", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_4dipy_7denoise_5ornlm_10_value_block(__pyx_self, __pyx_v_estimate, __pyx_v_Label, __pyx_v_x, __pyx_v_y, __pyx_v_z, __pyx_v_average, __pyx_v_global_sum, __pyx_v_hh);
+  __pyx_r = __pyx_pf_4dipy_7denoise_5ornlm_10_value_block(__pyx_self, __pyx_v_estimate, __pyx_v_Label, __pyx_v_x, __pyx_v_y, __pyx_v_z, __pyx_v_average, __pyx_v_global_sum, __pyx_v_hh, __pyx_v_rician);
+
+  /* "dipy/denoise/ornlm.pyx":88
+ *                     average[a,b,c]+= weight*(ima[y_pos,x_pos,z_pos]**2)
+ * 
+ * def _value_block(double[:,:,:] estimate, double[:,:,:] Label, int x, int y,             # <<<<<<<<<<<<<<
+ *                  int z, double[:,:,:] average, double global_sum, double hh, rician = True):
+ *     cdef int is_outside, a, b, c, x_pos, y_pos, z_pos, count=0
+ */
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_10_value_block(CYTHON_UNUSED PyObject *__pyx_self, __Pyx_memviewslice __pyx_v_estimate, __Pyx_memviewslice __pyx_v_Label, int __pyx_v_x, int __pyx_v_y, int __pyx_v_z, __Pyx_memviewslice __pyx_v_average, double __pyx_v_global_sum, double __pyx_v_hh) {
+static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_10_value_block(CYTHON_UNUSED PyObject *__pyx_self, __Pyx_memviewslice __pyx_v_estimate, __Pyx_memviewslice __pyx_v_Label, int __pyx_v_x, int __pyx_v_y, int __pyx_v_z, __Pyx_memviewslice __pyx_v_average, double __pyx_v_global_sum, double __pyx_v_hh, PyObject *__pyx_v_rician) {
   int __pyx_v_is_outside;
   int __pyx_v_a;
   int __pyx_v_b;
@@ -3418,20 +3448,23 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_10_value_block(CYTHON_UNUSED PyO
   Py_ssize_t __pyx_t_14;
   Py_ssize_t __pyx_t_15;
   double __pyx_t_16;
-  PyObject *__pyx_t_17 = NULL;
-  PyObject *__pyx_t_18 = NULL;
-  PyObject *__pyx_t_19 = NULL;
+  Py_ssize_t __pyx_t_17;
+  Py_ssize_t __pyx_t_18;
+  Py_ssize_t __pyx_t_19;
   PyObject *__pyx_t_20 = NULL;
   PyObject *__pyx_t_21 = NULL;
-  Py_ssize_t __pyx_t_22;
-  Py_ssize_t __pyx_t_23;
-  Py_ssize_t __pyx_t_24;
+  PyObject *__pyx_t_22 = NULL;
+  PyObject *__pyx_t_23 = NULL;
+  PyObject *__pyx_t_24 = NULL;
   Py_ssize_t __pyx_t_25;
   Py_ssize_t __pyx_t_26;
   Py_ssize_t __pyx_t_27;
   Py_ssize_t __pyx_t_28;
   Py_ssize_t __pyx_t_29;
   Py_ssize_t __pyx_t_30;
+  Py_ssize_t __pyx_t_31;
+  Py_ssize_t __pyx_t_32;
+  Py_ssize_t __pyx_t_33;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
@@ -3439,7 +3472,7 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_10_value_block(CYTHON_UNUSED PyO
 
   /* "dipy/denoise/ornlm.pyx":90
  * def _value_block(double[:,:,:] estimate, double[:,:,:] Label, int x, int y,
- *                  int z, double[:,:,:] average, double global_sum, double hh):
+ *                  int z, double[:,:,:] average, double global_sum, double hh, rician = True):
  *     cdef int is_outside, a, b, c, x_pos, y_pos, z_pos, count=0             # <<<<<<<<<<<<<<
  *     cdef double value = 0.0
  *     cdef double denoised_value =0.0
@@ -3447,7 +3480,7 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_10_value_block(CYTHON_UNUSED PyO
   __pyx_v_count = 0;
 
   /* "dipy/denoise/ornlm.pyx":91
- *                  int z, double[:,:,:] average, double global_sum, double hh):
+ *                  int z, double[:,:,:] average, double global_sum, double hh, rician = True):
  *     cdef int is_outside, a, b, c, x_pos, y_pos, z_pos, count=0
  *     cdef double value = 0.0             # <<<<<<<<<<<<<<
  *     cdef double denoised_value =0.0
@@ -3664,7 +3697,7 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_10_value_block(CYTHON_UNUSED PyO
  *                     is_outside = 1
  *                 if (is_outside==0):             # <<<<<<<<<<<<<<
  *                     value = estimate[y_pos, x_pos, z_pos];
- *                     denoised_value  = (average[a,b,c]/global_sum) - hh;
+ *                     if (rician):
  */
         __pyx_t_7 = ((__pyx_v_is_outside == 0) != 0);
         if (__pyx_t_7) {
@@ -3673,8 +3706,8 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_10_value_block(CYTHON_UNUSED PyO
  *                     is_outside = 1
  *                 if (is_outside==0):
  *                     value = estimate[y_pos, x_pos, z_pos];             # <<<<<<<<<<<<<<
- *                     denoised_value  = (average[a,b,c]/global_sum) - hh;
- *                     if (denoised_value > 0):
+ *                     if (rician):
+ *                         denoised_value  = (average[a,b,c]/global_sum) - hh;
  */
           __pyx_t_9 = __pyx_v_y_pos;
           __pyx_t_10 = __pyx_v_x_pos;
@@ -3701,40 +3734,97 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_10_value_block(CYTHON_UNUSED PyO
           /* "dipy/denoise/ornlm.pyx":110
  *                 if (is_outside==0):
  *                     value = estimate[y_pos, x_pos, z_pos];
- *                     denoised_value  = (average[a,b,c]/global_sum) - hh;             # <<<<<<<<<<<<<<
+ *                     if (rician):             # <<<<<<<<<<<<<<
+ *                         denoised_value  = (average[a,b,c]/global_sum) - hh;
+ *                     else:
+ */
+          __pyx_t_7 = __Pyx_PyObject_IsTrue(__pyx_v_rician); if (unlikely(__pyx_t_7 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 110; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+          if (__pyx_t_7) {
+
+            /* "dipy/denoise/ornlm.pyx":111
+ *                     value = estimate[y_pos, x_pos, z_pos];
+ *                     if (rician):
+ *                         denoised_value  = (average[a,b,c]/global_sum) - hh;             # <<<<<<<<<<<<<<
+ *                     else:
+ *                         denoised_value  = (average[a,b,c]/global_sum)
+ */
+            __pyx_t_13 = __pyx_v_a;
+            __pyx_t_14 = __pyx_v_b;
+            __pyx_t_15 = __pyx_v_c;
+            __pyx_t_12 = -1;
+            if (__pyx_t_13 < 0) {
+              __pyx_t_13 += __pyx_v_average.shape[0];
+              if (unlikely(__pyx_t_13 < 0)) __pyx_t_12 = 0;
+            } else if (unlikely(__pyx_t_13 >= __pyx_v_average.shape[0])) __pyx_t_12 = 0;
+            if (__pyx_t_14 < 0) {
+              __pyx_t_14 += __pyx_v_average.shape[1];
+              if (unlikely(__pyx_t_14 < 0)) __pyx_t_12 = 1;
+            } else if (unlikely(__pyx_t_14 >= __pyx_v_average.shape[1])) __pyx_t_12 = 1;
+            if (__pyx_t_15 < 0) {
+              __pyx_t_15 += __pyx_v_average.shape[2];
+              if (unlikely(__pyx_t_15 < 0)) __pyx_t_12 = 2;
+            } else if (unlikely(__pyx_t_15 >= __pyx_v_average.shape[2])) __pyx_t_12 = 2;
+            if (unlikely(__pyx_t_12 != -1)) {
+              __Pyx_RaiseBufferIndexError(__pyx_t_12);
+              {__pyx_filename = __pyx_f[0]; __pyx_lineno = 111; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+            }
+            __pyx_t_16 = (*((double *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_average.data + __pyx_t_13 * __pyx_v_average.strides[0]) ) + __pyx_t_14 * __pyx_v_average.strides[1]) ) + __pyx_t_15 * __pyx_v_average.strides[2]) )));
+            if (unlikely(__pyx_v_global_sum == 0)) {
+              PyErr_SetString(PyExc_ZeroDivisionError, "float division");
+              {__pyx_filename = __pyx_f[0]; __pyx_lineno = 111; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+            }
+            __pyx_v_denoised_value = ((__pyx_t_16 / __pyx_v_global_sum) - __pyx_v_hh);
+
+            /* "dipy/denoise/ornlm.pyx":110
+ *                 if (is_outside==0):
+ *                     value = estimate[y_pos, x_pos, z_pos];
+ *                     if (rician):             # <<<<<<<<<<<<<<
+ *                         denoised_value  = (average[a,b,c]/global_sum) - hh;
+ *                     else:
+ */
+            goto __pyx_L19;
+          }
+
+          /* "dipy/denoise/ornlm.pyx":113
+ *                         denoised_value  = (average[a,b,c]/global_sum) - hh;
+ *                     else:
+ *                         denoised_value  = (average[a,b,c]/global_sum)             # <<<<<<<<<<<<<<
  *                     if (denoised_value > 0):
  *                         denoised_value = np.sqrt(denoised_value)
  */
-          __pyx_t_13 = __pyx_v_a;
-          __pyx_t_14 = __pyx_v_b;
-          __pyx_t_15 = __pyx_v_c;
-          __pyx_t_12 = -1;
-          if (__pyx_t_13 < 0) {
-            __pyx_t_13 += __pyx_v_average.shape[0];
-            if (unlikely(__pyx_t_13 < 0)) __pyx_t_12 = 0;
-          } else if (unlikely(__pyx_t_13 >= __pyx_v_average.shape[0])) __pyx_t_12 = 0;
-          if (__pyx_t_14 < 0) {
-            __pyx_t_14 += __pyx_v_average.shape[1];
-            if (unlikely(__pyx_t_14 < 0)) __pyx_t_12 = 1;
-          } else if (unlikely(__pyx_t_14 >= __pyx_v_average.shape[1])) __pyx_t_12 = 1;
-          if (__pyx_t_15 < 0) {
-            __pyx_t_15 += __pyx_v_average.shape[2];
-            if (unlikely(__pyx_t_15 < 0)) __pyx_t_12 = 2;
-          } else if (unlikely(__pyx_t_15 >= __pyx_v_average.shape[2])) __pyx_t_12 = 2;
-          if (unlikely(__pyx_t_12 != -1)) {
-            __Pyx_RaiseBufferIndexError(__pyx_t_12);
-            {__pyx_filename = __pyx_f[0]; __pyx_lineno = 110; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+          /*else*/ {
+            __pyx_t_17 = __pyx_v_a;
+            __pyx_t_18 = __pyx_v_b;
+            __pyx_t_19 = __pyx_v_c;
+            __pyx_t_12 = -1;
+            if (__pyx_t_17 < 0) {
+              __pyx_t_17 += __pyx_v_average.shape[0];
+              if (unlikely(__pyx_t_17 < 0)) __pyx_t_12 = 0;
+            } else if (unlikely(__pyx_t_17 >= __pyx_v_average.shape[0])) __pyx_t_12 = 0;
+            if (__pyx_t_18 < 0) {
+              __pyx_t_18 += __pyx_v_average.shape[1];
+              if (unlikely(__pyx_t_18 < 0)) __pyx_t_12 = 1;
+            } else if (unlikely(__pyx_t_18 >= __pyx_v_average.shape[1])) __pyx_t_12 = 1;
+            if (__pyx_t_19 < 0) {
+              __pyx_t_19 += __pyx_v_average.shape[2];
+              if (unlikely(__pyx_t_19 < 0)) __pyx_t_12 = 2;
+            } else if (unlikely(__pyx_t_19 >= __pyx_v_average.shape[2])) __pyx_t_12 = 2;
+            if (unlikely(__pyx_t_12 != -1)) {
+              __Pyx_RaiseBufferIndexError(__pyx_t_12);
+              {__pyx_filename = __pyx_f[0]; __pyx_lineno = 113; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+            }
+            __pyx_t_16 = (*((double *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_average.data + __pyx_t_17 * __pyx_v_average.strides[0]) ) + __pyx_t_18 * __pyx_v_average.strides[1]) ) + __pyx_t_19 * __pyx_v_average.strides[2]) )));
+            if (unlikely(__pyx_v_global_sum == 0)) {
+              PyErr_SetString(PyExc_ZeroDivisionError, "float division");
+              {__pyx_filename = __pyx_f[0]; __pyx_lineno = 113; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+            }
+            __pyx_v_denoised_value = (__pyx_t_16 / __pyx_v_global_sum);
           }
-          __pyx_t_16 = (*((double *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_average.data + __pyx_t_13 * __pyx_v_average.strides[0]) ) + __pyx_t_14 * __pyx_v_average.strides[1]) ) + __pyx_t_15 * __pyx_v_average.strides[2]) )));
-          if (unlikely(__pyx_v_global_sum == 0)) {
-            PyErr_SetString(PyExc_ZeroDivisionError, "float division");
-            {__pyx_filename = __pyx_f[0]; __pyx_lineno = 110; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-          }
-          __pyx_v_denoised_value = ((__pyx_t_16 / __pyx_v_global_sum) - __pyx_v_hh);
+          __pyx_L19:;
 
-          /* "dipy/denoise/ornlm.pyx":111
- *                     value = estimate[y_pos, x_pos, z_pos];
- *                     denoised_value  = (average[a,b,c]/global_sum) - hh;
+          /* "dipy/denoise/ornlm.pyx":114
+ *                     else:
+ *                         denoised_value  = (average[a,b,c]/global_sum)
  *                     if (denoised_value > 0):             # <<<<<<<<<<<<<<
  *                         denoised_value = np.sqrt(denoised_value)
  *                     else:
@@ -3742,61 +3832,61 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_10_value_block(CYTHON_UNUSED PyO
           __pyx_t_7 = ((__pyx_v_denoised_value > 0.0) != 0);
           if (__pyx_t_7) {
 
-            /* "dipy/denoise/ornlm.pyx":112
- *                     denoised_value  = (average[a,b,c]/global_sum) - hh;
+            /* "dipy/denoise/ornlm.pyx":115
+ *                         denoised_value  = (average[a,b,c]/global_sum)
  *                     if (denoised_value > 0):
  *                         denoised_value = np.sqrt(denoised_value)             # <<<<<<<<<<<<<<
  *                     else:
  *                         denoised_value = 0.0
  */
-            __pyx_t_18 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_18)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 112; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-            __Pyx_GOTREF(__pyx_t_18);
-            __pyx_t_19 = __Pyx_PyObject_GetAttrStr(__pyx_t_18, __pyx_n_s_sqrt); if (unlikely(!__pyx_t_19)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 112; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-            __Pyx_GOTREF(__pyx_t_19);
-            __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
-            __pyx_t_18 = PyFloat_FromDouble(__pyx_v_denoised_value); if (unlikely(!__pyx_t_18)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 112; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-            __Pyx_GOTREF(__pyx_t_18);
-            __pyx_t_20 = NULL;
-            if (CYTHON_COMPILING_IN_CPYTHON && unlikely(PyMethod_Check(__pyx_t_19))) {
-              __pyx_t_20 = PyMethod_GET_SELF(__pyx_t_19);
-              if (likely(__pyx_t_20)) {
-                PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_19);
-                __Pyx_INCREF(__pyx_t_20);
+            __pyx_t_21 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_21)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 115; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+            __Pyx_GOTREF(__pyx_t_21);
+            __pyx_t_22 = __Pyx_PyObject_GetAttrStr(__pyx_t_21, __pyx_n_s_sqrt); if (unlikely(!__pyx_t_22)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 115; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+            __Pyx_GOTREF(__pyx_t_22);
+            __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
+            __pyx_t_21 = PyFloat_FromDouble(__pyx_v_denoised_value); if (unlikely(!__pyx_t_21)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 115; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+            __Pyx_GOTREF(__pyx_t_21);
+            __pyx_t_23 = NULL;
+            if (CYTHON_COMPILING_IN_CPYTHON && unlikely(PyMethod_Check(__pyx_t_22))) {
+              __pyx_t_23 = PyMethod_GET_SELF(__pyx_t_22);
+              if (likely(__pyx_t_23)) {
+                PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_22);
+                __Pyx_INCREF(__pyx_t_23);
                 __Pyx_INCREF(function);
-                __Pyx_DECREF_SET(__pyx_t_19, function);
+                __Pyx_DECREF_SET(__pyx_t_22, function);
               }
             }
-            if (!__pyx_t_20) {
-              __pyx_t_17 = __Pyx_PyObject_CallOneArg(__pyx_t_19, __pyx_t_18); if (unlikely(!__pyx_t_17)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 112; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-              __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
-              __Pyx_GOTREF(__pyx_t_17);
-            } else {
-              __pyx_t_21 = PyTuple_New(1+1); if (unlikely(!__pyx_t_21)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 112; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-              __Pyx_GOTREF(__pyx_t_21);
-              __Pyx_GIVEREF(__pyx_t_20); PyTuple_SET_ITEM(__pyx_t_21, 0, __pyx_t_20); __pyx_t_20 = NULL;
-              __Pyx_GIVEREF(__pyx_t_18);
-              PyTuple_SET_ITEM(__pyx_t_21, 0+1, __pyx_t_18);
-              __pyx_t_18 = 0;
-              __pyx_t_17 = __Pyx_PyObject_Call(__pyx_t_19, __pyx_t_21, NULL); if (unlikely(!__pyx_t_17)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 112; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-              __Pyx_GOTREF(__pyx_t_17);
+            if (!__pyx_t_23) {
+              __pyx_t_20 = __Pyx_PyObject_CallOneArg(__pyx_t_22, __pyx_t_21); if (unlikely(!__pyx_t_20)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 115; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
               __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
+              __Pyx_GOTREF(__pyx_t_20);
+            } else {
+              __pyx_t_24 = PyTuple_New(1+1); if (unlikely(!__pyx_t_24)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 115; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+              __Pyx_GOTREF(__pyx_t_24);
+              __Pyx_GIVEREF(__pyx_t_23); PyTuple_SET_ITEM(__pyx_t_24, 0, __pyx_t_23); __pyx_t_23 = NULL;
+              __Pyx_GIVEREF(__pyx_t_21);
+              PyTuple_SET_ITEM(__pyx_t_24, 0+1, __pyx_t_21);
+              __pyx_t_21 = 0;
+              __pyx_t_20 = __Pyx_PyObject_Call(__pyx_t_22, __pyx_t_24, NULL); if (unlikely(!__pyx_t_20)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 115; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+              __Pyx_GOTREF(__pyx_t_20);
+              __Pyx_DECREF(__pyx_t_24); __pyx_t_24 = 0;
             }
-            __Pyx_DECREF(__pyx_t_19); __pyx_t_19 = 0;
-            __pyx_t_16 = __pyx_PyFloat_AsDouble(__pyx_t_17); if (unlikely((__pyx_t_16 == (double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 112; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-            __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
+            __Pyx_DECREF(__pyx_t_22); __pyx_t_22 = 0;
+            __pyx_t_16 = __pyx_PyFloat_AsDouble(__pyx_t_20); if (unlikely((__pyx_t_16 == (double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 115; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+            __Pyx_DECREF(__pyx_t_20); __pyx_t_20 = 0;
             __pyx_v_denoised_value = __pyx_t_16;
 
-            /* "dipy/denoise/ornlm.pyx":111
- *                     value = estimate[y_pos, x_pos, z_pos];
- *                     denoised_value  = (average[a,b,c]/global_sum) - hh;
+            /* "dipy/denoise/ornlm.pyx":114
+ *                     else:
+ *                         denoised_value  = (average[a,b,c]/global_sum)
  *                     if (denoised_value > 0):             # <<<<<<<<<<<<<<
  *                         denoised_value = np.sqrt(denoised_value)
  *                     else:
  */
-            goto __pyx_L19;
+            goto __pyx_L20;
           }
 
-          /* "dipy/denoise/ornlm.pyx":114
+          /* "dipy/denoise/ornlm.pyx":117
  *                         denoised_value = np.sqrt(denoised_value)
  *                     else:
  *                         denoised_value = 0.0             # <<<<<<<<<<<<<<
@@ -3806,9 +3896,9 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_10_value_block(CYTHON_UNUSED PyO
           /*else*/ {
             __pyx_v_denoised_value = 0.0;
           }
-          __pyx_L19:;
+          __pyx_L20:;
 
-          /* "dipy/denoise/ornlm.pyx":115
+          /* "dipy/denoise/ornlm.pyx":118
  *                     else:
  *                         denoised_value = 0.0
  *                     value += denoised_value             # <<<<<<<<<<<<<<
@@ -3817,99 +3907,99 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_10_value_block(CYTHON_UNUSED PyO
  */
           __pyx_v_value = (__pyx_v_value + __pyx_v_denoised_value);
 
-          /* "dipy/denoise/ornlm.pyx":116
+          /* "dipy/denoise/ornlm.pyx":119
  *                         denoised_value = 0.0
  *                     value += denoised_value
  *                     label = Label[y_pos, x_pos, z_pos]             # <<<<<<<<<<<<<<
  *                     estimate[y_pos, x_pos, z_pos] = value
  *                     Label[y_pos, x_pos, z_pos] = label +1
  */
-          __pyx_t_22 = __pyx_v_y_pos;
-          __pyx_t_23 = __pyx_v_x_pos;
-          __pyx_t_24 = __pyx_v_z_pos;
+          __pyx_t_25 = __pyx_v_y_pos;
+          __pyx_t_26 = __pyx_v_x_pos;
+          __pyx_t_27 = __pyx_v_z_pos;
           __pyx_t_12 = -1;
-          if (__pyx_t_22 < 0) {
-            __pyx_t_22 += __pyx_v_Label.shape[0];
-            if (unlikely(__pyx_t_22 < 0)) __pyx_t_12 = 0;
-          } else if (unlikely(__pyx_t_22 >= __pyx_v_Label.shape[0])) __pyx_t_12 = 0;
-          if (__pyx_t_23 < 0) {
-            __pyx_t_23 += __pyx_v_Label.shape[1];
-            if (unlikely(__pyx_t_23 < 0)) __pyx_t_12 = 1;
-          } else if (unlikely(__pyx_t_23 >= __pyx_v_Label.shape[1])) __pyx_t_12 = 1;
-          if (__pyx_t_24 < 0) {
-            __pyx_t_24 += __pyx_v_Label.shape[2];
-            if (unlikely(__pyx_t_24 < 0)) __pyx_t_12 = 2;
-          } else if (unlikely(__pyx_t_24 >= __pyx_v_Label.shape[2])) __pyx_t_12 = 2;
+          if (__pyx_t_25 < 0) {
+            __pyx_t_25 += __pyx_v_Label.shape[0];
+            if (unlikely(__pyx_t_25 < 0)) __pyx_t_12 = 0;
+          } else if (unlikely(__pyx_t_25 >= __pyx_v_Label.shape[0])) __pyx_t_12 = 0;
+          if (__pyx_t_26 < 0) {
+            __pyx_t_26 += __pyx_v_Label.shape[1];
+            if (unlikely(__pyx_t_26 < 0)) __pyx_t_12 = 1;
+          } else if (unlikely(__pyx_t_26 >= __pyx_v_Label.shape[1])) __pyx_t_12 = 1;
+          if (__pyx_t_27 < 0) {
+            __pyx_t_27 += __pyx_v_Label.shape[2];
+            if (unlikely(__pyx_t_27 < 0)) __pyx_t_12 = 2;
+          } else if (unlikely(__pyx_t_27 >= __pyx_v_Label.shape[2])) __pyx_t_12 = 2;
           if (unlikely(__pyx_t_12 != -1)) {
             __Pyx_RaiseBufferIndexError(__pyx_t_12);
-            {__pyx_filename = __pyx_f[0]; __pyx_lineno = 116; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+            {__pyx_filename = __pyx_f[0]; __pyx_lineno = 119; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
           }
-          __pyx_v_label = (*((double *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_Label.data + __pyx_t_22 * __pyx_v_Label.strides[0]) ) + __pyx_t_23 * __pyx_v_Label.strides[1]) ) + __pyx_t_24 * __pyx_v_Label.strides[2]) )));
+          __pyx_v_label = (*((double *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_Label.data + __pyx_t_25 * __pyx_v_Label.strides[0]) ) + __pyx_t_26 * __pyx_v_Label.strides[1]) ) + __pyx_t_27 * __pyx_v_Label.strides[2]) )));
 
-          /* "dipy/denoise/ornlm.pyx":117
+          /* "dipy/denoise/ornlm.pyx":120
  *                     value += denoised_value
  *                     label = Label[y_pos, x_pos, z_pos]
  *                     estimate[y_pos, x_pos, z_pos] = value             # <<<<<<<<<<<<<<
  *                     Label[y_pos, x_pos, z_pos] = label +1
  * 
  */
-          __pyx_t_25 = __pyx_v_y_pos;
-          __pyx_t_26 = __pyx_v_x_pos;
-          __pyx_t_27 = __pyx_v_z_pos;
+          __pyx_t_28 = __pyx_v_y_pos;
+          __pyx_t_29 = __pyx_v_x_pos;
+          __pyx_t_30 = __pyx_v_z_pos;
           __pyx_t_12 = -1;
-          if (__pyx_t_25 < 0) {
-            __pyx_t_25 += __pyx_v_estimate.shape[0];
-            if (unlikely(__pyx_t_25 < 0)) __pyx_t_12 = 0;
-          } else if (unlikely(__pyx_t_25 >= __pyx_v_estimate.shape[0])) __pyx_t_12 = 0;
-          if (__pyx_t_26 < 0) {
-            __pyx_t_26 += __pyx_v_estimate.shape[1];
-            if (unlikely(__pyx_t_26 < 0)) __pyx_t_12 = 1;
-          } else if (unlikely(__pyx_t_26 >= __pyx_v_estimate.shape[1])) __pyx_t_12 = 1;
-          if (__pyx_t_27 < 0) {
-            __pyx_t_27 += __pyx_v_estimate.shape[2];
-            if (unlikely(__pyx_t_27 < 0)) __pyx_t_12 = 2;
-          } else if (unlikely(__pyx_t_27 >= __pyx_v_estimate.shape[2])) __pyx_t_12 = 2;
+          if (__pyx_t_28 < 0) {
+            __pyx_t_28 += __pyx_v_estimate.shape[0];
+            if (unlikely(__pyx_t_28 < 0)) __pyx_t_12 = 0;
+          } else if (unlikely(__pyx_t_28 >= __pyx_v_estimate.shape[0])) __pyx_t_12 = 0;
+          if (__pyx_t_29 < 0) {
+            __pyx_t_29 += __pyx_v_estimate.shape[1];
+            if (unlikely(__pyx_t_29 < 0)) __pyx_t_12 = 1;
+          } else if (unlikely(__pyx_t_29 >= __pyx_v_estimate.shape[1])) __pyx_t_12 = 1;
+          if (__pyx_t_30 < 0) {
+            __pyx_t_30 += __pyx_v_estimate.shape[2];
+            if (unlikely(__pyx_t_30 < 0)) __pyx_t_12 = 2;
+          } else if (unlikely(__pyx_t_30 >= __pyx_v_estimate.shape[2])) __pyx_t_12 = 2;
           if (unlikely(__pyx_t_12 != -1)) {
             __Pyx_RaiseBufferIndexError(__pyx_t_12);
-            {__pyx_filename = __pyx_f[0]; __pyx_lineno = 117; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+            {__pyx_filename = __pyx_f[0]; __pyx_lineno = 120; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
           }
-          *((double *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_estimate.data + __pyx_t_25 * __pyx_v_estimate.strides[0]) ) + __pyx_t_26 * __pyx_v_estimate.strides[1]) ) + __pyx_t_27 * __pyx_v_estimate.strides[2]) )) = __pyx_v_value;
+          *((double *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_estimate.data + __pyx_t_28 * __pyx_v_estimate.strides[0]) ) + __pyx_t_29 * __pyx_v_estimate.strides[1]) ) + __pyx_t_30 * __pyx_v_estimate.strides[2]) )) = __pyx_v_value;
 
-          /* "dipy/denoise/ornlm.pyx":118
+          /* "dipy/denoise/ornlm.pyx":121
  *                     label = Label[y_pos, x_pos, z_pos]
  *                     estimate[y_pos, x_pos, z_pos] = value
  *                     Label[y_pos, x_pos, z_pos] = label +1             # <<<<<<<<<<<<<<
  * 
  * def _distance(double[:,:,:] image, int x, int y, int z,
  */
-          __pyx_t_28 = __pyx_v_y_pos;
-          __pyx_t_29 = __pyx_v_x_pos;
-          __pyx_t_30 = __pyx_v_z_pos;
+          __pyx_t_31 = __pyx_v_y_pos;
+          __pyx_t_32 = __pyx_v_x_pos;
+          __pyx_t_33 = __pyx_v_z_pos;
           __pyx_t_12 = -1;
-          if (__pyx_t_28 < 0) {
-            __pyx_t_28 += __pyx_v_Label.shape[0];
-            if (unlikely(__pyx_t_28 < 0)) __pyx_t_12 = 0;
-          } else if (unlikely(__pyx_t_28 >= __pyx_v_Label.shape[0])) __pyx_t_12 = 0;
-          if (__pyx_t_29 < 0) {
-            __pyx_t_29 += __pyx_v_Label.shape[1];
-            if (unlikely(__pyx_t_29 < 0)) __pyx_t_12 = 1;
-          } else if (unlikely(__pyx_t_29 >= __pyx_v_Label.shape[1])) __pyx_t_12 = 1;
-          if (__pyx_t_30 < 0) {
-            __pyx_t_30 += __pyx_v_Label.shape[2];
-            if (unlikely(__pyx_t_30 < 0)) __pyx_t_12 = 2;
-          } else if (unlikely(__pyx_t_30 >= __pyx_v_Label.shape[2])) __pyx_t_12 = 2;
+          if (__pyx_t_31 < 0) {
+            __pyx_t_31 += __pyx_v_Label.shape[0];
+            if (unlikely(__pyx_t_31 < 0)) __pyx_t_12 = 0;
+          } else if (unlikely(__pyx_t_31 >= __pyx_v_Label.shape[0])) __pyx_t_12 = 0;
+          if (__pyx_t_32 < 0) {
+            __pyx_t_32 += __pyx_v_Label.shape[1];
+            if (unlikely(__pyx_t_32 < 0)) __pyx_t_12 = 1;
+          } else if (unlikely(__pyx_t_32 >= __pyx_v_Label.shape[1])) __pyx_t_12 = 1;
+          if (__pyx_t_33 < 0) {
+            __pyx_t_33 += __pyx_v_Label.shape[2];
+            if (unlikely(__pyx_t_33 < 0)) __pyx_t_12 = 2;
+          } else if (unlikely(__pyx_t_33 >= __pyx_v_Label.shape[2])) __pyx_t_12 = 2;
           if (unlikely(__pyx_t_12 != -1)) {
             __Pyx_RaiseBufferIndexError(__pyx_t_12);
-            {__pyx_filename = __pyx_f[0]; __pyx_lineno = 118; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+            {__pyx_filename = __pyx_f[0]; __pyx_lineno = 121; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
           }
-          *((double *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_Label.data + __pyx_t_28 * __pyx_v_Label.strides[0]) ) + __pyx_t_29 * __pyx_v_Label.strides[1]) ) + __pyx_t_30 * __pyx_v_Label.strides[2]) )) = (__pyx_v_label + 1.0);
+          *((double *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_Label.data + __pyx_t_31 * __pyx_v_Label.strides[0]) ) + __pyx_t_32 * __pyx_v_Label.strides[1]) ) + __pyx_t_33 * __pyx_v_Label.strides[2]) )) = (__pyx_v_label + 1.0);
 
           /* "dipy/denoise/ornlm.pyx":108
  *                 if ((z_pos < 0) or (z_pos >= estimate.shape[2])):
  *                     is_outside = 1
  *                 if (is_outside==0):             # <<<<<<<<<<<<<<
  *                     value = estimate[y_pos, x_pos, z_pos];
- *                     denoised_value  = (average[a,b,c]/global_sum) - hh;
+ *                     if (rician):
  */
         }
       }
@@ -3920,7 +4010,7 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_10_value_block(CYTHON_UNUSED PyO
  *                     average[a,b,c]+= weight*(ima[y_pos,x_pos,z_pos]**2)
  * 
  * def _value_block(double[:,:,:] estimate, double[:,:,:] Label, int x, int y,             # <<<<<<<<<<<<<<
- *                  int z, double[:,:,:] average, double global_sum, double hh):
+ *                  int z, double[:,:,:] average, double global_sum, double hh, rician = True):
  *     cdef int is_outside, a, b, c, x_pos, y_pos, z_pos, count=0
  */
 
@@ -3928,11 +4018,11 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_10_value_block(CYTHON_UNUSED PyO
   __pyx_r = Py_None; __Pyx_INCREF(Py_None);
   goto __pyx_L0;
   __pyx_L1_error:;
-  __Pyx_XDECREF(__pyx_t_17);
-  __Pyx_XDECREF(__pyx_t_18);
-  __Pyx_XDECREF(__pyx_t_19);
   __Pyx_XDECREF(__pyx_t_20);
   __Pyx_XDECREF(__pyx_t_21);
+  __Pyx_XDECREF(__pyx_t_22);
+  __Pyx_XDECREF(__pyx_t_23);
+  __Pyx_XDECREF(__pyx_t_24);
   __Pyx_AddTraceback("dipy.denoise.ornlm._value_block", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
@@ -3944,7 +4034,7 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_10_value_block(CYTHON_UNUSED PyO
   return __pyx_r;
 }
 
-/* "dipy/denoise/ornlm.pyx":120
+/* "dipy/denoise/ornlm.pyx":123
  *                     Label[y_pos, x_pos, z_pos] = label +1
  * 
  * def _distance(double[:,:,:] image, int x, int y, int z,             # <<<<<<<<<<<<<<
@@ -3997,41 +4087,41 @@ static PyObject *__pyx_pw_4dipy_7denoise_5ornlm_13_distance(PyObject *__pyx_self
         case  1:
         if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_x)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("_distance", 1, 8, 8, 1); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 120; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+          __Pyx_RaiseArgtupleInvalid("_distance", 1, 8, 8, 1); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 123; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
         }
         case  2:
         if (likely((values[2] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_y)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("_distance", 1, 8, 8, 2); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 120; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+          __Pyx_RaiseArgtupleInvalid("_distance", 1, 8, 8, 2); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 123; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
         }
         case  3:
         if (likely((values[3] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_z)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("_distance", 1, 8, 8, 3); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 120; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+          __Pyx_RaiseArgtupleInvalid("_distance", 1, 8, 8, 3); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 123; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
         }
         case  4:
         if (likely((values[4] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_nx)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("_distance", 1, 8, 8, 4); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 120; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+          __Pyx_RaiseArgtupleInvalid("_distance", 1, 8, 8, 4); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 123; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
         }
         case  5:
         if (likely((values[5] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_ny)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("_distance", 1, 8, 8, 5); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 120; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+          __Pyx_RaiseArgtupleInvalid("_distance", 1, 8, 8, 5); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 123; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
         }
         case  6:
         if (likely((values[6] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_nz)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("_distance", 1, 8, 8, 6); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 120; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+          __Pyx_RaiseArgtupleInvalid("_distance", 1, 8, 8, 6); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 123; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
         }
         case  7:
         if (likely((values[7] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_f)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("_distance", 1, 8, 8, 7); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 120; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+          __Pyx_RaiseArgtupleInvalid("_distance", 1, 8, 8, 7); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 123; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "_distance") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 120; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "_distance") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 123; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 8) {
       goto __pyx_L5_argtuple_error;
@@ -4045,18 +4135,18 @@ static PyObject *__pyx_pw_4dipy_7denoise_5ornlm_13_distance(PyObject *__pyx_self
       values[6] = PyTuple_GET_ITEM(__pyx_args, 6);
       values[7] = PyTuple_GET_ITEM(__pyx_args, 7);
     }
-    __pyx_v_image = __Pyx_PyObject_to_MemoryviewSlice_dsdsds_double(values[0]); if (unlikely(!__pyx_v_image.memview)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 120; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
-    __pyx_v_x = __Pyx_PyInt_As_int(values[1]); if (unlikely((__pyx_v_x == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 120; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
-    __pyx_v_y = __Pyx_PyInt_As_int(values[2]); if (unlikely((__pyx_v_y == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 120; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
-    __pyx_v_z = __Pyx_PyInt_As_int(values[3]); if (unlikely((__pyx_v_z == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 120; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
-    __pyx_v_nx = __Pyx_PyInt_As_int(values[4]); if (unlikely((__pyx_v_nx == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 121; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
-    __pyx_v_ny = __Pyx_PyInt_As_int(values[5]); if (unlikely((__pyx_v_ny == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 121; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
-    __pyx_v_nz = __Pyx_PyInt_As_int(values[6]); if (unlikely((__pyx_v_nz == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 121; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
-    __pyx_v_f = __Pyx_PyInt_As_int(values[7]); if (unlikely((__pyx_v_f == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 121; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+    __pyx_v_image = __Pyx_PyObject_to_MemoryviewSlice_dsdsds_double(values[0]); if (unlikely(!__pyx_v_image.memview)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 123; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+    __pyx_v_x = __Pyx_PyInt_As_int(values[1]); if (unlikely((__pyx_v_x == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 123; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+    __pyx_v_y = __Pyx_PyInt_As_int(values[2]); if (unlikely((__pyx_v_y == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 123; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+    __pyx_v_z = __Pyx_PyInt_As_int(values[3]); if (unlikely((__pyx_v_z == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 123; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+    __pyx_v_nx = __Pyx_PyInt_As_int(values[4]); if (unlikely((__pyx_v_nx == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 124; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+    __pyx_v_ny = __Pyx_PyInt_As_int(values[5]); if (unlikely((__pyx_v_ny == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 124; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+    __pyx_v_nz = __Pyx_PyInt_As_int(values[6]); if (unlikely((__pyx_v_nz == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 124; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+    __pyx_v_f = __Pyx_PyInt_As_int(values[7]); if (unlikely((__pyx_v_f == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 124; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("_distance", 1, 8, 8, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 120; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+  __Pyx_RaiseArgtupleInvalid("_distance", 1, 8, 8, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 123; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
   __pyx_L3_error:;
   __Pyx_AddTraceback("dipy.denoise.ornlm._distance", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -4107,7 +4197,7 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_12_distance(CYTHON_UNUSED PyObje
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("_distance", 0);
 
-  /* "dipy/denoise/ornlm.pyx":129
+  /* "dipy/denoise/ornlm.pyx":132
  *     cdef double d, acu, distancetotal
  *     cdef int i, j, k, ni1, nj1, ni2, nj2, nk1, nk2
  *     cdef int sx=image.shape[1], sy=image.shape[0], sz=image.shape[2]             # <<<<<<<<<<<<<<
@@ -4118,7 +4208,7 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_12_distance(CYTHON_UNUSED PyObje
   __pyx_v_sy = (__pyx_v_image.shape[0]);
   __pyx_v_sz = (__pyx_v_image.shape[2]);
 
-  /* "dipy/denoise/ornlm.pyx":130
+  /* "dipy/denoise/ornlm.pyx":133
  *     cdef int i, j, k, ni1, nj1, ni2, nj2, nk1, nk2
  *     cdef int sx=image.shape[1], sy=image.shape[0], sz=image.shape[2]
  *     acu=0             # <<<<<<<<<<<<<<
@@ -4127,7 +4217,7 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_12_distance(CYTHON_UNUSED PyObje
  */
   __pyx_v_acu = 0.0;
 
-  /* "dipy/denoise/ornlm.pyx":131
+  /* "dipy/denoise/ornlm.pyx":134
  *     cdef int sx=image.shape[1], sy=image.shape[0], sz=image.shape[2]
  *     acu=0
  *     distancetotal=0             # <<<<<<<<<<<<<<
@@ -4136,7 +4226,7 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_12_distance(CYTHON_UNUSED PyObje
  */
   __pyx_v_distancetotal = 0.0;
 
-  /* "dipy/denoise/ornlm.pyx":132
+  /* "dipy/denoise/ornlm.pyx":135
  *     acu=0
  *     distancetotal=0
  *     for i in range(-f, f+1):             # <<<<<<<<<<<<<<
@@ -4147,7 +4237,7 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_12_distance(CYTHON_UNUSED PyObje
   for (__pyx_t_2 = (-__pyx_v_f); __pyx_t_2 < __pyx_t_1; __pyx_t_2+=1) {
     __pyx_v_i = __pyx_t_2;
 
-    /* "dipy/denoise/ornlm.pyx":133
+    /* "dipy/denoise/ornlm.pyx":136
  *     distancetotal=0
  *     for i in range(-f, f+1):
  *         for j in range(-f, f+1):             # <<<<<<<<<<<<<<
@@ -4158,7 +4248,7 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_12_distance(CYTHON_UNUSED PyObje
     for (__pyx_t_4 = (-__pyx_v_f); __pyx_t_4 < __pyx_t_3; __pyx_t_4+=1) {
       __pyx_v_j = __pyx_t_4;
 
-      /* "dipy/denoise/ornlm.pyx":134
+      /* "dipy/denoise/ornlm.pyx":137
  *     for i in range(-f, f+1):
  *         for j in range(-f, f+1):
  *             for k in range(-f, f+1):             # <<<<<<<<<<<<<<
@@ -4169,7 +4259,7 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_12_distance(CYTHON_UNUSED PyObje
       for (__pyx_t_6 = (-__pyx_v_f); __pyx_t_6 < __pyx_t_5; __pyx_t_6+=1) {
         __pyx_v_k = __pyx_t_6;
 
-        /* "dipy/denoise/ornlm.pyx":135
+        /* "dipy/denoise/ornlm.pyx":138
  *         for j in range(-f, f+1):
  *             for k in range(-f, f+1):
  *                 ni1=x+i             # <<<<<<<<<<<<<<
@@ -4178,7 +4268,7 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_12_distance(CYTHON_UNUSED PyObje
  */
         __pyx_v_ni1 = (__pyx_v_x + __pyx_v_i);
 
-        /* "dipy/denoise/ornlm.pyx":136
+        /* "dipy/denoise/ornlm.pyx":139
  *             for k in range(-f, f+1):
  *                 ni1=x+i
  *                 nj1=y+j             # <<<<<<<<<<<<<<
@@ -4187,7 +4277,7 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_12_distance(CYTHON_UNUSED PyObje
  */
         __pyx_v_nj1 = (__pyx_v_y + __pyx_v_j);
 
-        /* "dipy/denoise/ornlm.pyx":137
+        /* "dipy/denoise/ornlm.pyx":140
  *                 ni1=x+i
  *                 nj1=y+j
  *                 nk1=z+k             # <<<<<<<<<<<<<<
@@ -4196,7 +4286,7 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_12_distance(CYTHON_UNUSED PyObje
  */
         __pyx_v_nk1 = (__pyx_v_z + __pyx_v_k);
 
-        /* "dipy/denoise/ornlm.pyx":138
+        /* "dipy/denoise/ornlm.pyx":141
  *                 nj1=y+j
  *                 nk1=z+k
  *                 ni2=nx+i             # <<<<<<<<<<<<<<
@@ -4205,7 +4295,7 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_12_distance(CYTHON_UNUSED PyObje
  */
         __pyx_v_ni2 = (__pyx_v_nx + __pyx_v_i);
 
-        /* "dipy/denoise/ornlm.pyx":139
+        /* "dipy/denoise/ornlm.pyx":142
  *                 nk1=z+k
  *                 ni2=nx+i
  *                 nj2=ny+j             # <<<<<<<<<<<<<<
@@ -4214,7 +4304,7 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_12_distance(CYTHON_UNUSED PyObje
  */
         __pyx_v_nj2 = (__pyx_v_ny + __pyx_v_j);
 
-        /* "dipy/denoise/ornlm.pyx":140
+        /* "dipy/denoise/ornlm.pyx":143
  *                 ni2=nx+i
  *                 nj2=ny+j
  *                 nk2=nz+k             # <<<<<<<<<<<<<<
@@ -4223,7 +4313,7 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_12_distance(CYTHON_UNUSED PyObje
  */
         __pyx_v_nk2 = (__pyx_v_nz + __pyx_v_k);
 
-        /* "dipy/denoise/ornlm.pyx":141
+        /* "dipy/denoise/ornlm.pyx":144
  *                 nj2=ny+j
  *                 nk2=nz+k
  *                 if(ni1<0):ni1=-ni1             # <<<<<<<<<<<<<<
@@ -4235,7 +4325,7 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_12_distance(CYTHON_UNUSED PyObje
           __pyx_v_ni1 = (-__pyx_v_ni1);
         }
 
-        /* "dipy/denoise/ornlm.pyx":142
+        /* "dipy/denoise/ornlm.pyx":145
  *                 nk2=nz+k
  *                 if(ni1<0):ni1=-ni1
  *                 if(nj1<0):nj1=-nj1             # <<<<<<<<<<<<<<
@@ -4247,7 +4337,7 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_12_distance(CYTHON_UNUSED PyObje
           __pyx_v_nj1 = (-__pyx_v_nj1);
         }
 
-        /* "dipy/denoise/ornlm.pyx":143
+        /* "dipy/denoise/ornlm.pyx":146
  *                 if(ni1<0):ni1=-ni1
  *                 if(nj1<0):nj1=-nj1
  *                 if(ni2<0):ni2=-ni2             # <<<<<<<<<<<<<<
@@ -4259,7 +4349,7 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_12_distance(CYTHON_UNUSED PyObje
           __pyx_v_ni2 = (-__pyx_v_ni2);
         }
 
-        /* "dipy/denoise/ornlm.pyx":144
+        /* "dipy/denoise/ornlm.pyx":147
  *                 if(nj1<0):nj1=-nj1
  *                 if(ni2<0):ni2=-ni2
  *                 if(nj2<0):nj2=-nj2             # <<<<<<<<<<<<<<
@@ -4271,7 +4361,7 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_12_distance(CYTHON_UNUSED PyObje
           __pyx_v_nj2 = (-__pyx_v_nj2);
         }
 
-        /* "dipy/denoise/ornlm.pyx":145
+        /* "dipy/denoise/ornlm.pyx":148
  *                 if(ni2<0):ni2=-ni2
  *                 if(nj2<0):nj2=-nj2
  *                 if(nk1<0):nk1=-nk1             # <<<<<<<<<<<<<<
@@ -4283,7 +4373,7 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_12_distance(CYTHON_UNUSED PyObje
           __pyx_v_nk1 = (-__pyx_v_nk1);
         }
 
-        /* "dipy/denoise/ornlm.pyx":146
+        /* "dipy/denoise/ornlm.pyx":149
  *                 if(nj2<0):nj2=-nj2
  *                 if(nk1<0):nk1=-nk1
  *                 if(nk2<0):nk2=-nk2             # <<<<<<<<<<<<<<
@@ -4295,7 +4385,7 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_12_distance(CYTHON_UNUSED PyObje
           __pyx_v_nk2 = (-__pyx_v_nk2);
         }
 
-        /* "dipy/denoise/ornlm.pyx":147
+        /* "dipy/denoise/ornlm.pyx":150
  *                 if(nk1<0):nk1=-nk1
  *                 if(nk2<0):nk2=-nk2
  *                 if(ni1>=sx):ni1=2*sx-ni1-1             # <<<<<<<<<<<<<<
@@ -4307,7 +4397,7 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_12_distance(CYTHON_UNUSED PyObje
           __pyx_v_ni1 = (((2 * __pyx_v_sx) - __pyx_v_ni1) - 1);
         }
 
-        /* "dipy/denoise/ornlm.pyx":148
+        /* "dipy/denoise/ornlm.pyx":151
  *                 if(nk2<0):nk2=-nk2
  *                 if(ni1>=sx):ni1=2*sx-ni1-1
  *                 if(nj1>=sy):nj1=2*sy-nj1-1             # <<<<<<<<<<<<<<
@@ -4319,7 +4409,7 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_12_distance(CYTHON_UNUSED PyObje
           __pyx_v_nj1 = (((2 * __pyx_v_sy) - __pyx_v_nj1) - 1);
         }
 
-        /* "dipy/denoise/ornlm.pyx":149
+        /* "dipy/denoise/ornlm.pyx":152
  *                 if(ni1>=sx):ni1=2*sx-ni1-1
  *                 if(nj1>=sy):nj1=2*sy-nj1-1
  *                 if(nk1>=sz):nk1=2*sz-nk1-1             # <<<<<<<<<<<<<<
@@ -4331,7 +4421,7 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_12_distance(CYTHON_UNUSED PyObje
           __pyx_v_nk1 = (((2 * __pyx_v_sz) - __pyx_v_nk1) - 1);
         }
 
-        /* "dipy/denoise/ornlm.pyx":150
+        /* "dipy/denoise/ornlm.pyx":153
  *                 if(nj1>=sy):nj1=2*sy-nj1-1
  *                 if(nk1>=sz):nk1=2*sz-nk1-1
  *                 if(ni2>=sx):ni2=2*sx-ni2-1             # <<<<<<<<<<<<<<
@@ -4343,7 +4433,7 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_12_distance(CYTHON_UNUSED PyObje
           __pyx_v_ni2 = (((2 * __pyx_v_sx) - __pyx_v_ni2) - 1);
         }
 
-        /* "dipy/denoise/ornlm.pyx":151
+        /* "dipy/denoise/ornlm.pyx":154
  *                 if(nk1>=sz):nk1=2*sz-nk1-1
  *                 if(ni2>=sx):ni2=2*sx-ni2-1
  *                 if(nj2>=sy):nj2=2*sy-nj2-1             # <<<<<<<<<<<<<<
@@ -4355,7 +4445,7 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_12_distance(CYTHON_UNUSED PyObje
           __pyx_v_nj2 = (((2 * __pyx_v_sy) - __pyx_v_nj2) - 1);
         }
 
-        /* "dipy/denoise/ornlm.pyx":152
+        /* "dipy/denoise/ornlm.pyx":155
  *                 if(ni2>=sx):ni2=2*sx-ni2-1
  *                 if(nj2>=sy):nj2=2*sy-nj2-1
  *                 if(nk2>=sz):nk2=2*sz-nk2-1             # <<<<<<<<<<<<<<
@@ -4367,7 +4457,7 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_12_distance(CYTHON_UNUSED PyObje
           __pyx_v_nk2 = (((2 * __pyx_v_sz) - __pyx_v_nk2) - 1);
         }
 
-        /* "dipy/denoise/ornlm.pyx":153
+        /* "dipy/denoise/ornlm.pyx":156
  *                 if(nj2>=sy):nj2=2*sy-nj2-1
  *                 if(nk2>=sz):nk2=2*sz-nk2-1
  *                 distancetotal+=(image[nj1, ni1, nk1]-image[nj2, ni2, nk2])**2             # <<<<<<<<<<<<<<
@@ -4392,7 +4482,7 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_12_distance(CYTHON_UNUSED PyObje
         } else if (unlikely(__pyx_t_10 >= __pyx_v_image.shape[2])) __pyx_t_11 = 2;
         if (unlikely(__pyx_t_11 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
-          {__pyx_filename = __pyx_f[0]; __pyx_lineno = 153; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+          {__pyx_filename = __pyx_f[0]; __pyx_lineno = 156; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         }
         __pyx_t_12 = __pyx_v_nj2;
         __pyx_t_13 = __pyx_v_ni2;
@@ -4412,11 +4502,11 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_12_distance(CYTHON_UNUSED PyObje
         } else if (unlikely(__pyx_t_14 >= __pyx_v_image.shape[2])) __pyx_t_11 = 2;
         if (unlikely(__pyx_t_11 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_11);
-          {__pyx_filename = __pyx_f[0]; __pyx_lineno = 153; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+          {__pyx_filename = __pyx_f[0]; __pyx_lineno = 156; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         }
         __pyx_v_distancetotal = (__pyx_v_distancetotal + pow(((*((double *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_image.data + __pyx_t_8 * __pyx_v_image.strides[0]) ) + __pyx_t_9 * __pyx_v_image.strides[1]) ) + __pyx_t_10 * __pyx_v_image.strides[2]) ))) - (*((double *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_image.data + __pyx_t_12 * __pyx_v_image.strides[0]) ) + __pyx_t_13 * __pyx_v_image.strides[1]) ) + __pyx_t_14 * __pyx_v_image.strides[2]) )))), 2.0));
 
-        /* "dipy/denoise/ornlm.pyx":154
+        /* "dipy/denoise/ornlm.pyx":157
  *                 if(nk2>=sz):nk2=2*sz-nk2-1
  *                 distancetotal+=(image[nj1, ni1, nk1]-image[nj2, ni2, nk2])**2
  *                 acu=acu + 1             # <<<<<<<<<<<<<<
@@ -4428,7 +4518,7 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_12_distance(CYTHON_UNUSED PyObje
     }
   }
 
-  /* "dipy/denoise/ornlm.pyx":155
+  /* "dipy/denoise/ornlm.pyx":158
  *                 distancetotal+=(image[nj1, ni1, nk1]-image[nj2, ni2, nk2])**2
  *                 acu=acu + 1
  *     d=distancetotal/acu             # <<<<<<<<<<<<<<
@@ -4437,11 +4527,11 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_12_distance(CYTHON_UNUSED PyObje
  */
   if (unlikely(__pyx_v_acu == 0)) {
     PyErr_SetString(PyExc_ZeroDivisionError, "float division");
-    {__pyx_filename = __pyx_f[0]; __pyx_lineno = 155; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    {__pyx_filename = __pyx_f[0]; __pyx_lineno = 158; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
   __pyx_v_d = (__pyx_v_distancetotal / __pyx_v_acu);
 
-  /* "dipy/denoise/ornlm.pyx":156
+  /* "dipy/denoise/ornlm.pyx":159
  *                 acu=acu + 1
  *     d=distancetotal/acu
  *     return d             # <<<<<<<<<<<<<<
@@ -4449,13 +4539,13 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_12_distance(CYTHON_UNUSED PyObje
  * def _local_mean(double [:,:,:]ima, int x, int y, int z):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_15 = PyFloat_FromDouble(__pyx_v_d); if (unlikely(!__pyx_t_15)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 156; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_15 = PyFloat_FromDouble(__pyx_v_d); if (unlikely(!__pyx_t_15)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 159; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_15);
   __pyx_r = __pyx_t_15;
   __pyx_t_15 = 0;
   goto __pyx_L0;
 
-  /* "dipy/denoise/ornlm.pyx":120
+  /* "dipy/denoise/ornlm.pyx":123
  *                     Label[y_pos, x_pos, z_pos] = label +1
  * 
  * def _distance(double[:,:,:] image, int x, int y, int z,             # <<<<<<<<<<<<<<
@@ -4475,7 +4565,7 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_12_distance(CYTHON_UNUSED PyObje
   return __pyx_r;
 }
 
-/* "dipy/denoise/ornlm.pyx":158
+/* "dipy/denoise/ornlm.pyx":161
  *     return d
  * 
  * def _local_mean(double [:,:,:]ima, int x, int y, int z):             # <<<<<<<<<<<<<<
@@ -4519,21 +4609,21 @@ static PyObject *__pyx_pw_4dipy_7denoise_5ornlm_15_local_mean(PyObject *__pyx_se
         case  1:
         if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_x)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("_local_mean", 1, 4, 4, 1); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 158; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+          __Pyx_RaiseArgtupleInvalid("_local_mean", 1, 4, 4, 1); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 161; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
         }
         case  2:
         if (likely((values[2] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_y)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("_local_mean", 1, 4, 4, 2); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 158; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+          __Pyx_RaiseArgtupleInvalid("_local_mean", 1, 4, 4, 2); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 161; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
         }
         case  3:
         if (likely((values[3] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_z)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("_local_mean", 1, 4, 4, 3); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 158; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+          __Pyx_RaiseArgtupleInvalid("_local_mean", 1, 4, 4, 3); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 161; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "_local_mean") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 158; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "_local_mean") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 161; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 4) {
       goto __pyx_L5_argtuple_error;
@@ -4543,14 +4633,14 @@ static PyObject *__pyx_pw_4dipy_7denoise_5ornlm_15_local_mean(PyObject *__pyx_se
       values[2] = PyTuple_GET_ITEM(__pyx_args, 2);
       values[3] = PyTuple_GET_ITEM(__pyx_args, 3);
     }
-    __pyx_v_ima = __Pyx_PyObject_to_MemoryviewSlice_dsdsds_double(values[0]); if (unlikely(!__pyx_v_ima.memview)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 158; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
-    __pyx_v_x = __Pyx_PyInt_As_int(values[1]); if (unlikely((__pyx_v_x == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 158; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
-    __pyx_v_y = __Pyx_PyInt_As_int(values[2]); if (unlikely((__pyx_v_y == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 158; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
-    __pyx_v_z = __Pyx_PyInt_As_int(values[3]); if (unlikely((__pyx_v_z == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 158; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+    __pyx_v_ima = __Pyx_PyObject_to_MemoryviewSlice_dsdsds_double(values[0]); if (unlikely(!__pyx_v_ima.memview)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 161; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+    __pyx_v_x = __Pyx_PyInt_As_int(values[1]); if (unlikely((__pyx_v_x == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 161; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+    __pyx_v_y = __Pyx_PyInt_As_int(values[2]); if (unlikely((__pyx_v_y == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 161; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+    __pyx_v_z = __Pyx_PyInt_As_int(values[3]); if (unlikely((__pyx_v_z == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 161; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("_local_mean", 1, 4, 4, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 158; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+  __Pyx_RaiseArgtupleInvalid("_local_mean", 1, 4, 4, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 161; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
   __pyx_L3_error:;
   __Pyx_AddTraceback("dipy.denoise.ornlm._local_mean", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -4600,31 +4690,31 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_14_local_mean(CYTHON_UNUSED PyOb
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("_local_mean", 0);
 
-  /* "dipy/denoise/ornlm.pyx":159
+  /* "dipy/denoise/ornlm.pyx":162
  * 
  * def _local_mean(double [:,:,:]ima, int x, int y, int z):
  *     cdef int[:] dims=cvarray((3,), itemsize=sizeof(int), format="i")             # <<<<<<<<<<<<<<
  *     dims[0]=ima.shape[0]
  *     dims[1]=ima.shape[1]
  */
-  __pyx_t_1 = PyDict_New(); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 159; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = PyDict_New(); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 162; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyInt_FromSize_t((sizeof(int))); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 159; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_PyInt_FromSize_t((sizeof(int))); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 162; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_itemsize, __pyx_t_2) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 159; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_itemsize, __pyx_t_2) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 162; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_format, __pyx_n_s_i) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 159; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_t_2 = __Pyx_PyObject_Call(((PyObject *)__pyx_array_type), __pyx_tuple__2, __pyx_t_1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 159; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_format, __pyx_n_s_i) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 162; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_PyObject_Call(((PyObject *)__pyx_array_type), __pyx_tuple__2, __pyx_t_1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 162; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_t_3 = __Pyx_PyObject_to_MemoryviewSlice_ds_int(__pyx_t_2);
-  if (unlikely(!__pyx_t_3.memview)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 159; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (unlikely(!__pyx_t_3.memview)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 162; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_v_dims = __pyx_t_3;
   __pyx_t_3.memview = NULL;
   __pyx_t_3.data = NULL;
 
-  /* "dipy/denoise/ornlm.pyx":160
+  /* "dipy/denoise/ornlm.pyx":163
  * def _local_mean(double [:,:,:]ima, int x, int y, int z):
  *     cdef int[:] dims=cvarray((3,), itemsize=sizeof(int), format="i")
  *     dims[0]=ima.shape[0]             # <<<<<<<<<<<<<<
@@ -4639,11 +4729,11 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_14_local_mean(CYTHON_UNUSED PyOb
   } else if (unlikely(__pyx_t_4 >= __pyx_v_dims.shape[0])) __pyx_t_5 = 0;
   if (unlikely(__pyx_t_5 != -1)) {
     __Pyx_RaiseBufferIndexError(__pyx_t_5);
-    {__pyx_filename = __pyx_f[0]; __pyx_lineno = 160; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    {__pyx_filename = __pyx_f[0]; __pyx_lineno = 163; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
   *((int *) ( /* dim=0 */ (__pyx_v_dims.data + __pyx_t_4 * __pyx_v_dims.strides[0]) )) = (__pyx_v_ima.shape[0]);
 
-  /* "dipy/denoise/ornlm.pyx":161
+  /* "dipy/denoise/ornlm.pyx":164
  *     cdef int[:] dims=cvarray((3,), itemsize=sizeof(int), format="i")
  *     dims[0]=ima.shape[0]
  *     dims[1]=ima.shape[1]             # <<<<<<<<<<<<<<
@@ -4658,11 +4748,11 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_14_local_mean(CYTHON_UNUSED PyOb
   } else if (unlikely(__pyx_t_6 >= __pyx_v_dims.shape[0])) __pyx_t_5 = 0;
   if (unlikely(__pyx_t_5 != -1)) {
     __Pyx_RaiseBufferIndexError(__pyx_t_5);
-    {__pyx_filename = __pyx_f[0]; __pyx_lineno = 161; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    {__pyx_filename = __pyx_f[0]; __pyx_lineno = 164; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
   *((int *) ( /* dim=0 */ (__pyx_v_dims.data + __pyx_t_6 * __pyx_v_dims.strides[0]) )) = (__pyx_v_ima.shape[1]);
 
-  /* "dipy/denoise/ornlm.pyx":162
+  /* "dipy/denoise/ornlm.pyx":165
  *     dims[0]=ima.shape[0]
  *     dims[1]=ima.shape[1]
  *     dims[2]=ima.shape[2]             # <<<<<<<<<<<<<<
@@ -4677,11 +4767,11 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_14_local_mean(CYTHON_UNUSED PyOb
   } else if (unlikely(__pyx_t_7 >= __pyx_v_dims.shape[0])) __pyx_t_5 = 0;
   if (unlikely(__pyx_t_5 != -1)) {
     __Pyx_RaiseBufferIndexError(__pyx_t_5);
-    {__pyx_filename = __pyx_f[0]; __pyx_lineno = 162; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    {__pyx_filename = __pyx_f[0]; __pyx_lineno = 165; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
   *((int *) ( /* dim=0 */ (__pyx_v_dims.data + __pyx_t_7 * __pyx_v_dims.strides[0]) )) = (__pyx_v_ima.shape[2]);
 
-  /* "dipy/denoise/ornlm.pyx":163
+  /* "dipy/denoise/ornlm.pyx":166
  *     dims[1]=ima.shape[1]
  *     dims[2]=ima.shape[2]
  *     cdef double ss=0             # <<<<<<<<<<<<<<
@@ -4690,7 +4780,7 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_14_local_mean(CYTHON_UNUSED PyOb
  */
   __pyx_v_ss = 0.0;
 
-  /* "dipy/denoise/ornlm.pyx":165
+  /* "dipy/denoise/ornlm.pyx":168
  *     cdef double ss=0
  *     cdef int px, py, pz, dx, dy, dz, nx, ny, nz
  *     for px in range(x-1,x+2):             # <<<<<<<<<<<<<<
@@ -4701,7 +4791,7 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_14_local_mean(CYTHON_UNUSED PyOb
   for (__pyx_t_5 = (__pyx_v_x - 1); __pyx_t_5 < __pyx_t_8; __pyx_t_5+=1) {
     __pyx_v_px = __pyx_t_5;
 
-    /* "dipy/denoise/ornlm.pyx":166
+    /* "dipy/denoise/ornlm.pyx":169
  *     cdef int px, py, pz, dx, dy, dz, nx, ny, nz
  *     for px in range(x-1,x+2):
  *         for py in range(y-1,y+2):             # <<<<<<<<<<<<<<
@@ -4712,7 +4802,7 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_14_local_mean(CYTHON_UNUSED PyOb
     for (__pyx_t_10 = (__pyx_v_y - 1); __pyx_t_10 < __pyx_t_9; __pyx_t_10+=1) {
       __pyx_v_py = __pyx_t_10;
 
-      /* "dipy/denoise/ornlm.pyx":167
+      /* "dipy/denoise/ornlm.pyx":170
  *     for px in range(x-1,x+2):
  *         for py in range(y-1,y+2):
  *             for pz in range(z-1,z+2):             # <<<<<<<<<<<<<<
@@ -4723,7 +4813,7 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_14_local_mean(CYTHON_UNUSED PyOb
       for (__pyx_t_12 = (__pyx_v_z - 1); __pyx_t_12 < __pyx_t_11; __pyx_t_12+=1) {
         __pyx_v_pz = __pyx_t_12;
 
-        /* "dipy/denoise/ornlm.pyx":168
+        /* "dipy/denoise/ornlm.pyx":171
  *         for py in range(y-1,y+2):
  *             for pz in range(z-1,z+2):
  *                 px=(-px if px<0 else (2*dims[0]-px-1 if px>=dims[0] else px))             # <<<<<<<<<<<<<<
@@ -4741,7 +4831,7 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_14_local_mean(CYTHON_UNUSED PyOb
           } else if (unlikely(__pyx_t_15 >= __pyx_v_dims.shape[0])) __pyx_t_16 = 0;
           if (unlikely(__pyx_t_16 != -1)) {
             __Pyx_RaiseBufferIndexError(__pyx_t_16);
-            {__pyx_filename = __pyx_f[0]; __pyx_lineno = 168; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+            {__pyx_filename = __pyx_f[0]; __pyx_lineno = 171; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
           }
           if (((__pyx_v_px >= (*((int *) ( /* dim=0 */ (__pyx_v_dims.data + __pyx_t_15 * __pyx_v_dims.strides[0]) )))) != 0)) {
             __pyx_t_17 = 0;
@@ -4752,7 +4842,7 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_14_local_mean(CYTHON_UNUSED PyOb
             } else if (unlikely(__pyx_t_17 >= __pyx_v_dims.shape[0])) __pyx_t_16 = 0;
             if (unlikely(__pyx_t_16 != -1)) {
               __Pyx_RaiseBufferIndexError(__pyx_t_16);
-              {__pyx_filename = __pyx_f[0]; __pyx_lineno = 168; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+              {__pyx_filename = __pyx_f[0]; __pyx_lineno = 171; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
             }
             __pyx_t_14 = (((2 * (*((int *) ( /* dim=0 */ (__pyx_v_dims.data + __pyx_t_17 * __pyx_v_dims.strides[0]) )))) - __pyx_v_px) - 1);
           } else {
@@ -4762,7 +4852,7 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_14_local_mean(CYTHON_UNUSED PyOb
         }
         __pyx_v_px = __pyx_t_13;
 
-        /* "dipy/denoise/ornlm.pyx":169
+        /* "dipy/denoise/ornlm.pyx":172
  *             for pz in range(z-1,z+2):
  *                 px=(-px if px<0 else (2*dims[0]-px-1 if px>=dims[0] else px))
  *                 py=(-py if py<0 else (2*dims[1]-py-1 if py>=dims[1] else py))             # <<<<<<<<<<<<<<
@@ -4780,7 +4870,7 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_14_local_mean(CYTHON_UNUSED PyOb
           } else if (unlikely(__pyx_t_18 >= __pyx_v_dims.shape[0])) __pyx_t_16 = 0;
           if (unlikely(__pyx_t_16 != -1)) {
             __Pyx_RaiseBufferIndexError(__pyx_t_16);
-            {__pyx_filename = __pyx_f[0]; __pyx_lineno = 169; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+            {__pyx_filename = __pyx_f[0]; __pyx_lineno = 172; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
           }
           if (((__pyx_v_py >= (*((int *) ( /* dim=0 */ (__pyx_v_dims.data + __pyx_t_18 * __pyx_v_dims.strides[0]) )))) != 0)) {
             __pyx_t_19 = 1;
@@ -4791,7 +4881,7 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_14_local_mean(CYTHON_UNUSED PyOb
             } else if (unlikely(__pyx_t_19 >= __pyx_v_dims.shape[0])) __pyx_t_16 = 0;
             if (unlikely(__pyx_t_16 != -1)) {
               __Pyx_RaiseBufferIndexError(__pyx_t_16);
-              {__pyx_filename = __pyx_f[0]; __pyx_lineno = 169; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+              {__pyx_filename = __pyx_f[0]; __pyx_lineno = 172; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
             }
             __pyx_t_14 = (((2 * (*((int *) ( /* dim=0 */ (__pyx_v_dims.data + __pyx_t_19 * __pyx_v_dims.strides[0]) )))) - __pyx_v_py) - 1);
           } else {
@@ -4801,7 +4891,7 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_14_local_mean(CYTHON_UNUSED PyOb
         }
         __pyx_v_py = __pyx_t_13;
 
-        /* "dipy/denoise/ornlm.pyx":170
+        /* "dipy/denoise/ornlm.pyx":173
  *                 px=(-px if px<0 else (2*dims[0]-px-1 if px>=dims[0] else px))
  *                 py=(-py if py<0 else (2*dims[1]-py-1 if py>=dims[1] else py))
  *                 pz=(-pz if pz<0 else (2*dims[2]-pz-1 if pz>=dims[2] else pz))             # <<<<<<<<<<<<<<
@@ -4819,7 +4909,7 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_14_local_mean(CYTHON_UNUSED PyOb
           } else if (unlikely(__pyx_t_20 >= __pyx_v_dims.shape[0])) __pyx_t_16 = 0;
           if (unlikely(__pyx_t_16 != -1)) {
             __Pyx_RaiseBufferIndexError(__pyx_t_16);
-            {__pyx_filename = __pyx_f[0]; __pyx_lineno = 170; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+            {__pyx_filename = __pyx_f[0]; __pyx_lineno = 173; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
           }
           if (((__pyx_v_pz >= (*((int *) ( /* dim=0 */ (__pyx_v_dims.data + __pyx_t_20 * __pyx_v_dims.strides[0]) )))) != 0)) {
             __pyx_t_21 = 2;
@@ -4830,7 +4920,7 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_14_local_mean(CYTHON_UNUSED PyOb
             } else if (unlikely(__pyx_t_21 >= __pyx_v_dims.shape[0])) __pyx_t_16 = 0;
             if (unlikely(__pyx_t_16 != -1)) {
               __Pyx_RaiseBufferIndexError(__pyx_t_16);
-              {__pyx_filename = __pyx_f[0]; __pyx_lineno = 170; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+              {__pyx_filename = __pyx_f[0]; __pyx_lineno = 173; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
             }
             __pyx_t_14 = (((2 * (*((int *) ( /* dim=0 */ (__pyx_v_dims.data + __pyx_t_21 * __pyx_v_dims.strides[0]) )))) - __pyx_v_pz) - 1);
           } else {
@@ -4840,7 +4930,7 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_14_local_mean(CYTHON_UNUSED PyOb
         }
         __pyx_v_pz = __pyx_t_13;
 
-        /* "dipy/denoise/ornlm.pyx":171
+        /* "dipy/denoise/ornlm.pyx":174
  *                 py=(-py if py<0 else (2*dims[1]-py-1 if py>=dims[1] else py))
  *                 pz=(-pz if pz<0 else (2*dims[2]-pz-1 if pz>=dims[2] else pz))
  *                 ss+=ima[px,py,pz]             # <<<<<<<<<<<<<<
@@ -4865,14 +4955,14 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_14_local_mean(CYTHON_UNUSED PyOb
         } else if (unlikely(__pyx_t_24 >= __pyx_v_ima.shape[2])) __pyx_t_16 = 2;
         if (unlikely(__pyx_t_16 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_16);
-          {__pyx_filename = __pyx_f[0]; __pyx_lineno = 171; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+          {__pyx_filename = __pyx_f[0]; __pyx_lineno = 174; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         }
         __pyx_v_ss = (__pyx_v_ss + (*((double *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_ima.data + __pyx_t_22 * __pyx_v_ima.strides[0]) ) + __pyx_t_23 * __pyx_v_ima.strides[1]) ) + __pyx_t_24 * __pyx_v_ima.strides[2]) ))));
       }
     }
   }
 
-  /* "dipy/denoise/ornlm.pyx":172
+  /* "dipy/denoise/ornlm.pyx":175
  *                 pz=(-pz if pz<0 else (2*dims[2]-pz-1 if pz>=dims[2] else pz))
  *                 ss+=ima[px,py,pz]
  *     return ss/27.0             # <<<<<<<<<<<<<<
@@ -4880,13 +4970,13 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_14_local_mean(CYTHON_UNUSED PyOb
  * def _local_variance(double[:,:,:] ima, double mean, int x, int y, int z):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_2 = PyFloat_FromDouble((__pyx_v_ss / 27.0)); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 172; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = PyFloat_FromDouble((__pyx_v_ss / 27.0)); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 175; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_r = __pyx_t_2;
   __pyx_t_2 = 0;
   goto __pyx_L0;
 
-  /* "dipy/denoise/ornlm.pyx":158
+  /* "dipy/denoise/ornlm.pyx":161
  *     return d
  * 
  * def _local_mean(double [:,:,:]ima, int x, int y, int z):             # <<<<<<<<<<<<<<
@@ -4909,7 +4999,7 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_14_local_mean(CYTHON_UNUSED PyOb
   return __pyx_r;
 }
 
-/* "dipy/denoise/ornlm.pyx":174
+/* "dipy/denoise/ornlm.pyx":177
  *     return ss/27.0
  * 
  * def _local_variance(double[:,:,:] ima, double mean, int x, int y, int z):             # <<<<<<<<<<<<<<
@@ -4955,26 +5045,26 @@ static PyObject *__pyx_pw_4dipy_7denoise_5ornlm_17_local_variance(PyObject *__py
         case  1:
         if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_mean)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("_local_variance", 1, 5, 5, 1); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 174; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+          __Pyx_RaiseArgtupleInvalid("_local_variance", 1, 5, 5, 1); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 177; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
         }
         case  2:
         if (likely((values[2] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_x)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("_local_variance", 1, 5, 5, 2); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 174; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+          __Pyx_RaiseArgtupleInvalid("_local_variance", 1, 5, 5, 2); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 177; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
         }
         case  3:
         if (likely((values[3] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_y)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("_local_variance", 1, 5, 5, 3); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 174; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+          __Pyx_RaiseArgtupleInvalid("_local_variance", 1, 5, 5, 3); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 177; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
         }
         case  4:
         if (likely((values[4] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_z)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("_local_variance", 1, 5, 5, 4); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 174; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+          __Pyx_RaiseArgtupleInvalid("_local_variance", 1, 5, 5, 4); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 177; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "_local_variance") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 174; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "_local_variance") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 177; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 5) {
       goto __pyx_L5_argtuple_error;
@@ -4985,15 +5075,15 @@ static PyObject *__pyx_pw_4dipy_7denoise_5ornlm_17_local_variance(PyObject *__py
       values[3] = PyTuple_GET_ITEM(__pyx_args, 3);
       values[4] = PyTuple_GET_ITEM(__pyx_args, 4);
     }
-    __pyx_v_ima = __Pyx_PyObject_to_MemoryviewSlice_dsdsds_double(values[0]); if (unlikely(!__pyx_v_ima.memview)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 174; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
-    __pyx_v_mean = __pyx_PyFloat_AsDouble(values[1]); if (unlikely((__pyx_v_mean == (double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 174; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
-    __pyx_v_x = __Pyx_PyInt_As_int(values[2]); if (unlikely((__pyx_v_x == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 174; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
-    __pyx_v_y = __Pyx_PyInt_As_int(values[3]); if (unlikely((__pyx_v_y == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 174; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
-    __pyx_v_z = __Pyx_PyInt_As_int(values[4]); if (unlikely((__pyx_v_z == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 174; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+    __pyx_v_ima = __Pyx_PyObject_to_MemoryviewSlice_dsdsds_double(values[0]); if (unlikely(!__pyx_v_ima.memview)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 177; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+    __pyx_v_mean = __pyx_PyFloat_AsDouble(values[1]); if (unlikely((__pyx_v_mean == (double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 177; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+    __pyx_v_x = __Pyx_PyInt_As_int(values[2]); if (unlikely((__pyx_v_x == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 177; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+    __pyx_v_y = __Pyx_PyInt_As_int(values[3]); if (unlikely((__pyx_v_y == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 177; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+    __pyx_v_z = __Pyx_PyInt_As_int(values[4]); if (unlikely((__pyx_v_z == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 177; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("_local_variance", 1, 5, 5, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 174; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+  __Pyx_RaiseArgtupleInvalid("_local_variance", 1, 5, 5, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 177; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
   __pyx_L3_error:;
   __Pyx_AddTraceback("dipy.denoise.ornlm._local_variance", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -5044,31 +5134,31 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_16_local_variance(CYTHON_UNUSED 
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("_local_variance", 0);
 
-  /* "dipy/denoise/ornlm.pyx":175
+  /* "dipy/denoise/ornlm.pyx":178
  * 
  * def _local_variance(double[:,:,:] ima, double mean, int x, int y, int z):
  *     cdef int[:] dims=cvarray((3,), itemsize=sizeof(int), format="i")             # <<<<<<<<<<<<<<
  *     dims[0]=ima.shape[0]
  *     dims[1]=ima.shape[1]
  */
-  __pyx_t_1 = PyDict_New(); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 175; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = PyDict_New(); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 178; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyInt_FromSize_t((sizeof(int))); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 175; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_PyInt_FromSize_t((sizeof(int))); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 178; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_itemsize, __pyx_t_2) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 175; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_itemsize, __pyx_t_2) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 178; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_format, __pyx_n_s_i) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 175; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_t_2 = __Pyx_PyObject_Call(((PyObject *)__pyx_array_type), __pyx_tuple__4, __pyx_t_1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 175; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_format, __pyx_n_s_i) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 178; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_PyObject_Call(((PyObject *)__pyx_array_type), __pyx_tuple__4, __pyx_t_1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 178; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_t_3 = __Pyx_PyObject_to_MemoryviewSlice_ds_int(__pyx_t_2);
-  if (unlikely(!__pyx_t_3.memview)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 175; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (unlikely(!__pyx_t_3.memview)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 178; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_v_dims = __pyx_t_3;
   __pyx_t_3.memview = NULL;
   __pyx_t_3.data = NULL;
 
-  /* "dipy/denoise/ornlm.pyx":176
+  /* "dipy/denoise/ornlm.pyx":179
  * def _local_variance(double[:,:,:] ima, double mean, int x, int y, int z):
  *     cdef int[:] dims=cvarray((3,), itemsize=sizeof(int), format="i")
  *     dims[0]=ima.shape[0]             # <<<<<<<<<<<<<<
@@ -5083,11 +5173,11 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_16_local_variance(CYTHON_UNUSED 
   } else if (unlikely(__pyx_t_4 >= __pyx_v_dims.shape[0])) __pyx_t_5 = 0;
   if (unlikely(__pyx_t_5 != -1)) {
     __Pyx_RaiseBufferIndexError(__pyx_t_5);
-    {__pyx_filename = __pyx_f[0]; __pyx_lineno = 176; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    {__pyx_filename = __pyx_f[0]; __pyx_lineno = 179; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
   *((int *) ( /* dim=0 */ (__pyx_v_dims.data + __pyx_t_4 * __pyx_v_dims.strides[0]) )) = (__pyx_v_ima.shape[0]);
 
-  /* "dipy/denoise/ornlm.pyx":177
+  /* "dipy/denoise/ornlm.pyx":180
  *     cdef int[:] dims=cvarray((3,), itemsize=sizeof(int), format="i")
  *     dims[0]=ima.shape[0]
  *     dims[1]=ima.shape[1]             # <<<<<<<<<<<<<<
@@ -5102,11 +5192,11 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_16_local_variance(CYTHON_UNUSED 
   } else if (unlikely(__pyx_t_6 >= __pyx_v_dims.shape[0])) __pyx_t_5 = 0;
   if (unlikely(__pyx_t_5 != -1)) {
     __Pyx_RaiseBufferIndexError(__pyx_t_5);
-    {__pyx_filename = __pyx_f[0]; __pyx_lineno = 177; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    {__pyx_filename = __pyx_f[0]; __pyx_lineno = 180; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
   *((int *) ( /* dim=0 */ (__pyx_v_dims.data + __pyx_t_6 * __pyx_v_dims.strides[0]) )) = (__pyx_v_ima.shape[1]);
 
-  /* "dipy/denoise/ornlm.pyx":178
+  /* "dipy/denoise/ornlm.pyx":181
  *     dims[0]=ima.shape[0]
  *     dims[1]=ima.shape[1]
  *     dims[2]=ima.shape[2]             # <<<<<<<<<<<<<<
@@ -5121,11 +5211,11 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_16_local_variance(CYTHON_UNUSED 
   } else if (unlikely(__pyx_t_7 >= __pyx_v_dims.shape[0])) __pyx_t_5 = 0;
   if (unlikely(__pyx_t_5 != -1)) {
     __Pyx_RaiseBufferIndexError(__pyx_t_5);
-    {__pyx_filename = __pyx_f[0]; __pyx_lineno = 178; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    {__pyx_filename = __pyx_f[0]; __pyx_lineno = 181; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
   *((int *) ( /* dim=0 */ (__pyx_v_dims.data + __pyx_t_7 * __pyx_v_dims.strides[0]) )) = (__pyx_v_ima.shape[2]);
 
-  /* "dipy/denoise/ornlm.pyx":179
+  /* "dipy/denoise/ornlm.pyx":182
  *     dims[1]=ima.shape[1]
  *     dims[2]=ima.shape[2]
  *     cdef int cnt=0             # <<<<<<<<<<<<<<
@@ -5134,7 +5224,7 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_16_local_variance(CYTHON_UNUSED 
  */
   __pyx_v_cnt = 0;
 
-  /* "dipy/denoise/ornlm.pyx":180
+  /* "dipy/denoise/ornlm.pyx":183
  *     dims[2]=ima.shape[2]
  *     cdef int cnt=0
  *     cdef double ss=0             # <<<<<<<<<<<<<<
@@ -5143,7 +5233,7 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_16_local_variance(CYTHON_UNUSED 
  */
   __pyx_v_ss = 0.0;
 
-  /* "dipy/denoise/ornlm.pyx":182
+  /* "dipy/denoise/ornlm.pyx":185
  *     cdef double ss=0
  *     cdef int dx, dy, dz, nx, ny, nz
  *     for px in range(x-1,x+2):             # <<<<<<<<<<<<<<
@@ -5154,7 +5244,7 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_16_local_variance(CYTHON_UNUSED 
   for (__pyx_t_9 = (__pyx_v_x - 1); __pyx_t_9 < __pyx_t_8; __pyx_t_9+=1) {
     __pyx_v_px = __pyx_t_9;
 
-    /* "dipy/denoise/ornlm.pyx":183
+    /* "dipy/denoise/ornlm.pyx":186
  *     cdef int dx, dy, dz, nx, ny, nz
  *     for px in range(x-1,x+2):
  *         for py in range(y-1,y+2):             # <<<<<<<<<<<<<<
@@ -5165,7 +5255,7 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_16_local_variance(CYTHON_UNUSED 
     for (__pyx_t_11 = (__pyx_v_y - 1); __pyx_t_11 < __pyx_t_10; __pyx_t_11+=1) {
       __pyx_v_py = __pyx_t_11;
 
-      /* "dipy/denoise/ornlm.pyx":184
+      /* "dipy/denoise/ornlm.pyx":187
  *     for px in range(x-1,x+2):
  *         for py in range(y-1,y+2):
  *             for pz in range(z-1,z+2):             # <<<<<<<<<<<<<<
@@ -5176,7 +5266,7 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_16_local_variance(CYTHON_UNUSED 
       for (__pyx_t_13 = (__pyx_v_z - 1); __pyx_t_13 < __pyx_t_12; __pyx_t_13+=1) {
         __pyx_v_pz = __pyx_t_13;
 
-        /* "dipy/denoise/ornlm.pyx":185
+        /* "dipy/denoise/ornlm.pyx":188
  *         for py in range(y-1,y+2):
  *             for pz in range(z-1,z+2):
  *                 if ((px>=0 and py>=0 and pz>0) and             # <<<<<<<<<<<<<<
@@ -5202,7 +5292,7 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_16_local_variance(CYTHON_UNUSED 
           goto __pyx_L10_bool_binop_done;
         }
 
-        /* "dipy/denoise/ornlm.pyx":186
+        /* "dipy/denoise/ornlm.pyx":189
  *             for pz in range(z-1,z+2):
  *                 if ((px>=0 and py>=0 and pz>0) and
  *                             (px<dims[0] and py<dims[1] and pz<dims[2])):             # <<<<<<<<<<<<<<
@@ -5217,7 +5307,7 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_16_local_variance(CYTHON_UNUSED 
         } else if (unlikely(__pyx_t_16 >= __pyx_v_dims.shape[0])) __pyx_t_5 = 0;
         if (unlikely(__pyx_t_5 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_5);
-          {__pyx_filename = __pyx_f[0]; __pyx_lineno = 186; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+          {__pyx_filename = __pyx_f[0]; __pyx_lineno = 189; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         }
         __pyx_t_15 = ((__pyx_v_px < (*((int *) ( /* dim=0 */ (__pyx_v_dims.data + __pyx_t_16 * __pyx_v_dims.strides[0]) )))) != 0);
         if (__pyx_t_15) {
@@ -5233,7 +5323,7 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_16_local_variance(CYTHON_UNUSED 
         } else if (unlikely(__pyx_t_17 >= __pyx_v_dims.shape[0])) __pyx_t_5 = 0;
         if (unlikely(__pyx_t_5 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_5);
-          {__pyx_filename = __pyx_f[0]; __pyx_lineno = 186; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+          {__pyx_filename = __pyx_f[0]; __pyx_lineno = 189; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         }
         __pyx_t_15 = ((__pyx_v_py < (*((int *) ( /* dim=0 */ (__pyx_v_dims.data + __pyx_t_17 * __pyx_v_dims.strides[0]) )))) != 0);
         if (__pyx_t_15) {
@@ -5249,13 +5339,13 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_16_local_variance(CYTHON_UNUSED 
         } else if (unlikely(__pyx_t_18 >= __pyx_v_dims.shape[0])) __pyx_t_5 = 0;
         if (unlikely(__pyx_t_5 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_5);
-          {__pyx_filename = __pyx_f[0]; __pyx_lineno = 186; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+          {__pyx_filename = __pyx_f[0]; __pyx_lineno = 189; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         }
         __pyx_t_15 = ((__pyx_v_pz < (*((int *) ( /* dim=0 */ (__pyx_v_dims.data + __pyx_t_18 * __pyx_v_dims.strides[0]) )))) != 0);
         __pyx_t_14 = __pyx_t_15;
         __pyx_L10_bool_binop_done:;
 
-        /* "dipy/denoise/ornlm.pyx":185
+        /* "dipy/denoise/ornlm.pyx":188
  *         for py in range(y-1,y+2):
  *             for pz in range(z-1,z+2):
  *                 if ((px>=0 and py>=0 and pz>0) and             # <<<<<<<<<<<<<<
@@ -5264,7 +5354,7 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_16_local_variance(CYTHON_UNUSED 
  */
         if (__pyx_t_14) {
 
-          /* "dipy/denoise/ornlm.pyx":187
+          /* "dipy/denoise/ornlm.pyx":190
  *                 if ((px>=0 and py>=0 and pz>0) and
  *                             (px<dims[0] and py<dims[1] and pz<dims[2])):
  *                     ss+=(ima[px,py,pz]-mean)*(ima[px,py,pz]-mean)             # <<<<<<<<<<<<<<
@@ -5289,7 +5379,7 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_16_local_variance(CYTHON_UNUSED 
           } else if (unlikely(__pyx_t_21 >= __pyx_v_ima.shape[2])) __pyx_t_5 = 2;
           if (unlikely(__pyx_t_5 != -1)) {
             __Pyx_RaiseBufferIndexError(__pyx_t_5);
-            {__pyx_filename = __pyx_f[0]; __pyx_lineno = 187; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+            {__pyx_filename = __pyx_f[0]; __pyx_lineno = 190; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
           }
           __pyx_t_22 = __pyx_v_px;
           __pyx_t_23 = __pyx_v_py;
@@ -5309,11 +5399,11 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_16_local_variance(CYTHON_UNUSED 
           } else if (unlikely(__pyx_t_24 >= __pyx_v_ima.shape[2])) __pyx_t_5 = 2;
           if (unlikely(__pyx_t_5 != -1)) {
             __Pyx_RaiseBufferIndexError(__pyx_t_5);
-            {__pyx_filename = __pyx_f[0]; __pyx_lineno = 187; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+            {__pyx_filename = __pyx_f[0]; __pyx_lineno = 190; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
           }
           __pyx_v_ss = (__pyx_v_ss + (((*((double *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_ima.data + __pyx_t_19 * __pyx_v_ima.strides[0]) ) + __pyx_t_20 * __pyx_v_ima.strides[1]) ) + __pyx_t_21 * __pyx_v_ima.strides[2]) ))) - __pyx_v_mean) * ((*((double *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_ima.data + __pyx_t_22 * __pyx_v_ima.strides[0]) ) + __pyx_t_23 * __pyx_v_ima.strides[1]) ) + __pyx_t_24 * __pyx_v_ima.strides[2]) ))) - __pyx_v_mean)));
 
-          /* "dipy/denoise/ornlm.pyx":188
+          /* "dipy/denoise/ornlm.pyx":191
  *                             (px<dims[0] and py<dims[1] and pz<dims[2])):
  *                     ss+=(ima[px,py,pz]-mean)*(ima[px,py,pz]-mean)
  *                     cnt+=1             # <<<<<<<<<<<<<<
@@ -5322,7 +5412,7 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_16_local_variance(CYTHON_UNUSED 
  */
           __pyx_v_cnt = (__pyx_v_cnt + 1);
 
-          /* "dipy/denoise/ornlm.pyx":185
+          /* "dipy/denoise/ornlm.pyx":188
  *         for py in range(y-1,y+2):
  *             for pz in range(z-1,z+2):
  *                 if ((px>=0 and py>=0 and pz>0) and             # <<<<<<<<<<<<<<
@@ -5334,7 +5424,7 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_16_local_variance(CYTHON_UNUSED 
     }
   }
 
-  /* "dipy/denoise/ornlm.pyx":189
+  /* "dipy/denoise/ornlm.pyx":192
  *                     ss+=(ima[px,py,pz]-mean)*(ima[px,py,pz]-mean)
  *                     cnt+=1
  *     return ss/(cnt-1)             # <<<<<<<<<<<<<<
@@ -5345,15 +5435,15 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_16_local_variance(CYTHON_UNUSED 
   __pyx_t_8 = (__pyx_v_cnt - 1);
   if (unlikely(__pyx_t_8 == 0)) {
     PyErr_SetString(PyExc_ZeroDivisionError, "float division");
-    {__pyx_filename = __pyx_f[0]; __pyx_lineno = 189; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    {__pyx_filename = __pyx_f[0]; __pyx_lineno = 192; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
-  __pyx_t_2 = PyFloat_FromDouble((__pyx_v_ss / __pyx_t_8)); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 189; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = PyFloat_FromDouble((__pyx_v_ss / __pyx_t_8)); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 192; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_r = __pyx_t_2;
   __pyx_t_2 = 0;
   goto __pyx_L0;
 
-  /* "dipy/denoise/ornlm.pyx":174
+  /* "dipy/denoise/ornlm.pyx":177
  *     return ss/27.0
  * 
  * def _local_variance(double[:,:,:] ima, double mean, int x, int y, int z):             # <<<<<<<<<<<<<<
@@ -5376,7 +5466,7 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_16_local_variance(CYTHON_UNUSED 
   return __pyx_r;
 }
 
-/* "dipy/denoise/ornlm.pyx":191
+/* "dipy/denoise/ornlm.pyx":194
  *     return ss/(cnt-1)
  * 
  * cpdef firdn(double[:,:] image, double[:] h):             # <<<<<<<<<<<<<<
@@ -5406,19 +5496,19 @@ static PyObject *__pyx_f_4dipy_7denoise_5ornlm_firdn(__Pyx_memviewslice __pyx_v_
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("firdn", 0);
 
-  /* "dipy/denoise/ornlm.pyx":201
+  /* "dipy/denoise/ornlm.pyx":204
  *         h:      the convolution kernel
  *     '''
  *     nrows=image.shape[0]             # <<<<<<<<<<<<<<
  *     ncols=image.shape[1]
  *     ll=h.shape[0]
  */
-  __pyx_t_1 = PyInt_FromSsize_t((__pyx_v_image.shape[0])); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 201; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = PyInt_FromSsize_t((__pyx_v_image.shape[0])); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 204; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_v_nrows = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "dipy/denoise/ornlm.pyx":202
+  /* "dipy/denoise/ornlm.pyx":205
  *     '''
  *     nrows=image.shape[0]
  *     ncols=image.shape[1]             # <<<<<<<<<<<<<<
@@ -5427,40 +5517,40 @@ static PyObject *__pyx_f_4dipy_7denoise_5ornlm_firdn(__Pyx_memviewslice __pyx_v_
  */
   __pyx_v_ncols = (__pyx_v_image.shape[1]);
 
-  /* "dipy/denoise/ornlm.pyx":203
+  /* "dipy/denoise/ornlm.pyx":206
  *     nrows=image.shape[0]
  *     ncols=image.shape[1]
  *     ll=h.shape[0]             # <<<<<<<<<<<<<<
  *     cdef double[:,:] filtered=np.zeros(shape=((nrows+ll)//2, ncols))
  *     _firdn_matrix(image, h, filtered)
  */
-  __pyx_t_1 = PyInt_FromSsize_t((__pyx_v_h.shape[0])); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 203; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = PyInt_FromSsize_t((__pyx_v_h.shape[0])); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 206; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_v_ll = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "dipy/denoise/ornlm.pyx":204
+  /* "dipy/denoise/ornlm.pyx":207
  *     ncols=image.shape[1]
  *     ll=h.shape[0]
  *     cdef double[:,:] filtered=np.zeros(shape=((nrows+ll)//2, ncols))             # <<<<<<<<<<<<<<
  *     _firdn_matrix(image, h, filtered)
  *     return filtered
  */
-  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 204; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 207; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_zeros); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 204; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_zeros); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 207; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = PyDict_New(); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 204; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = PyDict_New(); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 207; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_3 = PyNumber_Add(__pyx_v_nrows, __pyx_v_ll); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 204; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_3 = PyNumber_Add(__pyx_v_nrows, __pyx_v_ll); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 207; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_4 = __Pyx_PyInt_FloorDivideObjC(__pyx_t_3, __pyx_int_2, 2, 0); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 204; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_4 = __Pyx_PyInt_FloorDivideObjC(__pyx_t_3, __pyx_int_2, 2, 0); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 207; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_3 = PyInt_FromSsize_t(__pyx_v_ncols); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 204; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_3 = PyInt_FromSsize_t(__pyx_v_ncols); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 207; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_5 = PyTuple_New(2); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 204; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_5 = PyTuple_New(2); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 207; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_GIVEREF(__pyx_t_4);
   PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_t_4);
@@ -5468,33 +5558,33 @@ static PyObject *__pyx_f_4dipy_7denoise_5ornlm_firdn(__Pyx_memviewslice __pyx_v_
   PyTuple_SET_ITEM(__pyx_t_5, 1, __pyx_t_3);
   __pyx_t_4 = 0;
   __pyx_t_3 = 0;
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_shape, __pyx_t_5) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 204; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_shape, __pyx_t_5) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 207; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_empty_tuple, __pyx_t_1); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 204; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_empty_tuple, __pyx_t_1); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 207; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_t_6 = __Pyx_PyObject_to_MemoryviewSlice_dsds_double(__pyx_t_5);
-  if (unlikely(!__pyx_t_6.memview)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 204; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (unlikely(!__pyx_t_6.memview)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 207; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   __pyx_v_filtered = __pyx_t_6;
   __pyx_t_6.memview = NULL;
   __pyx_t_6.data = NULL;
 
-  /* "dipy/denoise/ornlm.pyx":205
+  /* "dipy/denoise/ornlm.pyx":208
  *     ll=h.shape[0]
  *     cdef double[:,:] filtered=np.zeros(shape=((nrows+ll)//2, ncols))
  *     _firdn_matrix(image, h, filtered)             # <<<<<<<<<<<<<<
  *     return filtered
  * 
  */
-  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_firdn_matrix); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 205; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_firdn_matrix); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 208; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __pyx_memoryview_fromslice(__pyx_v_image, 2, (PyObject *(*)(char *)) __pyx_memview_get_double, (int (*)(char *, PyObject *)) __pyx_memview_set_double, 0);; if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 205; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __pyx_memoryview_fromslice(__pyx_v_image, 2, (PyObject *(*)(char *)) __pyx_memview_get_double, (int (*)(char *, PyObject *)) __pyx_memview_set_double, 0);; if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 208; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __pyx_memoryview_fromslice(__pyx_v_h, 1, (PyObject *(*)(char *)) __pyx_memview_get_double, (int (*)(char *, PyObject *)) __pyx_memview_set_double, 0);; if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 205; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_3 = __pyx_memoryview_fromslice(__pyx_v_h, 1, (PyObject *(*)(char *)) __pyx_memview_get_double, (int (*)(char *, PyObject *)) __pyx_memview_set_double, 0);; if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 208; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_4 = __pyx_memoryview_fromslice(__pyx_v_filtered, 2, (PyObject *(*)(char *)) __pyx_memview_get_double, (int (*)(char *, PyObject *)) __pyx_memview_set_double, 0);; if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 205; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_4 = __pyx_memoryview_fromslice(__pyx_v_filtered, 2, (PyObject *(*)(char *)) __pyx_memview_get_double, (int (*)(char *, PyObject *)) __pyx_memview_set_double, 0);; if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 208; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_4);
   __pyx_t_7 = NULL;
   __pyx_t_8 = 0;
@@ -5508,7 +5598,7 @@ static PyObject *__pyx_f_4dipy_7denoise_5ornlm_firdn(__Pyx_memviewslice __pyx_v_
       __pyx_t_8 = 1;
     }
   }
-  __pyx_t_9 = PyTuple_New(3+__pyx_t_8); if (unlikely(!__pyx_t_9)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 205; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_9 = PyTuple_New(3+__pyx_t_8); if (unlikely(!__pyx_t_9)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 208; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_9);
   if (__pyx_t_7) {
     __Pyx_GIVEREF(__pyx_t_7); PyTuple_SET_ITEM(__pyx_t_9, 0, __pyx_t_7); __pyx_t_7 = NULL;
@@ -5522,13 +5612,13 @@ static PyObject *__pyx_f_4dipy_7denoise_5ornlm_firdn(__Pyx_memviewslice __pyx_v_
   __pyx_t_2 = 0;
   __pyx_t_3 = 0;
   __pyx_t_4 = 0;
-  __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_9, NULL); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 205; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_9, NULL); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 208; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-  /* "dipy/denoise/ornlm.pyx":206
+  /* "dipy/denoise/ornlm.pyx":209
  *     cdef double[:,:] filtered=np.zeros(shape=((nrows+ll)//2, ncols))
  *     _firdn_matrix(image, h, filtered)
  *     return filtered             # <<<<<<<<<<<<<<
@@ -5536,13 +5626,13 @@ static PyObject *__pyx_f_4dipy_7denoise_5ornlm_firdn(__Pyx_memviewslice __pyx_v_
  * cpdef upfir(double[:,:] image, double[:] h):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_5 = __pyx_memoryview_fromslice(__pyx_v_filtered, 2, (PyObject *(*)(char *)) __pyx_memview_get_double, (int (*)(char *, PyObject *)) __pyx_memview_set_double, 0);; if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 206; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_5 = __pyx_memoryview_fromslice(__pyx_v_filtered, 2, (PyObject *(*)(char *)) __pyx_memview_get_double, (int (*)(char *, PyObject *)) __pyx_memview_set_double, 0);; if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 209; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_5);
   __pyx_r = __pyx_t_5;
   __pyx_t_5 = 0;
   goto __pyx_L0;
 
-  /* "dipy/denoise/ornlm.pyx":191
+  /* "dipy/denoise/ornlm.pyx":194
  *     return ss/(cnt-1)
  * 
  * cpdef firdn(double[:,:] image, double[:] h):             # <<<<<<<<<<<<<<
@@ -5603,11 +5693,11 @@ static PyObject *__pyx_pw_4dipy_7denoise_5ornlm_19firdn(PyObject *__pyx_self, Py
         case  1:
         if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_h)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("firdn", 1, 2, 2, 1); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 191; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+          __Pyx_RaiseArgtupleInvalid("firdn", 1, 2, 2, 1); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 194; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "firdn") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 191; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "firdn") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 194; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 2) {
       goto __pyx_L5_argtuple_error;
@@ -5615,12 +5705,12 @@ static PyObject *__pyx_pw_4dipy_7denoise_5ornlm_19firdn(PyObject *__pyx_self, Py
       values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
       values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
     }
-    __pyx_v_image = __Pyx_PyObject_to_MemoryviewSlice_dsds_double(values[0]); if (unlikely(!__pyx_v_image.memview)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 191; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
-    __pyx_v_h = __Pyx_PyObject_to_MemoryviewSlice_ds_double(values[1]); if (unlikely(!__pyx_v_h.memview)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 191; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+    __pyx_v_image = __Pyx_PyObject_to_MemoryviewSlice_dsds_double(values[0]); if (unlikely(!__pyx_v_image.memview)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 194; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+    __pyx_v_h = __Pyx_PyObject_to_MemoryviewSlice_ds_double(values[1]); if (unlikely(!__pyx_v_h.memview)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 194; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("firdn", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 191; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+  __Pyx_RaiseArgtupleInvalid("firdn", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 194; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
   __pyx_L3_error:;
   __Pyx_AddTraceback("dipy.denoise.ornlm.firdn", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -5642,9 +5732,9 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_18firdn(CYTHON_UNUSED PyObject *
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("firdn", 0);
   __Pyx_XDECREF(__pyx_r);
-  if (unlikely(!__pyx_v_image.memview)) { __Pyx_RaiseUnboundLocalError("image"); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 191; __pyx_clineno = __LINE__; goto __pyx_L1_error;} }
-  if (unlikely(!__pyx_v_h.memview)) { __Pyx_RaiseUnboundLocalError("h"); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 191; __pyx_clineno = __LINE__; goto __pyx_L1_error;} }
-  __pyx_t_1 = __pyx_f_4dipy_7denoise_5ornlm_firdn(__pyx_v_image, __pyx_v_h, 0); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 191; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (unlikely(!__pyx_v_image.memview)) { __Pyx_RaiseUnboundLocalError("image"); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 194; __pyx_clineno = __LINE__; goto __pyx_L1_error;} }
+  if (unlikely(!__pyx_v_h.memview)) { __Pyx_RaiseUnboundLocalError("h"); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 194; __pyx_clineno = __LINE__; goto __pyx_L1_error;} }
+  __pyx_t_1 = __pyx_f_4dipy_7denoise_5ornlm_firdn(__pyx_v_image, __pyx_v_h, 0); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 194; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -5663,7 +5753,7 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_18firdn(CYTHON_UNUSED PyObject *
   return __pyx_r;
 }
 
-/* "dipy/denoise/ornlm.pyx":208
+/* "dipy/denoise/ornlm.pyx":211
  *     return filtered
  * 
  * cpdef upfir(double[:,:] image, double[:] h):             # <<<<<<<<<<<<<<
@@ -5693,19 +5783,19 @@ static PyObject *__pyx_f_4dipy_7denoise_5ornlm_upfir(__Pyx_memviewslice __pyx_v_
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("upfir", 0);
 
-  /* "dipy/denoise/ornlm.pyx":218
+  /* "dipy/denoise/ornlm.pyx":221
  *         h:      the convolution kernel
  *     '''
  *     nrows=image.shape[0]             # <<<<<<<<<<<<<<
  *     ncols=image.shape[1]
  *     ll=h.shape[0]
  */
-  __pyx_t_1 = PyInt_FromSsize_t((__pyx_v_image.shape[0])); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 218; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = PyInt_FromSsize_t((__pyx_v_image.shape[0])); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 221; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_v_nrows = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "dipy/denoise/ornlm.pyx":219
+  /* "dipy/denoise/ornlm.pyx":222
  *     '''
  *     nrows=image.shape[0]
  *     ncols=image.shape[1]             # <<<<<<<<<<<<<<
@@ -5714,43 +5804,43 @@ static PyObject *__pyx_f_4dipy_7denoise_5ornlm_upfir(__Pyx_memviewslice __pyx_v_
  */
   __pyx_v_ncols = (__pyx_v_image.shape[1]);
 
-  /* "dipy/denoise/ornlm.pyx":220
+  /* "dipy/denoise/ornlm.pyx":223
  *     nrows=image.shape[0]
  *     ncols=image.shape[1]
  *     ll=h.shape[0]             # <<<<<<<<<<<<<<
  *     cdef double[:,:] filtered=np.zeros(shape=(2*nrows+ll-2, ncols))
  *     _upfir_matrix(image, h, filtered)
  */
-  __pyx_t_1 = PyInt_FromSsize_t((__pyx_v_h.shape[0])); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 220; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = PyInt_FromSsize_t((__pyx_v_h.shape[0])); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 223; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_v_ll = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "dipy/denoise/ornlm.pyx":221
+  /* "dipy/denoise/ornlm.pyx":224
  *     ncols=image.shape[1]
  *     ll=h.shape[0]
  *     cdef double[:,:] filtered=np.zeros(shape=(2*nrows+ll-2, ncols))             # <<<<<<<<<<<<<<
  *     _upfir_matrix(image, h, filtered)
  *     return filtered
  */
-  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 221; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 224; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_zeros); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 221; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_zeros); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 224; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = PyDict_New(); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 221; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = PyDict_New(); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 224; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_3 = PyNumber_Multiply(__pyx_int_2, __pyx_v_nrows); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 221; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_3 = PyNumber_Multiply(__pyx_int_2, __pyx_v_nrows); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 224; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_4 = PyNumber_Add(__pyx_t_3, __pyx_v_ll); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 221; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_4 = PyNumber_Add(__pyx_t_3, __pyx_v_ll); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 224; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_3 = __Pyx_PyInt_SubtractObjC(__pyx_t_4, __pyx_int_2, 2, 0); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 221; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_3 = __Pyx_PyInt_SubtractObjC(__pyx_t_4, __pyx_int_2, 2, 0); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 224; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_t_4 = PyInt_FromSsize_t(__pyx_v_ncols); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 221; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_4 = PyInt_FromSsize_t(__pyx_v_ncols); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 224; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_5 = PyTuple_New(2); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 221; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_5 = PyTuple_New(2); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 224; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_GIVEREF(__pyx_t_3);
   PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_t_3);
@@ -5758,33 +5848,33 @@ static PyObject *__pyx_f_4dipy_7denoise_5ornlm_upfir(__Pyx_memviewslice __pyx_v_
   PyTuple_SET_ITEM(__pyx_t_5, 1, __pyx_t_4);
   __pyx_t_3 = 0;
   __pyx_t_4 = 0;
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_shape, __pyx_t_5) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 221; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_shape, __pyx_t_5) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 224; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_empty_tuple, __pyx_t_1); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 221; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_empty_tuple, __pyx_t_1); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 224; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_t_6 = __Pyx_PyObject_to_MemoryviewSlice_dsds_double(__pyx_t_5);
-  if (unlikely(!__pyx_t_6.memview)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 221; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (unlikely(!__pyx_t_6.memview)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 224; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   __pyx_v_filtered = __pyx_t_6;
   __pyx_t_6.memview = NULL;
   __pyx_t_6.data = NULL;
 
-  /* "dipy/denoise/ornlm.pyx":222
+  /* "dipy/denoise/ornlm.pyx":225
  *     ll=h.shape[0]
  *     cdef double[:,:] filtered=np.zeros(shape=(2*nrows+ll-2, ncols))
  *     _upfir_matrix(image, h, filtered)             # <<<<<<<<<<<<<<
  *     return filtered
  * 
  */
-  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_upfir_matrix); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 222; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_upfir_matrix); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 225; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __pyx_memoryview_fromslice(__pyx_v_image, 2, (PyObject *(*)(char *)) __pyx_memview_get_double, (int (*)(char *, PyObject *)) __pyx_memview_set_double, 0);; if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 222; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __pyx_memoryview_fromslice(__pyx_v_image, 2, (PyObject *(*)(char *)) __pyx_memview_get_double, (int (*)(char *, PyObject *)) __pyx_memview_set_double, 0);; if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 225; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_4 = __pyx_memoryview_fromslice(__pyx_v_h, 1, (PyObject *(*)(char *)) __pyx_memview_get_double, (int (*)(char *, PyObject *)) __pyx_memview_set_double, 0);; if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 222; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_4 = __pyx_memoryview_fromslice(__pyx_v_h, 1, (PyObject *(*)(char *)) __pyx_memview_get_double, (int (*)(char *, PyObject *)) __pyx_memview_set_double, 0);; if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 225; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_3 = __pyx_memoryview_fromslice(__pyx_v_filtered, 2, (PyObject *(*)(char *)) __pyx_memview_get_double, (int (*)(char *, PyObject *)) __pyx_memview_set_double, 0);; if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 222; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_3 = __pyx_memoryview_fromslice(__pyx_v_filtered, 2, (PyObject *(*)(char *)) __pyx_memview_get_double, (int (*)(char *, PyObject *)) __pyx_memview_set_double, 0);; if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 225; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_7 = NULL;
   __pyx_t_8 = 0;
@@ -5798,7 +5888,7 @@ static PyObject *__pyx_f_4dipy_7denoise_5ornlm_upfir(__Pyx_memviewslice __pyx_v_
       __pyx_t_8 = 1;
     }
   }
-  __pyx_t_9 = PyTuple_New(3+__pyx_t_8); if (unlikely(!__pyx_t_9)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 222; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_9 = PyTuple_New(3+__pyx_t_8); if (unlikely(!__pyx_t_9)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 225; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_9);
   if (__pyx_t_7) {
     __Pyx_GIVEREF(__pyx_t_7); PyTuple_SET_ITEM(__pyx_t_9, 0, __pyx_t_7); __pyx_t_7 = NULL;
@@ -5812,27 +5902,27 @@ static PyObject *__pyx_f_4dipy_7denoise_5ornlm_upfir(__Pyx_memviewslice __pyx_v_
   __pyx_t_2 = 0;
   __pyx_t_4 = 0;
   __pyx_t_3 = 0;
-  __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_9, NULL); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 222; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_9, NULL); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 225; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-  /* "dipy/denoise/ornlm.pyx":223
+  /* "dipy/denoise/ornlm.pyx":226
  *     cdef double[:,:] filtered=np.zeros(shape=(2*nrows+ll-2, ncols))
  *     _upfir_matrix(image, h, filtered)
  *     return filtered             # <<<<<<<<<<<<<<
  * 
- * def ornlm(double [:,:,:]image, int v, int f, double h):
+ * def ornlm(double [:,:,:]image, int v, int f, double h, rician = True):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_5 = __pyx_memoryview_fromslice(__pyx_v_filtered, 2, (PyObject *(*)(char *)) __pyx_memview_get_double, (int (*)(char *, PyObject *)) __pyx_memview_set_double, 0);; if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 223; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_5 = __pyx_memoryview_fromslice(__pyx_v_filtered, 2, (PyObject *(*)(char *)) __pyx_memview_get_double, (int (*)(char *, PyObject *)) __pyx_memview_set_double, 0);; if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 226; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_5);
   __pyx_r = __pyx_t_5;
   __pyx_t_5 = 0;
   goto __pyx_L0;
 
-  /* "dipy/denoise/ornlm.pyx":208
+  /* "dipy/denoise/ornlm.pyx":211
  *     return filtered
  * 
  * cpdef upfir(double[:,:] image, double[:] h):             # <<<<<<<<<<<<<<
@@ -5893,11 +5983,11 @@ static PyObject *__pyx_pw_4dipy_7denoise_5ornlm_21upfir(PyObject *__pyx_self, Py
         case  1:
         if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_h)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("upfir", 1, 2, 2, 1); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 208; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+          __Pyx_RaiseArgtupleInvalid("upfir", 1, 2, 2, 1); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 211; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "upfir") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 208; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "upfir") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 211; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 2) {
       goto __pyx_L5_argtuple_error;
@@ -5905,12 +5995,12 @@ static PyObject *__pyx_pw_4dipy_7denoise_5ornlm_21upfir(PyObject *__pyx_self, Py
       values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
       values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
     }
-    __pyx_v_image = __Pyx_PyObject_to_MemoryviewSlice_dsds_double(values[0]); if (unlikely(!__pyx_v_image.memview)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 208; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
-    __pyx_v_h = __Pyx_PyObject_to_MemoryviewSlice_ds_double(values[1]); if (unlikely(!__pyx_v_h.memview)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 208; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+    __pyx_v_image = __Pyx_PyObject_to_MemoryviewSlice_dsds_double(values[0]); if (unlikely(!__pyx_v_image.memview)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 211; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+    __pyx_v_h = __Pyx_PyObject_to_MemoryviewSlice_ds_double(values[1]); if (unlikely(!__pyx_v_h.memview)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 211; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("upfir", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 208; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+  __Pyx_RaiseArgtupleInvalid("upfir", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 211; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
   __pyx_L3_error:;
   __Pyx_AddTraceback("dipy.denoise.ornlm.upfir", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -5932,9 +6022,9 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_20upfir(CYTHON_UNUSED PyObject *
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("upfir", 0);
   __Pyx_XDECREF(__pyx_r);
-  if (unlikely(!__pyx_v_image.memview)) { __Pyx_RaiseUnboundLocalError("image"); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 208; __pyx_clineno = __LINE__; goto __pyx_L1_error;} }
-  if (unlikely(!__pyx_v_h.memview)) { __Pyx_RaiseUnboundLocalError("h"); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 208; __pyx_clineno = __LINE__; goto __pyx_L1_error;} }
-  __pyx_t_1 = __pyx_f_4dipy_7denoise_5ornlm_upfir(__pyx_v_image, __pyx_v_h, 0); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 208; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (unlikely(!__pyx_v_image.memview)) { __Pyx_RaiseUnboundLocalError("image"); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 211; __pyx_clineno = __LINE__; goto __pyx_L1_error;} }
+  if (unlikely(!__pyx_v_h.memview)) { __Pyx_RaiseUnboundLocalError("h"); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 211; __pyx_clineno = __LINE__; goto __pyx_L1_error;} }
+  __pyx_t_1 = __pyx_f_4dipy_7denoise_5ornlm_upfir(__pyx_v_image, __pyx_v_h, 0); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 211; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -5953,10 +6043,10 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_20upfir(CYTHON_UNUSED PyObject *
   return __pyx_r;
 }
 
-/* "dipy/denoise/ornlm.pyx":225
+/* "dipy/denoise/ornlm.pyx":228
  *     return filtered
  * 
- * def ornlm(double [:,:,:]image, int v, int f, double h):             # <<<<<<<<<<<<<<
+ * def ornlm(double [:,:,:]image, int v, int f, double h, rician = True):             # <<<<<<<<<<<<<<
  *     '''
  *     Filters the given 3D image using optimized non-local means, proposed by
  */
@@ -5970,6 +6060,7 @@ static PyObject *__pyx_pw_4dipy_7denoise_5ornlm_23ornlm(PyObject *__pyx_self, Py
   int __pyx_v_v;
   int __pyx_v_f;
   double __pyx_v_h;
+  PyObject *__pyx_v_rician = 0;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
@@ -5977,12 +6068,14 @@ static PyObject *__pyx_pw_4dipy_7denoise_5ornlm_23ornlm(PyObject *__pyx_self, Py
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("ornlm (wrapper)", 0);
   {
-    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_image,&__pyx_n_s_v,&__pyx_n_s_f,&__pyx_n_s_h,0};
-    PyObject* values[4] = {0,0,0,0};
+    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_image,&__pyx_n_s_v,&__pyx_n_s_f,&__pyx_n_s_h,&__pyx_n_s_rician,0};
+    PyObject* values[5] = {0,0,0,0,0};
+    values[4] = ((PyObject *)Py_True);
     if (unlikely(__pyx_kwds)) {
       Py_ssize_t kw_args;
       const Py_ssize_t pos_args = PyTuple_GET_SIZE(__pyx_args);
       switch (pos_args) {
+        case  5: values[4] = PyTuple_GET_ITEM(__pyx_args, 4);
         case  4: values[3] = PyTuple_GET_ITEM(__pyx_args, 3);
         case  3: values[2] = PyTuple_GET_ITEM(__pyx_args, 2);
         case  2: values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
@@ -5998,51 +6091,60 @@ static PyObject *__pyx_pw_4dipy_7denoise_5ornlm_23ornlm(PyObject *__pyx_self, Py
         case  1:
         if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_v)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("ornlm", 1, 4, 4, 1); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 225; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+          __Pyx_RaiseArgtupleInvalid("ornlm", 0, 4, 5, 1); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 228; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
         }
         case  2:
         if (likely((values[2] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_f)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("ornlm", 1, 4, 4, 2); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 225; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+          __Pyx_RaiseArgtupleInvalid("ornlm", 0, 4, 5, 2); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 228; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
         }
         case  3:
         if (likely((values[3] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_h)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("ornlm", 1, 4, 4, 3); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 225; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+          __Pyx_RaiseArgtupleInvalid("ornlm", 0, 4, 5, 3); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 228; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+        }
+        case  4:
+        if (kw_args > 0) {
+          PyObject* value = PyDict_GetItem(__pyx_kwds, __pyx_n_s_rician);
+          if (value) { values[4] = value; kw_args--; }
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "ornlm") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 225; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "ornlm") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 228; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
       }
-    } else if (PyTuple_GET_SIZE(__pyx_args) != 4) {
-      goto __pyx_L5_argtuple_error;
     } else {
-      values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
-      values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
-      values[2] = PyTuple_GET_ITEM(__pyx_args, 2);
-      values[3] = PyTuple_GET_ITEM(__pyx_args, 3);
+      switch (PyTuple_GET_SIZE(__pyx_args)) {
+        case  5: values[4] = PyTuple_GET_ITEM(__pyx_args, 4);
+        case  4: values[3] = PyTuple_GET_ITEM(__pyx_args, 3);
+        values[2] = PyTuple_GET_ITEM(__pyx_args, 2);
+        values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
+        values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
+        break;
+        default: goto __pyx_L5_argtuple_error;
+      }
     }
-    __pyx_v_image = __Pyx_PyObject_to_MemoryviewSlice_dsdsds_double(values[0]); if (unlikely(!__pyx_v_image.memview)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 225; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
-    __pyx_v_v = __Pyx_PyInt_As_int(values[1]); if (unlikely((__pyx_v_v == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 225; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
-    __pyx_v_f = __Pyx_PyInt_As_int(values[2]); if (unlikely((__pyx_v_f == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 225; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
-    __pyx_v_h = __pyx_PyFloat_AsDouble(values[3]); if (unlikely((__pyx_v_h == (double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 225; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+    __pyx_v_image = __Pyx_PyObject_to_MemoryviewSlice_dsdsds_double(values[0]); if (unlikely(!__pyx_v_image.memview)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 228; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+    __pyx_v_v = __Pyx_PyInt_As_int(values[1]); if (unlikely((__pyx_v_v == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 228; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+    __pyx_v_f = __Pyx_PyInt_As_int(values[2]); if (unlikely((__pyx_v_f == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 228; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+    __pyx_v_h = __pyx_PyFloat_AsDouble(values[3]); if (unlikely((__pyx_v_h == (double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 228; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+    __pyx_v_rician = values[4];
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("ornlm", 1, 4, 4, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 225; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+  __Pyx_RaiseArgtupleInvalid("ornlm", 0, 4, 5, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 228; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
   __pyx_L3_error:;
   __Pyx_AddTraceback("dipy.denoise.ornlm.ornlm", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_4dipy_7denoise_5ornlm_22ornlm(__pyx_self, __pyx_v_image, __pyx_v_v, __pyx_v_f, __pyx_v_h);
+  __pyx_r = __pyx_pf_4dipy_7denoise_5ornlm_22ornlm(__pyx_self, __pyx_v_image, __pyx_v_v, __pyx_v_f, __pyx_v_h, __pyx_v_rician);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_22ornlm(CYTHON_UNUSED PyObject *__pyx_self, __Pyx_memviewslice __pyx_v_image, int __pyx_v_v, int __pyx_v_f, double __pyx_v_h) {
+static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_22ornlm(CYTHON_UNUSED PyObject *__pyx_self, __Pyx_memviewslice __pyx_v_image, int __pyx_v_v, int __pyx_v_f, double __pyx_v_h, PyObject *__pyx_v_rician) {
   __Pyx_memviewslice __pyx_v_dims = { 0, 0, { 0 }, { 0 }, { 0 } };
   double __pyx_v_hh;
   CYTHON_UNUSED int __pyx_v_Ndims;
@@ -6173,31 +6275,31 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_22ornlm(CYTHON_UNUSED PyObject *
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("ornlm", 0);
 
-  /* "dipy/denoise/ornlm.pyx":242
+  /* "dipy/denoise/ornlm.pyx":245
  *             distribution, with mean=0 and standard deviation=h
  *     '''
  *     cdef int[:] dims=cvarray((3,), itemsize=sizeof(int), format="i")             # <<<<<<<<<<<<<<
  *     dims[0]=image.shape[0]
  *     dims[1]=image.shape[1]
  */
-  __pyx_t_1 = PyDict_New(); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 242; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = PyDict_New(); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 245; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyInt_FromSize_t((sizeof(int))); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 242; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_PyInt_FromSize_t((sizeof(int))); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 245; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_itemsize, __pyx_t_2) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 242; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_itemsize, __pyx_t_2) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 245; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_format, __pyx_n_s_i) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 242; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_t_2 = __Pyx_PyObject_Call(((PyObject *)__pyx_array_type), __pyx_tuple__6, __pyx_t_1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 242; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_format, __pyx_n_s_i) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 245; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_PyObject_Call(((PyObject *)__pyx_array_type), __pyx_tuple__6, __pyx_t_1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 245; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_t_3 = __Pyx_PyObject_to_MemoryviewSlice_ds_int(__pyx_t_2);
-  if (unlikely(!__pyx_t_3.memview)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 242; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (unlikely(!__pyx_t_3.memview)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 245; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_v_dims = __pyx_t_3;
   __pyx_t_3.memview = NULL;
   __pyx_t_3.data = NULL;
 
-  /* "dipy/denoise/ornlm.pyx":243
+  /* "dipy/denoise/ornlm.pyx":246
  *     '''
  *     cdef int[:] dims=cvarray((3,), itemsize=sizeof(int), format="i")
  *     dims[0]=image.shape[0]             # <<<<<<<<<<<<<<
@@ -6212,11 +6314,11 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_22ornlm(CYTHON_UNUSED PyObject *
   } else if (unlikely(__pyx_t_4 >= __pyx_v_dims.shape[0])) __pyx_t_5 = 0;
   if (unlikely(__pyx_t_5 != -1)) {
     __Pyx_RaiseBufferIndexError(__pyx_t_5);
-    {__pyx_filename = __pyx_f[0]; __pyx_lineno = 243; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    {__pyx_filename = __pyx_f[0]; __pyx_lineno = 246; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
   *((int *) ( /* dim=0 */ (__pyx_v_dims.data + __pyx_t_4 * __pyx_v_dims.strides[0]) )) = (__pyx_v_image.shape[0]);
 
-  /* "dipy/denoise/ornlm.pyx":244
+  /* "dipy/denoise/ornlm.pyx":247
  *     cdef int[:] dims=cvarray((3,), itemsize=sizeof(int), format="i")
  *     dims[0]=image.shape[0]
  *     dims[1]=image.shape[1]             # <<<<<<<<<<<<<<
@@ -6231,11 +6333,11 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_22ornlm(CYTHON_UNUSED PyObject *
   } else if (unlikely(__pyx_t_6 >= __pyx_v_dims.shape[0])) __pyx_t_5 = 0;
   if (unlikely(__pyx_t_5 != -1)) {
     __Pyx_RaiseBufferIndexError(__pyx_t_5);
-    {__pyx_filename = __pyx_f[0]; __pyx_lineno = 244; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    {__pyx_filename = __pyx_f[0]; __pyx_lineno = 247; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
   *((int *) ( /* dim=0 */ (__pyx_v_dims.data + __pyx_t_6 * __pyx_v_dims.strides[0]) )) = (__pyx_v_image.shape[1]);
 
-  /* "dipy/denoise/ornlm.pyx":245
+  /* "dipy/denoise/ornlm.pyx":248
  *     dims[0]=image.shape[0]
  *     dims[1]=image.shape[1]
  *     dims[2]=image.shape[2]             # <<<<<<<<<<<<<<
@@ -6250,11 +6352,11 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_22ornlm(CYTHON_UNUSED PyObject *
   } else if (unlikely(__pyx_t_7 >= __pyx_v_dims.shape[0])) __pyx_t_5 = 0;
   if (unlikely(__pyx_t_5 != -1)) {
     __Pyx_RaiseBufferIndexError(__pyx_t_5);
-    {__pyx_filename = __pyx_f[0]; __pyx_lineno = 245; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    {__pyx_filename = __pyx_f[0]; __pyx_lineno = 248; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
   *((int *) ( /* dim=0 */ (__pyx_v_dims.data + __pyx_t_7 * __pyx_v_dims.strides[0]) )) = (__pyx_v_image.shape[2]);
 
-  /* "dipy/denoise/ornlm.pyx":246
+  /* "dipy/denoise/ornlm.pyx":249
  *     dims[1]=image.shape[1]
  *     dims[2]=image.shape[2]
  *     cdef double hh=2*h*h             # <<<<<<<<<<<<<<
@@ -6263,7 +6365,7 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_22ornlm(CYTHON_UNUSED PyObject *
  */
   __pyx_v_hh = ((2.0 * __pyx_v_h) * __pyx_v_h);
 
-  /* "dipy/denoise/ornlm.pyx":247
+  /* "dipy/denoise/ornlm.pyx":250
  *     dims[2]=image.shape[2]
  *     cdef double hh=2*h*h
  *     cdef int Ndims=(2*f+1)**3             # <<<<<<<<<<<<<<
@@ -6272,7 +6374,7 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_22ornlm(CYTHON_UNUSED PyObject *
  */
   __pyx_v_Ndims = __Pyx_pow_long(((2 * __pyx_v_f) + 1), 3);
 
-  /* "dipy/denoise/ornlm.pyx":248
+  /* "dipy/denoise/ornlm.pyx":251
  *     cdef double hh=2*h*h
  *     cdef int Ndims=(2*f+1)**3
  *     cdef int nvox=dims[0]*dims[1]*dims[2]             # <<<<<<<<<<<<<<
@@ -6287,7 +6389,7 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_22ornlm(CYTHON_UNUSED PyObject *
   } else if (unlikely(__pyx_t_8 >= __pyx_v_dims.shape[0])) __pyx_t_5 = 0;
   if (unlikely(__pyx_t_5 != -1)) {
     __Pyx_RaiseBufferIndexError(__pyx_t_5);
-    {__pyx_filename = __pyx_f[0]; __pyx_lineno = 248; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    {__pyx_filename = __pyx_f[0]; __pyx_lineno = 251; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
   __pyx_t_9 = 1;
   __pyx_t_5 = -1;
@@ -6297,7 +6399,7 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_22ornlm(CYTHON_UNUSED PyObject *
   } else if (unlikely(__pyx_t_9 >= __pyx_v_dims.shape[0])) __pyx_t_5 = 0;
   if (unlikely(__pyx_t_5 != -1)) {
     __Pyx_RaiseBufferIndexError(__pyx_t_5);
-    {__pyx_filename = __pyx_f[0]; __pyx_lineno = 248; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    {__pyx_filename = __pyx_f[0]; __pyx_lineno = 251; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
   __pyx_t_10 = 2;
   __pyx_t_5 = -1;
@@ -6307,29 +6409,29 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_22ornlm(CYTHON_UNUSED PyObject *
   } else if (unlikely(__pyx_t_10 >= __pyx_v_dims.shape[0])) __pyx_t_5 = 0;
   if (unlikely(__pyx_t_5 != -1)) {
     __Pyx_RaiseBufferIndexError(__pyx_t_5);
-    {__pyx_filename = __pyx_f[0]; __pyx_lineno = 248; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    {__pyx_filename = __pyx_f[0]; __pyx_lineno = 251; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
   __pyx_v_nvox = (((*((int *) ( /* dim=0 */ (__pyx_v_dims.data + __pyx_t_8 * __pyx_v_dims.strides[0]) ))) * (*((int *) ( /* dim=0 */ (__pyx_v_dims.data + __pyx_t_9 * __pyx_v_dims.strides[0]) )))) * (*((int *) ( /* dim=0 */ (__pyx_v_dims.data + __pyx_t_10 * __pyx_v_dims.strides[0]) ))));
 
-  /* "dipy/denoise/ornlm.pyx":249
+  /* "dipy/denoise/ornlm.pyx":252
  *     cdef int Ndims=(2*f+1)**3
  *     cdef int nvox=dims[0]*dims[1]*dims[2]
  *     cdef double[:,:,:] average=np.zeros((2*f+1,2*f+1,2*f+1), dtype=np.float64)             # <<<<<<<<<<<<<<
  *     cdef double[:,:,:] fima=np.zeros_like(image)
  *     cdef double[:,:,:] means=np.zeros_like(image)
  */
-  __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 249; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 252; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_zeros); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 249; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_zeros); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 252; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_PyInt_From_long(((2 * __pyx_v_f) + 1)); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 249; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_PyInt_From_long(((2 * __pyx_v_f) + 1)); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 252; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_11 = __Pyx_PyInt_From_long(((2 * __pyx_v_f) + 1)); if (unlikely(!__pyx_t_11)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 249; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_11 = __Pyx_PyInt_From_long(((2 * __pyx_v_f) + 1)); if (unlikely(!__pyx_t_11)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 252; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_11);
-  __pyx_t_12 = __Pyx_PyInt_From_long(((2 * __pyx_v_f) + 1)); if (unlikely(!__pyx_t_12)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 249; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_12 = __Pyx_PyInt_From_long(((2 * __pyx_v_f) + 1)); if (unlikely(!__pyx_t_12)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 252; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_12);
-  __pyx_t_13 = PyTuple_New(3); if (unlikely(!__pyx_t_13)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 249; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_13 = PyTuple_New(3); if (unlikely(!__pyx_t_13)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 252; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_13);
   __Pyx_GIVEREF(__pyx_t_2);
   PyTuple_SET_ITEM(__pyx_t_13, 0, __pyx_t_2);
@@ -6340,45 +6442,45 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_22ornlm(CYTHON_UNUSED PyObject *
   __pyx_t_2 = 0;
   __pyx_t_11 = 0;
   __pyx_t_12 = 0;
-  __pyx_t_12 = PyTuple_New(1); if (unlikely(!__pyx_t_12)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 249; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_12 = PyTuple_New(1); if (unlikely(!__pyx_t_12)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 252; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_12);
   __Pyx_GIVEREF(__pyx_t_13);
   PyTuple_SET_ITEM(__pyx_t_12, 0, __pyx_t_13);
   __pyx_t_13 = 0;
-  __pyx_t_13 = PyDict_New(); if (unlikely(!__pyx_t_13)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 249; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_13 = PyDict_New(); if (unlikely(!__pyx_t_13)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 252; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_13);
-  __pyx_t_11 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_11)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 249; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_11 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_11)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 252; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_11);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_11, __pyx_n_s_float64); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 249; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_11, __pyx_n_s_float64); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 252; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
-  if (PyDict_SetItem(__pyx_t_13, __pyx_n_s_dtype, __pyx_t_2) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 249; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyDict_SetItem(__pyx_t_13, __pyx_n_s_dtype, __pyx_t_2) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 252; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_12, __pyx_t_13); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 249; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_12, __pyx_t_13); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 252; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
   __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
   __pyx_t_14 = __Pyx_PyObject_to_MemoryviewSlice_dsdsds_double(__pyx_t_2);
-  if (unlikely(!__pyx_t_14.memview)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 249; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (unlikely(!__pyx_t_14.memview)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 252; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_v_average = __pyx_t_14;
   __pyx_t_14.memview = NULL;
   __pyx_t_14.data = NULL;
 
-  /* "dipy/denoise/ornlm.pyx":250
+  /* "dipy/denoise/ornlm.pyx":253
  *     cdef int nvox=dims[0]*dims[1]*dims[2]
  *     cdef double[:,:,:] average=np.zeros((2*f+1,2*f+1,2*f+1), dtype=np.float64)
  *     cdef double[:,:,:] fima=np.zeros_like(image)             # <<<<<<<<<<<<<<
  *     cdef double[:,:,:] means=np.zeros_like(image)
  *     cdef double[:,:,:] variances=np.zeros_like(image)
  */
-  __pyx_t_13 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_13)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 250; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_13 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_13)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 253; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_13);
-  __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_t_13, __pyx_n_s_zeros_like); if (unlikely(!__pyx_t_12)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 250; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_t_13, __pyx_n_s_zeros_like); if (unlikely(!__pyx_t_12)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 253; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_12);
   __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
-  __pyx_t_13 = __pyx_memoryview_fromslice(__pyx_v_image, 3, (PyObject *(*)(char *)) __pyx_memview_get_double, (int (*)(char *, PyObject *)) __pyx_memview_set_double, 0);; if (unlikely(!__pyx_t_13)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 250; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_13 = __pyx_memoryview_fromslice(__pyx_v_image, 3, (PyObject *(*)(char *)) __pyx_memview_get_double, (int (*)(char *, PyObject *)) __pyx_memview_set_double, 0);; if (unlikely(!__pyx_t_13)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 253; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_13);
   __pyx_t_1 = NULL;
   if (CYTHON_COMPILING_IN_CPYTHON && unlikely(PyMethod_Check(__pyx_t_12))) {
@@ -6391,41 +6493,41 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_22ornlm(CYTHON_UNUSED PyObject *
     }
   }
   if (!__pyx_t_1) {
-    __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_12, __pyx_t_13); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 250; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_12, __pyx_t_13); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 253; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
     __Pyx_GOTREF(__pyx_t_2);
   } else {
-    __pyx_t_11 = PyTuple_New(1+1); if (unlikely(!__pyx_t_11)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 250; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_11 = PyTuple_New(1+1); if (unlikely(!__pyx_t_11)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 253; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_11);
     __Pyx_GIVEREF(__pyx_t_1); PyTuple_SET_ITEM(__pyx_t_11, 0, __pyx_t_1); __pyx_t_1 = NULL;
     __Pyx_GIVEREF(__pyx_t_13);
     PyTuple_SET_ITEM(__pyx_t_11, 0+1, __pyx_t_13);
     __pyx_t_13 = 0;
-    __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_12, __pyx_t_11, NULL); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 250; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_12, __pyx_t_11, NULL); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 253; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
   }
   __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
   __pyx_t_14 = __Pyx_PyObject_to_MemoryviewSlice_dsdsds_double(__pyx_t_2);
-  if (unlikely(!__pyx_t_14.memview)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 250; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (unlikely(!__pyx_t_14.memview)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 253; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_v_fima = __pyx_t_14;
   __pyx_t_14.memview = NULL;
   __pyx_t_14.data = NULL;
 
-  /* "dipy/denoise/ornlm.pyx":251
+  /* "dipy/denoise/ornlm.pyx":254
  *     cdef double[:,:,:] average=np.zeros((2*f+1,2*f+1,2*f+1), dtype=np.float64)
  *     cdef double[:,:,:] fima=np.zeros_like(image)
  *     cdef double[:,:,:] means=np.zeros_like(image)             # <<<<<<<<<<<<<<
  *     cdef double[:,:,:] variances=np.zeros_like(image)
  *     cdef double[:,:,:] Estimate=np.zeros_like(image)
  */
-  __pyx_t_12 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_12)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 251; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_12 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_12)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 254; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_12);
-  __pyx_t_11 = __Pyx_PyObject_GetAttrStr(__pyx_t_12, __pyx_n_s_zeros_like); if (unlikely(!__pyx_t_11)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 251; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_11 = __Pyx_PyObject_GetAttrStr(__pyx_t_12, __pyx_n_s_zeros_like); if (unlikely(!__pyx_t_11)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 254; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_11);
   __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
-  __pyx_t_12 = __pyx_memoryview_fromslice(__pyx_v_image, 3, (PyObject *(*)(char *)) __pyx_memview_get_double, (int (*)(char *, PyObject *)) __pyx_memview_set_double, 0);; if (unlikely(!__pyx_t_12)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 251; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_12 = __pyx_memoryview_fromslice(__pyx_v_image, 3, (PyObject *(*)(char *)) __pyx_memview_get_double, (int (*)(char *, PyObject *)) __pyx_memview_set_double, 0);; if (unlikely(!__pyx_t_12)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 254; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_12);
   __pyx_t_13 = NULL;
   if (CYTHON_COMPILING_IN_CPYTHON && unlikely(PyMethod_Check(__pyx_t_11))) {
@@ -6438,41 +6540,41 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_22ornlm(CYTHON_UNUSED PyObject *
     }
   }
   if (!__pyx_t_13) {
-    __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_11, __pyx_t_12); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 251; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_11, __pyx_t_12); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 254; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
     __Pyx_GOTREF(__pyx_t_2);
   } else {
-    __pyx_t_1 = PyTuple_New(1+1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 251; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_1 = PyTuple_New(1+1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 254; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_GIVEREF(__pyx_t_13); PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_t_13); __pyx_t_13 = NULL;
     __Pyx_GIVEREF(__pyx_t_12);
     PyTuple_SET_ITEM(__pyx_t_1, 0+1, __pyx_t_12);
     __pyx_t_12 = 0;
-    __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_11, __pyx_t_1, NULL); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 251; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_11, __pyx_t_1, NULL); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 254; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   }
   __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
   __pyx_t_14 = __Pyx_PyObject_to_MemoryviewSlice_dsdsds_double(__pyx_t_2);
-  if (unlikely(!__pyx_t_14.memview)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 251; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (unlikely(!__pyx_t_14.memview)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 254; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_v_means = __pyx_t_14;
   __pyx_t_14.memview = NULL;
   __pyx_t_14.data = NULL;
 
-  /* "dipy/denoise/ornlm.pyx":252
+  /* "dipy/denoise/ornlm.pyx":255
  *     cdef double[:,:,:] fima=np.zeros_like(image)
  *     cdef double[:,:,:] means=np.zeros_like(image)
  *     cdef double[:,:,:] variances=np.zeros_like(image)             # <<<<<<<<<<<<<<
  *     cdef double[:,:,:] Estimate=np.zeros_like(image)
  *     cdef double[:,:,:] Label=np.zeros_like(image)
  */
-  __pyx_t_11 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_11)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 252; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_11 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_11)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 255; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_11);
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_11, __pyx_n_s_zeros_like); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 252; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_11, __pyx_n_s_zeros_like); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 255; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
-  __pyx_t_11 = __pyx_memoryview_fromslice(__pyx_v_image, 3, (PyObject *(*)(char *)) __pyx_memview_get_double, (int (*)(char *, PyObject *)) __pyx_memview_set_double, 0);; if (unlikely(!__pyx_t_11)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 252; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_11 = __pyx_memoryview_fromslice(__pyx_v_image, 3, (PyObject *(*)(char *)) __pyx_memview_get_double, (int (*)(char *, PyObject *)) __pyx_memview_set_double, 0);; if (unlikely(!__pyx_t_11)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 255; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_11);
   __pyx_t_12 = NULL;
   if (CYTHON_COMPILING_IN_CPYTHON && unlikely(PyMethod_Check(__pyx_t_1))) {
@@ -6485,41 +6587,41 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_22ornlm(CYTHON_UNUSED PyObject *
     }
   }
   if (!__pyx_t_12) {
-    __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_t_11); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 252; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_t_11); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 255; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
     __Pyx_GOTREF(__pyx_t_2);
   } else {
-    __pyx_t_13 = PyTuple_New(1+1); if (unlikely(!__pyx_t_13)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 252; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_13 = PyTuple_New(1+1); if (unlikely(!__pyx_t_13)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 255; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_13);
     __Pyx_GIVEREF(__pyx_t_12); PyTuple_SET_ITEM(__pyx_t_13, 0, __pyx_t_12); __pyx_t_12 = NULL;
     __Pyx_GIVEREF(__pyx_t_11);
     PyTuple_SET_ITEM(__pyx_t_13, 0+1, __pyx_t_11);
     __pyx_t_11 = 0;
-    __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_13, NULL); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 252; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_13, NULL); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 255; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_t_14 = __Pyx_PyObject_to_MemoryviewSlice_dsdsds_double(__pyx_t_2);
-  if (unlikely(!__pyx_t_14.memview)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 252; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (unlikely(!__pyx_t_14.memview)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 255; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_v_variances = __pyx_t_14;
   __pyx_t_14.memview = NULL;
   __pyx_t_14.data = NULL;
 
-  /* "dipy/denoise/ornlm.pyx":253
+  /* "dipy/denoise/ornlm.pyx":256
  *     cdef double[:,:,:] means=np.zeros_like(image)
  *     cdef double[:,:,:] variances=np.zeros_like(image)
  *     cdef double[:,:,:] Estimate=np.zeros_like(image)             # <<<<<<<<<<<<<<
  *     cdef double[:,:,:] Label=np.zeros_like(image)
  *     cdef int i,j,k, ni, nj, nk
  */
-  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 253; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 256; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_13 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_zeros_like); if (unlikely(!__pyx_t_13)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 253; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_13 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_zeros_like); if (unlikely(!__pyx_t_13)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 256; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_13);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = __pyx_memoryview_fromslice(__pyx_v_image, 3, (PyObject *(*)(char *)) __pyx_memview_get_double, (int (*)(char *, PyObject *)) __pyx_memview_set_double, 0);; if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 253; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __pyx_memoryview_fromslice(__pyx_v_image, 3, (PyObject *(*)(char *)) __pyx_memview_get_double, (int (*)(char *, PyObject *)) __pyx_memview_set_double, 0);; if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 256; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_t_11 = NULL;
   if (CYTHON_COMPILING_IN_CPYTHON && unlikely(PyMethod_Check(__pyx_t_13))) {
@@ -6532,41 +6634,41 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_22ornlm(CYTHON_UNUSED PyObject *
     }
   }
   if (!__pyx_t_11) {
-    __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_13, __pyx_t_1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 253; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_13, __pyx_t_1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 256; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __Pyx_GOTREF(__pyx_t_2);
   } else {
-    __pyx_t_12 = PyTuple_New(1+1); if (unlikely(!__pyx_t_12)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 253; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_12 = PyTuple_New(1+1); if (unlikely(!__pyx_t_12)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 256; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_12);
     __Pyx_GIVEREF(__pyx_t_11); PyTuple_SET_ITEM(__pyx_t_12, 0, __pyx_t_11); __pyx_t_11 = NULL;
     __Pyx_GIVEREF(__pyx_t_1);
     PyTuple_SET_ITEM(__pyx_t_12, 0+1, __pyx_t_1);
     __pyx_t_1 = 0;
-    __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_13, __pyx_t_12, NULL); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 253; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_13, __pyx_t_12, NULL); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 256; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
   }
   __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
   __pyx_t_14 = __Pyx_PyObject_to_MemoryviewSlice_dsdsds_double(__pyx_t_2);
-  if (unlikely(!__pyx_t_14.memview)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 253; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (unlikely(!__pyx_t_14.memview)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 256; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_v_Estimate = __pyx_t_14;
   __pyx_t_14.memview = NULL;
   __pyx_t_14.data = NULL;
 
-  /* "dipy/denoise/ornlm.pyx":254
+  /* "dipy/denoise/ornlm.pyx":257
  *     cdef double[:,:,:] variances=np.zeros_like(image)
  *     cdef double[:,:,:] Estimate=np.zeros_like(image)
  *     cdef double[:,:,:] Label=np.zeros_like(image)             # <<<<<<<<<<<<<<
  *     cdef int i,j,k, ni, nj, nk
  *     cdef double mm
  */
-  __pyx_t_13 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_13)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 254; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_13 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_13)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 257; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_13);
-  __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_t_13, __pyx_n_s_zeros_like); if (unlikely(!__pyx_t_12)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 254; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_t_13, __pyx_n_s_zeros_like); if (unlikely(!__pyx_t_12)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 257; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_12);
   __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
-  __pyx_t_13 = __pyx_memoryview_fromslice(__pyx_v_image, 3, (PyObject *(*)(char *)) __pyx_memview_get_double, (int (*)(char *, PyObject *)) __pyx_memview_set_double, 0);; if (unlikely(!__pyx_t_13)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 254; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_13 = __pyx_memoryview_fromslice(__pyx_v_image, 3, (PyObject *(*)(char *)) __pyx_memview_get_double, (int (*)(char *, PyObject *)) __pyx_memview_set_double, 0);; if (unlikely(!__pyx_t_13)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 257; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_13);
   __pyx_t_1 = NULL;
   if (CYTHON_COMPILING_IN_CPYTHON && unlikely(PyMethod_Check(__pyx_t_12))) {
@@ -6579,29 +6681,29 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_22ornlm(CYTHON_UNUSED PyObject *
     }
   }
   if (!__pyx_t_1) {
-    __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_12, __pyx_t_13); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 254; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_12, __pyx_t_13); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 257; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
     __Pyx_GOTREF(__pyx_t_2);
   } else {
-    __pyx_t_11 = PyTuple_New(1+1); if (unlikely(!__pyx_t_11)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 254; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_11 = PyTuple_New(1+1); if (unlikely(!__pyx_t_11)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 257; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_11);
     __Pyx_GIVEREF(__pyx_t_1); PyTuple_SET_ITEM(__pyx_t_11, 0, __pyx_t_1); __pyx_t_1 = NULL;
     __Pyx_GIVEREF(__pyx_t_13);
     PyTuple_SET_ITEM(__pyx_t_11, 0+1, __pyx_t_13);
     __pyx_t_13 = 0;
-    __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_12, __pyx_t_11, NULL); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 254; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_12, __pyx_t_11, NULL); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 257; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
   }
   __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
   __pyx_t_14 = __Pyx_PyObject_to_MemoryviewSlice_dsdsds_double(__pyx_t_2);
-  if (unlikely(!__pyx_t_14.memview)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 254; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (unlikely(!__pyx_t_14.memview)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 257; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_v_Label = __pyx_t_14;
   __pyx_t_14.memview = NULL;
   __pyx_t_14.data = NULL;
 
-  /* "dipy/denoise/ornlm.pyx":257
+  /* "dipy/denoise/ornlm.pyx":260
  *     cdef int i,j,k, ni, nj, nk
  *     cdef double mm
  *     for k in range(dims[2]):             # <<<<<<<<<<<<<<
@@ -6616,13 +6718,13 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_22ornlm(CYTHON_UNUSED PyObject *
   } else if (unlikely(__pyx_t_15 >= __pyx_v_dims.shape[0])) __pyx_t_5 = 0;
   if (unlikely(__pyx_t_5 != -1)) {
     __Pyx_RaiseBufferIndexError(__pyx_t_5);
-    {__pyx_filename = __pyx_f[0]; __pyx_lineno = 257; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    {__pyx_filename = __pyx_f[0]; __pyx_lineno = 260; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
   __pyx_t_5 = (*((int *) ( /* dim=0 */ (__pyx_v_dims.data + __pyx_t_15 * __pyx_v_dims.strides[0]) )));
   for (__pyx_t_16 = 0; __pyx_t_16 < __pyx_t_5; __pyx_t_16+=1) {
     __pyx_v_k = __pyx_t_16;
 
-    /* "dipy/denoise/ornlm.pyx":258
+    /* "dipy/denoise/ornlm.pyx":261
  *     cdef double mm
  *     for k in range(dims[2]):
  *         for i in range(dims[1]):             # <<<<<<<<<<<<<<
@@ -6637,13 +6739,13 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_22ornlm(CYTHON_UNUSED PyObject *
     } else if (unlikely(__pyx_t_17 >= __pyx_v_dims.shape[0])) __pyx_t_18 = 0;
     if (unlikely(__pyx_t_18 != -1)) {
       __Pyx_RaiseBufferIndexError(__pyx_t_18);
-      {__pyx_filename = __pyx_f[0]; __pyx_lineno = 258; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      {__pyx_filename = __pyx_f[0]; __pyx_lineno = 261; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     }
     __pyx_t_18 = (*((int *) ( /* dim=0 */ (__pyx_v_dims.data + __pyx_t_17 * __pyx_v_dims.strides[0]) )));
     for (__pyx_t_19 = 0; __pyx_t_19 < __pyx_t_18; __pyx_t_19+=1) {
       __pyx_v_i = __pyx_t_19;
 
-      /* "dipy/denoise/ornlm.pyx":259
+      /* "dipy/denoise/ornlm.pyx":262
  *     for k in range(dims[2]):
  *         for i in range(dims[1]):
  *             for j in range(dims[0]):             # <<<<<<<<<<<<<<
@@ -6658,28 +6760,28 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_22ornlm(CYTHON_UNUSED PyObject *
       } else if (unlikely(__pyx_t_20 >= __pyx_v_dims.shape[0])) __pyx_t_21 = 0;
       if (unlikely(__pyx_t_21 != -1)) {
         __Pyx_RaiseBufferIndexError(__pyx_t_21);
-        {__pyx_filename = __pyx_f[0]; __pyx_lineno = 259; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+        {__pyx_filename = __pyx_f[0]; __pyx_lineno = 262; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       }
       __pyx_t_21 = (*((int *) ( /* dim=0 */ (__pyx_v_dims.data + __pyx_t_20 * __pyx_v_dims.strides[0]) )));
       for (__pyx_t_22 = 0; __pyx_t_22 < __pyx_t_21; __pyx_t_22+=1) {
         __pyx_v_j = __pyx_t_22;
 
-        /* "dipy/denoise/ornlm.pyx":260
+        /* "dipy/denoise/ornlm.pyx":263
  *         for i in range(dims[1]):
  *             for j in range(dims[0]):
  *                 mm=_local_mean(image,j,i,k)             # <<<<<<<<<<<<<<
  *                 means[j,i,k]=mm
  *                 variances[j,i,k]=_local_variance(image, mm, j, i, k)
  */
-        __pyx_t_12 = __Pyx_GetModuleGlobalName(__pyx_n_s_local_mean); if (unlikely(!__pyx_t_12)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 260; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+        __pyx_t_12 = __Pyx_GetModuleGlobalName(__pyx_n_s_local_mean); if (unlikely(!__pyx_t_12)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 263; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         __Pyx_GOTREF(__pyx_t_12);
-        __pyx_t_11 = __pyx_memoryview_fromslice(__pyx_v_image, 3, (PyObject *(*)(char *)) __pyx_memview_get_double, (int (*)(char *, PyObject *)) __pyx_memview_set_double, 0);; if (unlikely(!__pyx_t_11)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 260; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+        __pyx_t_11 = __pyx_memoryview_fromslice(__pyx_v_image, 3, (PyObject *(*)(char *)) __pyx_memview_get_double, (int (*)(char *, PyObject *)) __pyx_memview_set_double, 0);; if (unlikely(!__pyx_t_11)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 263; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         __Pyx_GOTREF(__pyx_t_11);
-        __pyx_t_13 = __Pyx_PyInt_From_int(__pyx_v_j); if (unlikely(!__pyx_t_13)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 260; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+        __pyx_t_13 = __Pyx_PyInt_From_int(__pyx_v_j); if (unlikely(!__pyx_t_13)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 263; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         __Pyx_GOTREF(__pyx_t_13);
-        __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_i); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 260; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+        __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_i); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 263; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         __Pyx_GOTREF(__pyx_t_1);
-        __pyx_t_23 = __Pyx_PyInt_From_int(__pyx_v_k); if (unlikely(!__pyx_t_23)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 260; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+        __pyx_t_23 = __Pyx_PyInt_From_int(__pyx_v_k); if (unlikely(!__pyx_t_23)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 263; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         __Pyx_GOTREF(__pyx_t_23);
         __pyx_t_24 = NULL;
         __pyx_t_25 = 0;
@@ -6693,7 +6795,7 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_22ornlm(CYTHON_UNUSED PyObject *
             __pyx_t_25 = 1;
           }
         }
-        __pyx_t_26 = PyTuple_New(4+__pyx_t_25); if (unlikely(!__pyx_t_26)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 260; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+        __pyx_t_26 = PyTuple_New(4+__pyx_t_25); if (unlikely(!__pyx_t_26)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 263; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         __Pyx_GOTREF(__pyx_t_26);
         if (__pyx_t_24) {
           __Pyx_GIVEREF(__pyx_t_24); PyTuple_SET_ITEM(__pyx_t_26, 0, __pyx_t_24); __pyx_t_24 = NULL;
@@ -6710,15 +6812,15 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_22ornlm(CYTHON_UNUSED PyObject *
         __pyx_t_13 = 0;
         __pyx_t_1 = 0;
         __pyx_t_23 = 0;
-        __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_12, __pyx_t_26, NULL); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 260; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+        __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_12, __pyx_t_26, NULL); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 263; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         __Pyx_GOTREF(__pyx_t_2);
         __Pyx_DECREF(__pyx_t_26); __pyx_t_26 = 0;
         __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
-        __pyx_t_27 = __pyx_PyFloat_AsDouble(__pyx_t_2); if (unlikely((__pyx_t_27 == (double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 260; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+        __pyx_t_27 = __pyx_PyFloat_AsDouble(__pyx_t_2); if (unlikely((__pyx_t_27 == (double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 263; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
         __pyx_v_mm = __pyx_t_27;
 
-        /* "dipy/denoise/ornlm.pyx":261
+        /* "dipy/denoise/ornlm.pyx":264
  *             for j in range(dims[0]):
  *                 mm=_local_mean(image,j,i,k)
  *                 means[j,i,k]=mm             # <<<<<<<<<<<<<<
@@ -6743,28 +6845,28 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_22ornlm(CYTHON_UNUSED PyObject *
         } else if (unlikely(__pyx_t_30 >= __pyx_v_means.shape[2])) __pyx_t_31 = 2;
         if (unlikely(__pyx_t_31 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_31);
-          {__pyx_filename = __pyx_f[0]; __pyx_lineno = 261; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+          {__pyx_filename = __pyx_f[0]; __pyx_lineno = 264; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         }
         *((double *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_means.data + __pyx_t_28 * __pyx_v_means.strides[0]) ) + __pyx_t_29 * __pyx_v_means.strides[1]) ) + __pyx_t_30 * __pyx_v_means.strides[2]) )) = __pyx_v_mm;
 
-        /* "dipy/denoise/ornlm.pyx":262
+        /* "dipy/denoise/ornlm.pyx":265
  *                 mm=_local_mean(image,j,i,k)
  *                 means[j,i,k]=mm
  *                 variances[j,i,k]=_local_variance(image, mm, j, i, k)             # <<<<<<<<<<<<<<
  *     cdef double epsilon = 0.00001
  *     cdef double mu1 = 0.95
  */
-        __pyx_t_12 = __Pyx_GetModuleGlobalName(__pyx_n_s_local_variance); if (unlikely(!__pyx_t_12)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 262; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+        __pyx_t_12 = __Pyx_GetModuleGlobalName(__pyx_n_s_local_variance); if (unlikely(!__pyx_t_12)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 265; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         __Pyx_GOTREF(__pyx_t_12);
-        __pyx_t_26 = __pyx_memoryview_fromslice(__pyx_v_image, 3, (PyObject *(*)(char *)) __pyx_memview_get_double, (int (*)(char *, PyObject *)) __pyx_memview_set_double, 0);; if (unlikely(!__pyx_t_26)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 262; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+        __pyx_t_26 = __pyx_memoryview_fromslice(__pyx_v_image, 3, (PyObject *(*)(char *)) __pyx_memview_get_double, (int (*)(char *, PyObject *)) __pyx_memview_set_double, 0);; if (unlikely(!__pyx_t_26)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 265; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         __Pyx_GOTREF(__pyx_t_26);
-        __pyx_t_23 = PyFloat_FromDouble(__pyx_v_mm); if (unlikely(!__pyx_t_23)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 262; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+        __pyx_t_23 = PyFloat_FromDouble(__pyx_v_mm); if (unlikely(!__pyx_t_23)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 265; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         __Pyx_GOTREF(__pyx_t_23);
-        __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_j); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 262; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+        __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_j); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 265; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         __Pyx_GOTREF(__pyx_t_1);
-        __pyx_t_13 = __Pyx_PyInt_From_int(__pyx_v_i); if (unlikely(!__pyx_t_13)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 262; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+        __pyx_t_13 = __Pyx_PyInt_From_int(__pyx_v_i); if (unlikely(!__pyx_t_13)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 265; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         __Pyx_GOTREF(__pyx_t_13);
-        __pyx_t_11 = __Pyx_PyInt_From_int(__pyx_v_k); if (unlikely(!__pyx_t_11)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 262; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+        __pyx_t_11 = __Pyx_PyInt_From_int(__pyx_v_k); if (unlikely(!__pyx_t_11)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 265; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         __Pyx_GOTREF(__pyx_t_11);
         __pyx_t_24 = NULL;
         __pyx_t_25 = 0;
@@ -6778,7 +6880,7 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_22ornlm(CYTHON_UNUSED PyObject *
             __pyx_t_25 = 1;
           }
         }
-        __pyx_t_32 = PyTuple_New(5+__pyx_t_25); if (unlikely(!__pyx_t_32)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 262; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+        __pyx_t_32 = PyTuple_New(5+__pyx_t_25); if (unlikely(!__pyx_t_32)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 265; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         __Pyx_GOTREF(__pyx_t_32);
         if (__pyx_t_24) {
           __Pyx_GIVEREF(__pyx_t_24); PyTuple_SET_ITEM(__pyx_t_32, 0, __pyx_t_24); __pyx_t_24 = NULL;
@@ -6798,11 +6900,11 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_22ornlm(CYTHON_UNUSED PyObject *
         __pyx_t_1 = 0;
         __pyx_t_13 = 0;
         __pyx_t_11 = 0;
-        __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_12, __pyx_t_32, NULL); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 262; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+        __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_12, __pyx_t_32, NULL); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 265; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         __Pyx_GOTREF(__pyx_t_2);
         __Pyx_DECREF(__pyx_t_32); __pyx_t_32 = 0;
         __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
-        __pyx_t_27 = __pyx_PyFloat_AsDouble(__pyx_t_2); if (unlikely((__pyx_t_27 == (double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 262; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+        __pyx_t_27 = __pyx_PyFloat_AsDouble(__pyx_t_2); if (unlikely((__pyx_t_27 == (double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 265; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
         __pyx_t_33 = __pyx_v_j;
         __pyx_t_34 = __pyx_v_i;
@@ -6822,14 +6924,14 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_22ornlm(CYTHON_UNUSED PyObject *
         } else if (unlikely(__pyx_t_35 >= __pyx_v_variances.shape[2])) __pyx_t_31 = 2;
         if (unlikely(__pyx_t_31 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_31);
-          {__pyx_filename = __pyx_f[0]; __pyx_lineno = 262; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+          {__pyx_filename = __pyx_f[0]; __pyx_lineno = 265; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         }
         *((double *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_variances.data + __pyx_t_33 * __pyx_v_variances.strides[0]) ) + __pyx_t_34 * __pyx_v_variances.strides[1]) ) + __pyx_t_35 * __pyx_v_variances.strides[2]) )) = __pyx_t_27;
       }
     }
   }
 
-  /* "dipy/denoise/ornlm.pyx":263
+  /* "dipy/denoise/ornlm.pyx":266
  *                 means[j,i,k]=mm
  *                 variances[j,i,k]=_local_variance(image, mm, j, i, k)
  *     cdef double epsilon = 0.00001             # <<<<<<<<<<<<<<
@@ -6838,7 +6940,7 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_22ornlm(CYTHON_UNUSED PyObject *
  */
   __pyx_v_epsilon = 0.00001;
 
-  /* "dipy/denoise/ornlm.pyx":264
+  /* "dipy/denoise/ornlm.pyx":267
  *                 variances[j,i,k]=_local_variance(image, mm, j, i, k)
  *     cdef double epsilon = 0.00001
  *     cdef double mu1 = 0.95             # <<<<<<<<<<<<<<
@@ -6847,7 +6949,7 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_22ornlm(CYTHON_UNUSED PyObject *
  */
   __pyx_v_mu1 = 0.95;
 
-  /* "dipy/denoise/ornlm.pyx":265
+  /* "dipy/denoise/ornlm.pyx":268
  *     cdef double epsilon = 0.00001
  *     cdef double mu1 = 0.95
  *     cdef double var1 = 0.5+1e-7             # <<<<<<<<<<<<<<
@@ -6856,7 +6958,7 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_22ornlm(CYTHON_UNUSED PyObject *
  */
   __pyx_v_var1 = (0.5 + 1e-7);
 
-  /* "dipy/denoise/ornlm.pyx":267
+  /* "dipy/denoise/ornlm.pyx":270
  *     cdef double var1 = 0.5+1e-7
  *     cdef double totalWeight, wmax, d, w
  *     for k in range(0, dims[2], 2):             # <<<<<<<<<<<<<<
@@ -6871,13 +6973,13 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_22ornlm(CYTHON_UNUSED PyObject *
   } else if (unlikely(__pyx_t_36 >= __pyx_v_dims.shape[0])) __pyx_t_5 = 0;
   if (unlikely(__pyx_t_5 != -1)) {
     __Pyx_RaiseBufferIndexError(__pyx_t_5);
-    {__pyx_filename = __pyx_f[0]; __pyx_lineno = 267; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    {__pyx_filename = __pyx_f[0]; __pyx_lineno = 270; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
   __pyx_t_5 = (*((int *) ( /* dim=0 */ (__pyx_v_dims.data + __pyx_t_36 * __pyx_v_dims.strides[0]) )));
   for (__pyx_t_16 = 0; __pyx_t_16 < __pyx_t_5; __pyx_t_16+=2) {
     __pyx_v_k = __pyx_t_16;
 
-    /* "dipy/denoise/ornlm.pyx":268
+    /* "dipy/denoise/ornlm.pyx":271
  *     cdef double totalWeight, wmax, d, w
  *     for k in range(0, dims[2], 2):
  *         for i in range(0, dims[1], 2):             # <<<<<<<<<<<<<<
@@ -6892,13 +6994,13 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_22ornlm(CYTHON_UNUSED PyObject *
     } else if (unlikely(__pyx_t_37 >= __pyx_v_dims.shape[0])) __pyx_t_18 = 0;
     if (unlikely(__pyx_t_18 != -1)) {
       __Pyx_RaiseBufferIndexError(__pyx_t_18);
-      {__pyx_filename = __pyx_f[0]; __pyx_lineno = 268; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      {__pyx_filename = __pyx_f[0]; __pyx_lineno = 271; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     }
     __pyx_t_18 = (*((int *) ( /* dim=0 */ (__pyx_v_dims.data + __pyx_t_37 * __pyx_v_dims.strides[0]) )));
     for (__pyx_t_19 = 0; __pyx_t_19 < __pyx_t_18; __pyx_t_19+=2) {
       __pyx_v_i = __pyx_t_19;
 
-      /* "dipy/denoise/ornlm.pyx":269
+      /* "dipy/denoise/ornlm.pyx":272
  *     for k in range(0, dims[2], 2):
  *         for i in range(0, dims[1], 2):
  *             for j in range(0, dims[0], 2):             # <<<<<<<<<<<<<<
@@ -6913,13 +7015,13 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_22ornlm(CYTHON_UNUSED PyObject *
       } else if (unlikely(__pyx_t_38 >= __pyx_v_dims.shape[0])) __pyx_t_21 = 0;
       if (unlikely(__pyx_t_21 != -1)) {
         __Pyx_RaiseBufferIndexError(__pyx_t_21);
-        {__pyx_filename = __pyx_f[0]; __pyx_lineno = 269; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+        {__pyx_filename = __pyx_f[0]; __pyx_lineno = 272; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       }
       __pyx_t_21 = (*((int *) ( /* dim=0 */ (__pyx_v_dims.data + __pyx_t_38 * __pyx_v_dims.strides[0]) )));
       for (__pyx_t_22 = 0; __pyx_t_22 < __pyx_t_21; __pyx_t_22+=2) {
         __pyx_v_j = __pyx_t_22;
 
-        /* "dipy/denoise/ornlm.pyx":270
+        /* "dipy/denoise/ornlm.pyx":273
  *         for i in range(0, dims[1], 2):
  *             for j in range(0, dims[0], 2):
  *                 average[...]=0             # <<<<<<<<<<<<<<
@@ -6957,7 +7059,7 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_22ornlm(CYTHON_UNUSED PyObject *
             }
         }
 
-        /* "dipy/denoise/ornlm.pyx":271
+        /* "dipy/denoise/ornlm.pyx":274
  *             for j in range(0, dims[0], 2):
  *                 average[...]=0
  *                 totalWeight=0             # <<<<<<<<<<<<<<
@@ -6966,7 +7068,7 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_22ornlm(CYTHON_UNUSED PyObject *
  */
         __pyx_v_totalWeight = 0.0;
 
-        /* "dipy/denoise/ornlm.pyx":272
+        /* "dipy/denoise/ornlm.pyx":275
  *                 average[...]=0
  *                 totalWeight=0
  *                 if (means[j,i,k]<=epsilon) or (variances[j,i,k]<=epsilon):             # <<<<<<<<<<<<<<
@@ -6991,7 +7093,7 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_22ornlm(CYTHON_UNUSED PyObject *
         } else if (unlikely(__pyx_t_42 >= __pyx_v_means.shape[2])) __pyx_t_31 = 2;
         if (unlikely(__pyx_t_31 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_31);
-          {__pyx_filename = __pyx_f[0]; __pyx_lineno = 272; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+          {__pyx_filename = __pyx_f[0]; __pyx_lineno = 275; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         }
         __pyx_t_43 = (((*((double *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_means.data + __pyx_t_40 * __pyx_v_means.strides[0]) ) + __pyx_t_41 * __pyx_v_means.strides[1]) ) + __pyx_t_42 * __pyx_v_means.strides[2]) ))) <= __pyx_v_epsilon) != 0);
         if (!__pyx_t_43) {
@@ -7017,14 +7119,14 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_22ornlm(CYTHON_UNUSED PyObject *
         } else if (unlikely(__pyx_t_46 >= __pyx_v_variances.shape[2])) __pyx_t_31 = 2;
         if (unlikely(__pyx_t_31 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_31);
-          {__pyx_filename = __pyx_f[0]; __pyx_lineno = 272; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+          {__pyx_filename = __pyx_f[0]; __pyx_lineno = 275; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         }
         __pyx_t_43 = (((*((double *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_variances.data + __pyx_t_44 * __pyx_v_variances.strides[0]) ) + __pyx_t_45 * __pyx_v_variances.strides[1]) ) + __pyx_t_46 * __pyx_v_variances.strides[2]) ))) <= __pyx_v_epsilon) != 0);
         __pyx_t_39 = __pyx_t_43;
         __pyx_L16_bool_binop_done:;
         if (__pyx_t_39) {
 
-          /* "dipy/denoise/ornlm.pyx":273
+          /* "dipy/denoise/ornlm.pyx":276
  *                 totalWeight=0
  *                 if (means[j,i,k]<=epsilon) or (variances[j,i,k]<=epsilon):
  *                     wmax=1.0             # <<<<<<<<<<<<<<
@@ -7033,26 +7135,26 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_22ornlm(CYTHON_UNUSED PyObject *
  */
           __pyx_v_wmax = 1.0;
 
-          /* "dipy/denoise/ornlm.pyx":274
+          /* "dipy/denoise/ornlm.pyx":277
  *                 if (means[j,i,k]<=epsilon) or (variances[j,i,k]<=epsilon):
  *                     wmax=1.0
  *                     _average_block(image, i, j, k, average, wmax)             # <<<<<<<<<<<<<<
  *                     totalWeight+=wmax
  *                     _value_block(Estimate, Label, i, j, k,
  */
-          __pyx_t_12 = __Pyx_GetModuleGlobalName(__pyx_n_s_average_block); if (unlikely(!__pyx_t_12)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 274; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+          __pyx_t_12 = __Pyx_GetModuleGlobalName(__pyx_n_s_average_block); if (unlikely(!__pyx_t_12)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 277; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
           __Pyx_GOTREF(__pyx_t_12);
-          __pyx_t_32 = __pyx_memoryview_fromslice(__pyx_v_image, 3, (PyObject *(*)(char *)) __pyx_memview_get_double, (int (*)(char *, PyObject *)) __pyx_memview_set_double, 0);; if (unlikely(!__pyx_t_32)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 274; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+          __pyx_t_32 = __pyx_memoryview_fromslice(__pyx_v_image, 3, (PyObject *(*)(char *)) __pyx_memview_get_double, (int (*)(char *, PyObject *)) __pyx_memview_set_double, 0);; if (unlikely(!__pyx_t_32)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 277; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
           __Pyx_GOTREF(__pyx_t_32);
-          __pyx_t_11 = __Pyx_PyInt_From_int(__pyx_v_i); if (unlikely(!__pyx_t_11)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 274; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+          __pyx_t_11 = __Pyx_PyInt_From_int(__pyx_v_i); if (unlikely(!__pyx_t_11)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 277; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
           __Pyx_GOTREF(__pyx_t_11);
-          __pyx_t_13 = __Pyx_PyInt_From_int(__pyx_v_j); if (unlikely(!__pyx_t_13)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 274; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+          __pyx_t_13 = __Pyx_PyInt_From_int(__pyx_v_j); if (unlikely(!__pyx_t_13)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 277; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
           __Pyx_GOTREF(__pyx_t_13);
-          __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_k); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 274; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+          __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_k); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 277; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
           __Pyx_GOTREF(__pyx_t_1);
-          __pyx_t_23 = __pyx_memoryview_fromslice(__pyx_v_average, 3, (PyObject *(*)(char *)) __pyx_memview_get_double, (int (*)(char *, PyObject *)) __pyx_memview_set_double, 0);; if (unlikely(!__pyx_t_23)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 274; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+          __pyx_t_23 = __pyx_memoryview_fromslice(__pyx_v_average, 3, (PyObject *(*)(char *)) __pyx_memview_get_double, (int (*)(char *, PyObject *)) __pyx_memview_set_double, 0);; if (unlikely(!__pyx_t_23)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 277; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
           __Pyx_GOTREF(__pyx_t_23);
-          __pyx_t_26 = PyFloat_FromDouble(__pyx_v_wmax); if (unlikely(!__pyx_t_26)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 274; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+          __pyx_t_26 = PyFloat_FromDouble(__pyx_v_wmax); if (unlikely(!__pyx_t_26)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 277; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
           __Pyx_GOTREF(__pyx_t_26);
           __pyx_t_24 = NULL;
           __pyx_t_25 = 0;
@@ -7066,7 +7168,7 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_22ornlm(CYTHON_UNUSED PyObject *
               __pyx_t_25 = 1;
             }
           }
-          __pyx_t_47 = PyTuple_New(6+__pyx_t_25); if (unlikely(!__pyx_t_47)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 274; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+          __pyx_t_47 = PyTuple_New(6+__pyx_t_25); if (unlikely(!__pyx_t_47)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 277; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
           __Pyx_GOTREF(__pyx_t_47);
           if (__pyx_t_24) {
             __Pyx_GIVEREF(__pyx_t_24); PyTuple_SET_ITEM(__pyx_t_47, 0, __pyx_t_24); __pyx_t_24 = NULL;
@@ -7089,13 +7191,13 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_22ornlm(CYTHON_UNUSED PyObject *
           __pyx_t_1 = 0;
           __pyx_t_23 = 0;
           __pyx_t_26 = 0;
-          __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_12, __pyx_t_47, NULL); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 274; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+          __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_12, __pyx_t_47, NULL); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 277; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
           __Pyx_GOTREF(__pyx_t_2);
           __Pyx_DECREF(__pyx_t_47); __pyx_t_47 = 0;
           __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
           __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-          /* "dipy/denoise/ornlm.pyx":275
+          /* "dipy/denoise/ornlm.pyx":278
  *                     wmax=1.0
  *                     _average_block(image, i, j, k, average, wmax)
  *                     totalWeight+=wmax             # <<<<<<<<<<<<<<
@@ -7104,38 +7206,38 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_22ornlm(CYTHON_UNUSED PyObject *
  */
           __pyx_v_totalWeight = (__pyx_v_totalWeight + __pyx_v_wmax);
 
-          /* "dipy/denoise/ornlm.pyx":276
+          /* "dipy/denoise/ornlm.pyx":279
  *                     _average_block(image, i, j, k, average, wmax)
  *                     totalWeight+=wmax
  *                     _value_block(Estimate, Label, i, j, k,             # <<<<<<<<<<<<<<
  *                                  average, totalWeight, hh)
  *                 else:
  */
-          __pyx_t_12 = __Pyx_GetModuleGlobalName(__pyx_n_s_value_block); if (unlikely(!__pyx_t_12)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 276; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+          __pyx_t_12 = __Pyx_GetModuleGlobalName(__pyx_n_s_value_block); if (unlikely(!__pyx_t_12)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 279; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
           __Pyx_GOTREF(__pyx_t_12);
-          __pyx_t_47 = __pyx_memoryview_fromslice(__pyx_v_Estimate, 3, (PyObject *(*)(char *)) __pyx_memview_get_double, (int (*)(char *, PyObject *)) __pyx_memview_set_double, 0);; if (unlikely(!__pyx_t_47)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 276; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+          __pyx_t_47 = __pyx_memoryview_fromslice(__pyx_v_Estimate, 3, (PyObject *(*)(char *)) __pyx_memview_get_double, (int (*)(char *, PyObject *)) __pyx_memview_set_double, 0);; if (unlikely(!__pyx_t_47)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 279; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
           __Pyx_GOTREF(__pyx_t_47);
-          __pyx_t_26 = __pyx_memoryview_fromslice(__pyx_v_Label, 3, (PyObject *(*)(char *)) __pyx_memview_get_double, (int (*)(char *, PyObject *)) __pyx_memview_set_double, 0);; if (unlikely(!__pyx_t_26)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 276; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+          __pyx_t_26 = __pyx_memoryview_fromslice(__pyx_v_Label, 3, (PyObject *(*)(char *)) __pyx_memview_get_double, (int (*)(char *, PyObject *)) __pyx_memview_set_double, 0);; if (unlikely(!__pyx_t_26)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 279; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
           __Pyx_GOTREF(__pyx_t_26);
-          __pyx_t_23 = __Pyx_PyInt_From_int(__pyx_v_i); if (unlikely(!__pyx_t_23)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 276; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+          __pyx_t_23 = __Pyx_PyInt_From_int(__pyx_v_i); if (unlikely(!__pyx_t_23)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 279; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
           __Pyx_GOTREF(__pyx_t_23);
-          __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_j); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 276; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+          __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_j); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 279; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
           __Pyx_GOTREF(__pyx_t_1);
-          __pyx_t_13 = __Pyx_PyInt_From_int(__pyx_v_k); if (unlikely(!__pyx_t_13)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 276; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+          __pyx_t_13 = __Pyx_PyInt_From_int(__pyx_v_k); if (unlikely(!__pyx_t_13)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 279; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
           __Pyx_GOTREF(__pyx_t_13);
 
-          /* "dipy/denoise/ornlm.pyx":277
+          /* "dipy/denoise/ornlm.pyx":280
  *                     totalWeight+=wmax
  *                     _value_block(Estimate, Label, i, j, k,
  *                                  average, totalWeight, hh)             # <<<<<<<<<<<<<<
  *                 else:
  *                     wmax=0
  */
-          __pyx_t_11 = __pyx_memoryview_fromslice(__pyx_v_average, 3, (PyObject *(*)(char *)) __pyx_memview_get_double, (int (*)(char *, PyObject *)) __pyx_memview_set_double, 0);; if (unlikely(!__pyx_t_11)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 277; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+          __pyx_t_11 = __pyx_memoryview_fromslice(__pyx_v_average, 3, (PyObject *(*)(char *)) __pyx_memview_get_double, (int (*)(char *, PyObject *)) __pyx_memview_set_double, 0);; if (unlikely(!__pyx_t_11)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 280; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
           __Pyx_GOTREF(__pyx_t_11);
-          __pyx_t_32 = PyFloat_FromDouble(__pyx_v_totalWeight); if (unlikely(!__pyx_t_32)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 277; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+          __pyx_t_32 = PyFloat_FromDouble(__pyx_v_totalWeight); if (unlikely(!__pyx_t_32)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 280; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
           __Pyx_GOTREF(__pyx_t_32);
-          __pyx_t_24 = PyFloat_FromDouble(__pyx_v_hh); if (unlikely(!__pyx_t_24)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 277; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+          __pyx_t_24 = PyFloat_FromDouble(__pyx_v_hh); if (unlikely(!__pyx_t_24)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 280; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
           __Pyx_GOTREF(__pyx_t_24);
           __pyx_t_48 = NULL;
           __pyx_t_25 = 0;
@@ -7149,7 +7251,7 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_22ornlm(CYTHON_UNUSED PyObject *
               __pyx_t_25 = 1;
             }
           }
-          __pyx_t_49 = PyTuple_New(8+__pyx_t_25); if (unlikely(!__pyx_t_49)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 276; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+          __pyx_t_49 = PyTuple_New(8+__pyx_t_25); if (unlikely(!__pyx_t_49)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 279; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
           __Pyx_GOTREF(__pyx_t_49);
           if (__pyx_t_48) {
             __Pyx_GIVEREF(__pyx_t_48); PyTuple_SET_ITEM(__pyx_t_49, 0, __pyx_t_48); __pyx_t_48 = NULL;
@@ -7178,13 +7280,13 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_22ornlm(CYTHON_UNUSED PyObject *
           __pyx_t_11 = 0;
           __pyx_t_32 = 0;
           __pyx_t_24 = 0;
-          __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_12, __pyx_t_49, NULL); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 276; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+          __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_12, __pyx_t_49, NULL); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 279; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
           __Pyx_GOTREF(__pyx_t_2);
           __Pyx_DECREF(__pyx_t_49); __pyx_t_49 = 0;
           __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
           __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-          /* "dipy/denoise/ornlm.pyx":272
+          /* "dipy/denoise/ornlm.pyx":275
  *                 average[...]=0
  *                 totalWeight=0
  *                 if (means[j,i,k]<=epsilon) or (variances[j,i,k]<=epsilon):             # <<<<<<<<<<<<<<
@@ -7194,7 +7296,7 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_22ornlm(CYTHON_UNUSED PyObject *
           goto __pyx_L15;
         }
 
-        /* "dipy/denoise/ornlm.pyx":279
+        /* "dipy/denoise/ornlm.pyx":282
  *                                  average, totalWeight, hh)
  *                 else:
  *                     wmax=0             # <<<<<<<<<<<<<<
@@ -7204,7 +7306,7 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_22ornlm(CYTHON_UNUSED PyObject *
         /*else*/ {
           __pyx_v_wmax = 0.0;
 
-          /* "dipy/denoise/ornlm.pyx":280
+          /* "dipy/denoise/ornlm.pyx":283
  *                 else:
  *                     wmax=0
  *                     for nk in range(k-v,k+v+1):             # <<<<<<<<<<<<<<
@@ -7215,7 +7317,7 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_22ornlm(CYTHON_UNUSED PyObject *
           for (__pyx_t_31 = (__pyx_v_k - __pyx_v_v); __pyx_t_31 < __pyx_t_50; __pyx_t_31+=1) {
             __pyx_v_nk = __pyx_t_31;
 
-            /* "dipy/denoise/ornlm.pyx":281
+            /* "dipy/denoise/ornlm.pyx":284
  *                     wmax=0
  *                     for nk in range(k-v,k+v+1):
  *                         for ni in range(i-v,i+v+1):             # <<<<<<<<<<<<<<
@@ -7226,7 +7328,7 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_22ornlm(CYTHON_UNUSED PyObject *
             for (__pyx_t_52 = (__pyx_v_i - __pyx_v_v); __pyx_t_52 < __pyx_t_51; __pyx_t_52+=1) {
               __pyx_v_ni = __pyx_t_52;
 
-              /* "dipy/denoise/ornlm.pyx":282
+              /* "dipy/denoise/ornlm.pyx":285
  *                     for nk in range(k-v,k+v+1):
  *                         for ni in range(i-v,i+v+1):
  *                             for nj in range(j-v,j+v+1):             # <<<<<<<<<<<<<<
@@ -7237,7 +7339,7 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_22ornlm(CYTHON_UNUSED PyObject *
               for (__pyx_t_54 = (__pyx_v_j - __pyx_v_v); __pyx_t_54 < __pyx_t_53; __pyx_t_54+=1) {
                 __pyx_v_nj = __pyx_t_54;
 
-                /* "dipy/denoise/ornlm.pyx":283
+                /* "dipy/denoise/ornlm.pyx":286
  *                         for ni in range(i-v,i+v+1):
  *                             for nj in range(j-v,j+v+1):
  *                                 if((ni==i)and(nj==j)and(nk==k)):             # <<<<<<<<<<<<<<
@@ -7261,7 +7363,7 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_22ornlm(CYTHON_UNUSED PyObject *
                 __pyx_L25_bool_binop_done:;
                 if (__pyx_t_39) {
 
-                  /* "dipy/denoise/ornlm.pyx":284
+                  /* "dipy/denoise/ornlm.pyx":287
  *                             for nj in range(j-v,j+v+1):
  *                                 if((ni==i)and(nj==j)and(nk==k)):
  *                                     continue             # <<<<<<<<<<<<<<
@@ -7270,7 +7372,7 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_22ornlm(CYTHON_UNUSED PyObject *
  */
                   goto __pyx_L22_continue;
 
-                  /* "dipy/denoise/ornlm.pyx":283
+                  /* "dipy/denoise/ornlm.pyx":286
  *                         for ni in range(i-v,i+v+1):
  *                             for nj in range(j-v,j+v+1):
  *                                 if((ni==i)and(nj==j)and(nk==k)):             # <<<<<<<<<<<<<<
@@ -7279,7 +7381,7 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_22ornlm(CYTHON_UNUSED PyObject *
  */
                 }
 
-                /* "dipy/denoise/ornlm.pyx":285
+                /* "dipy/denoise/ornlm.pyx":288
  *                                 if((ni==i)and(nj==j)and(nk==k)):
  *                                     continue
  *                                 if ((ni<0) or (nj<0) or (nk<0) or (nj>=dims[0]) or             # <<<<<<<<<<<<<<
@@ -7312,7 +7414,7 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_22ornlm(CYTHON_UNUSED PyObject *
                 } else if (unlikely(__pyx_t_55 >= __pyx_v_dims.shape[0])) __pyx_t_56 = 0;
                 if (unlikely(__pyx_t_56 != -1)) {
                   __Pyx_RaiseBufferIndexError(__pyx_t_56);
-                  {__pyx_filename = __pyx_f[0]; __pyx_lineno = 285; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+                  {__pyx_filename = __pyx_f[0]; __pyx_lineno = 288; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
                 }
                 __pyx_t_43 = ((__pyx_v_nj >= (*((int *) ( /* dim=0 */ (__pyx_v_dims.data + __pyx_t_55 * __pyx_v_dims.strides[0]) )))) != 0);
                 if (!__pyx_t_43) {
@@ -7321,7 +7423,7 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_22ornlm(CYTHON_UNUSED PyObject *
                   goto __pyx_L29_bool_binop_done;
                 }
 
-                /* "dipy/denoise/ornlm.pyx":286
+                /* "dipy/denoise/ornlm.pyx":289
  *                                     continue
  *                                 if ((ni<0) or (nj<0) or (nk<0) or (nj>=dims[0]) or
  *                                         (ni>=dims[1]) or (nk>=dims[2])):             # <<<<<<<<<<<<<<
@@ -7336,7 +7438,7 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_22ornlm(CYTHON_UNUSED PyObject *
                 } else if (unlikely(__pyx_t_57 >= __pyx_v_dims.shape[0])) __pyx_t_56 = 0;
                 if (unlikely(__pyx_t_56 != -1)) {
                   __Pyx_RaiseBufferIndexError(__pyx_t_56);
-                  {__pyx_filename = __pyx_f[0]; __pyx_lineno = 286; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+                  {__pyx_filename = __pyx_f[0]; __pyx_lineno = 289; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
                 }
                 __pyx_t_43 = ((__pyx_v_ni >= (*((int *) ( /* dim=0 */ (__pyx_v_dims.data + __pyx_t_57 * __pyx_v_dims.strides[0]) )))) != 0);
                 if (!__pyx_t_43) {
@@ -7352,13 +7454,13 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_22ornlm(CYTHON_UNUSED PyObject *
                 } else if (unlikely(__pyx_t_58 >= __pyx_v_dims.shape[0])) __pyx_t_56 = 0;
                 if (unlikely(__pyx_t_56 != -1)) {
                   __Pyx_RaiseBufferIndexError(__pyx_t_56);
-                  {__pyx_filename = __pyx_f[0]; __pyx_lineno = 286; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+                  {__pyx_filename = __pyx_f[0]; __pyx_lineno = 289; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
                 }
                 __pyx_t_43 = ((__pyx_v_nk >= (*((int *) ( /* dim=0 */ (__pyx_v_dims.data + __pyx_t_58 * __pyx_v_dims.strides[0]) )))) != 0);
                 __pyx_t_39 = __pyx_t_43;
                 __pyx_L29_bool_binop_done:;
 
-                /* "dipy/denoise/ornlm.pyx":285
+                /* "dipy/denoise/ornlm.pyx":288
  *                                 if((ni==i)and(nj==j)and(nk==k)):
  *                                     continue
  *                                 if ((ni<0) or (nj<0) or (nk<0) or (nj>=dims[0]) or             # <<<<<<<<<<<<<<
@@ -7367,7 +7469,7 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_22ornlm(CYTHON_UNUSED PyObject *
  */
                 if (__pyx_t_39) {
 
-                  /* "dipy/denoise/ornlm.pyx":287
+                  /* "dipy/denoise/ornlm.pyx":290
  *                                 if ((ni<0) or (nj<0) or (nk<0) or (nj>=dims[0]) or
  *                                         (ni>=dims[1]) or (nk>=dims[2])):
  *                                     continue;             # <<<<<<<<<<<<<<
@@ -7376,7 +7478,7 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_22ornlm(CYTHON_UNUSED PyObject *
  */
                   goto __pyx_L22_continue;
 
-                  /* "dipy/denoise/ornlm.pyx":285
+                  /* "dipy/denoise/ornlm.pyx":288
  *                                 if((ni==i)and(nj==j)and(nk==k)):
  *                                     continue
  *                                 if ((ni<0) or (nj<0) or (nk<0) or (nj>=dims[0]) or             # <<<<<<<<<<<<<<
@@ -7385,7 +7487,7 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_22ornlm(CYTHON_UNUSED PyObject *
  */
                 }
 
-                /* "dipy/denoise/ornlm.pyx":288
+                /* "dipy/denoise/ornlm.pyx":291
  *                                         (ni>=dims[1]) or (nk>=dims[2])):
  *                                     continue;
  *                                 if ((means[nj,ni,nk]<=epsilon) or             # <<<<<<<<<<<<<<
@@ -7410,7 +7512,7 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_22ornlm(CYTHON_UNUSED PyObject *
                 } else if (unlikely(__pyx_t_61 >= __pyx_v_means.shape[2])) __pyx_t_56 = 2;
                 if (unlikely(__pyx_t_56 != -1)) {
                   __Pyx_RaiseBufferIndexError(__pyx_t_56);
-                  {__pyx_filename = __pyx_f[0]; __pyx_lineno = 288; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+                  {__pyx_filename = __pyx_f[0]; __pyx_lineno = 291; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
                 }
                 __pyx_t_43 = (((*((double *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_means.data + __pyx_t_59 * __pyx_v_means.strides[0]) ) + __pyx_t_60 * __pyx_v_means.strides[1]) ) + __pyx_t_61 * __pyx_v_means.strides[2]) ))) <= __pyx_v_epsilon) != 0);
                 if (!__pyx_t_43) {
@@ -7419,7 +7521,7 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_22ornlm(CYTHON_UNUSED PyObject *
                   goto __pyx_L36_bool_binop_done;
                 }
 
-                /* "dipy/denoise/ornlm.pyx":289
+                /* "dipy/denoise/ornlm.pyx":292
  *                                     continue;
  *                                 if ((means[nj,ni,nk]<=epsilon) or
  *                                         (variances[nj,ni,nk]<=epsilon)):             # <<<<<<<<<<<<<<
@@ -7444,13 +7546,13 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_22ornlm(CYTHON_UNUSED PyObject *
                 } else if (unlikely(__pyx_t_64 >= __pyx_v_variances.shape[2])) __pyx_t_56 = 2;
                 if (unlikely(__pyx_t_56 != -1)) {
                   __Pyx_RaiseBufferIndexError(__pyx_t_56);
-                  {__pyx_filename = __pyx_f[0]; __pyx_lineno = 289; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+                  {__pyx_filename = __pyx_f[0]; __pyx_lineno = 292; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
                 }
                 __pyx_t_43 = (((*((double *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_variances.data + __pyx_t_62 * __pyx_v_variances.strides[0]) ) + __pyx_t_63 * __pyx_v_variances.strides[1]) ) + __pyx_t_64 * __pyx_v_variances.strides[2]) ))) <= __pyx_v_epsilon) != 0);
                 __pyx_t_39 = __pyx_t_43;
                 __pyx_L36_bool_binop_done:;
 
-                /* "dipy/denoise/ornlm.pyx":288
+                /* "dipy/denoise/ornlm.pyx":291
  *                                         (ni>=dims[1]) or (nk>=dims[2])):
  *                                     continue;
  *                                 if ((means[nj,ni,nk]<=epsilon) or             # <<<<<<<<<<<<<<
@@ -7459,7 +7561,7 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_22ornlm(CYTHON_UNUSED PyObject *
  */
                 if (__pyx_t_39) {
 
-                  /* "dipy/denoise/ornlm.pyx":290
+                  /* "dipy/denoise/ornlm.pyx":293
  *                                 if ((means[nj,ni,nk]<=epsilon) or
  *                                         (variances[nj,ni,nk]<=epsilon)):
  *                                     continue             # <<<<<<<<<<<<<<
@@ -7468,7 +7570,7 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_22ornlm(CYTHON_UNUSED PyObject *
  */
                   goto __pyx_L22_continue;
 
-                  /* "dipy/denoise/ornlm.pyx":288
+                  /* "dipy/denoise/ornlm.pyx":291
  *                                         (ni>=dims[1]) or (nk>=dims[2])):
  *                                     continue;
  *                                 if ((means[nj,ni,nk]<=epsilon) or             # <<<<<<<<<<<<<<
@@ -7477,7 +7579,7 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_22ornlm(CYTHON_UNUSED PyObject *
  */
                 }
 
-                /* "dipy/denoise/ornlm.pyx":291
+                /* "dipy/denoise/ornlm.pyx":294
  *                                         (variances[nj,ni,nk]<=epsilon)):
  *                                     continue
  *                                 t1 = (means[j,i,k])/(means[nj,ni,nk])             # <<<<<<<<<<<<<<
@@ -7502,7 +7604,7 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_22ornlm(CYTHON_UNUSED PyObject *
                 } else if (unlikely(__pyx_t_67 >= __pyx_v_means.shape[2])) __pyx_t_56 = 2;
                 if (unlikely(__pyx_t_56 != -1)) {
                   __Pyx_RaiseBufferIndexError(__pyx_t_56);
-                  {__pyx_filename = __pyx_f[0]; __pyx_lineno = 291; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+                  {__pyx_filename = __pyx_f[0]; __pyx_lineno = 294; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
                 }
                 __pyx_t_27 = (*((double *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_means.data + __pyx_t_65 * __pyx_v_means.strides[0]) ) + __pyx_t_66 * __pyx_v_means.strides[1]) ) + __pyx_t_67 * __pyx_v_means.strides[2]) )));
                 __pyx_t_68 = __pyx_v_nj;
@@ -7523,19 +7625,19 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_22ornlm(CYTHON_UNUSED PyObject *
                 } else if (unlikely(__pyx_t_70 >= __pyx_v_means.shape[2])) __pyx_t_56 = 2;
                 if (unlikely(__pyx_t_56 != -1)) {
                   __Pyx_RaiseBufferIndexError(__pyx_t_56);
-                  {__pyx_filename = __pyx_f[0]; __pyx_lineno = 291; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+                  {__pyx_filename = __pyx_f[0]; __pyx_lineno = 294; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
                 }
                 __pyx_t_71 = (*((double *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_means.data + __pyx_t_68 * __pyx_v_means.strides[0]) ) + __pyx_t_69 * __pyx_v_means.strides[1]) ) + __pyx_t_70 * __pyx_v_means.strides[2]) )));
                 if (unlikely(__pyx_t_71 == 0)) {
                   PyErr_SetString(PyExc_ZeroDivisionError, "float division");
-                  {__pyx_filename = __pyx_f[0]; __pyx_lineno = 291; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+                  {__pyx_filename = __pyx_f[0]; __pyx_lineno = 294; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
                 }
-                __pyx_t_2 = PyFloat_FromDouble((__pyx_t_27 / __pyx_t_71)); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 291; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+                __pyx_t_2 = PyFloat_FromDouble((__pyx_t_27 / __pyx_t_71)); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 294; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
                 __Pyx_GOTREF(__pyx_t_2);
                 __Pyx_XDECREF_SET(__pyx_v_t1, __pyx_t_2);
                 __pyx_t_2 = 0;
 
-                /* "dipy/denoise/ornlm.pyx":292
+                /* "dipy/denoise/ornlm.pyx":295
  *                                     continue
  *                                 t1 = (means[j,i,k])/(means[nj,ni,nk])
  *                                 t2 = (variances[j,i,k])/(variances[nj,ni,nk])             # <<<<<<<<<<<<<<
@@ -7560,7 +7662,7 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_22ornlm(CYTHON_UNUSED PyObject *
                 } else if (unlikely(__pyx_t_74 >= __pyx_v_variances.shape[2])) __pyx_t_56 = 2;
                 if (unlikely(__pyx_t_56 != -1)) {
                   __Pyx_RaiseBufferIndexError(__pyx_t_56);
-                  {__pyx_filename = __pyx_f[0]; __pyx_lineno = 292; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+                  {__pyx_filename = __pyx_f[0]; __pyx_lineno = 295; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
                 }
                 __pyx_t_71 = (*((double *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_variances.data + __pyx_t_72 * __pyx_v_variances.strides[0]) ) + __pyx_t_73 * __pyx_v_variances.strides[1]) ) + __pyx_t_74 * __pyx_v_variances.strides[2]) )));
                 __pyx_t_75 = __pyx_v_nj;
@@ -7581,30 +7683,30 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_22ornlm(CYTHON_UNUSED PyObject *
                 } else if (unlikely(__pyx_t_77 >= __pyx_v_variances.shape[2])) __pyx_t_56 = 2;
                 if (unlikely(__pyx_t_56 != -1)) {
                   __Pyx_RaiseBufferIndexError(__pyx_t_56);
-                  {__pyx_filename = __pyx_f[0]; __pyx_lineno = 292; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+                  {__pyx_filename = __pyx_f[0]; __pyx_lineno = 295; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
                 }
                 __pyx_t_27 = (*((double *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_variances.data + __pyx_t_75 * __pyx_v_variances.strides[0]) ) + __pyx_t_76 * __pyx_v_variances.strides[1]) ) + __pyx_t_77 * __pyx_v_variances.strides[2]) )));
                 if (unlikely(__pyx_t_27 == 0)) {
                   PyErr_SetString(PyExc_ZeroDivisionError, "float division");
-                  {__pyx_filename = __pyx_f[0]; __pyx_lineno = 292; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+                  {__pyx_filename = __pyx_f[0]; __pyx_lineno = 295; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
                 }
-                __pyx_t_2 = PyFloat_FromDouble((__pyx_t_71 / __pyx_t_27)); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 292; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+                __pyx_t_2 = PyFloat_FromDouble((__pyx_t_71 / __pyx_t_27)); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 295; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
                 __Pyx_GOTREF(__pyx_t_2);
                 __Pyx_XDECREF_SET(__pyx_v_t2, __pyx_t_2);
                 __pyx_t_2 = 0;
 
-                /* "dipy/denoise/ornlm.pyx":293
+                /* "dipy/denoise/ornlm.pyx":296
  *                                 t1 = (means[j,i,k])/(means[nj,ni,nk])
  *                                 t2 = (variances[j,i,k])/(variances[nj,ni,nk])
  *                                 if ((t1>mu1) and (t1<(1/mu1)) and             # <<<<<<<<<<<<<<
  *                                         (t2>var1) and (t2<(1/var1))):
  *                                     d=_distance(image, i, j, k, ni, nj, nk, f)
  */
-                __pyx_t_2 = PyFloat_FromDouble(__pyx_v_mu1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 293; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+                __pyx_t_2 = PyFloat_FromDouble(__pyx_v_mu1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 296; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
                 __Pyx_GOTREF(__pyx_t_2);
-                __pyx_t_12 = PyObject_RichCompare(__pyx_v_t1, __pyx_t_2, Py_GT); __Pyx_XGOTREF(__pyx_t_12); if (unlikely(!__pyx_t_12)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 293; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+                __pyx_t_12 = PyObject_RichCompare(__pyx_v_t1, __pyx_t_2, Py_GT); __Pyx_XGOTREF(__pyx_t_12); if (unlikely(!__pyx_t_12)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 296; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
                 __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-                __pyx_t_43 = __Pyx_PyObject_IsTrue(__pyx_t_12); if (unlikely(__pyx_t_43 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 293; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+                __pyx_t_43 = __Pyx_PyObject_IsTrue(__pyx_t_12); if (unlikely(__pyx_t_43 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 296; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
                 __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
                 if (__pyx_t_43) {
                 } else {
@@ -7613,13 +7715,13 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_22ornlm(CYTHON_UNUSED PyObject *
                 }
                 if (unlikely(__pyx_v_mu1 == 0)) {
                   PyErr_SetString(PyExc_ZeroDivisionError, "float division");
-                  {__pyx_filename = __pyx_f[0]; __pyx_lineno = 293; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+                  {__pyx_filename = __pyx_f[0]; __pyx_lineno = 296; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
                 }
-                __pyx_t_12 = PyFloat_FromDouble((1.0 / __pyx_v_mu1)); if (unlikely(!__pyx_t_12)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 293; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+                __pyx_t_12 = PyFloat_FromDouble((1.0 / __pyx_v_mu1)); if (unlikely(!__pyx_t_12)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 296; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
                 __Pyx_GOTREF(__pyx_t_12);
-                __pyx_t_2 = PyObject_RichCompare(__pyx_v_t1, __pyx_t_12, Py_LT); __Pyx_XGOTREF(__pyx_t_2); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 293; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+                __pyx_t_2 = PyObject_RichCompare(__pyx_v_t1, __pyx_t_12, Py_LT); __Pyx_XGOTREF(__pyx_t_2); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 296; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
                 __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
-                __pyx_t_43 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely(__pyx_t_43 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 293; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+                __pyx_t_43 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely(__pyx_t_43 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 296; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
                 __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
                 if (__pyx_t_43) {
                 } else {
@@ -7627,18 +7729,18 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_22ornlm(CYTHON_UNUSED PyObject *
                   goto __pyx_L39_bool_binop_done;
                 }
 
-                /* "dipy/denoise/ornlm.pyx":294
+                /* "dipy/denoise/ornlm.pyx":297
  *                                 t2 = (variances[j,i,k])/(variances[nj,ni,nk])
  *                                 if ((t1>mu1) and (t1<(1/mu1)) and
  *                                         (t2>var1) and (t2<(1/var1))):             # <<<<<<<<<<<<<<
  *                                     d=_distance(image, i, j, k, ni, nj, nk, f)
  *                                     w=math.exp(-d/(h*h))
  */
-                __pyx_t_2 = PyFloat_FromDouble(__pyx_v_var1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 294; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+                __pyx_t_2 = PyFloat_FromDouble(__pyx_v_var1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 297; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
                 __Pyx_GOTREF(__pyx_t_2);
-                __pyx_t_12 = PyObject_RichCompare(__pyx_v_t2, __pyx_t_2, Py_GT); __Pyx_XGOTREF(__pyx_t_12); if (unlikely(!__pyx_t_12)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 294; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+                __pyx_t_12 = PyObject_RichCompare(__pyx_v_t2, __pyx_t_2, Py_GT); __Pyx_XGOTREF(__pyx_t_12); if (unlikely(!__pyx_t_12)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 297; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
                 __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-                __pyx_t_43 = __Pyx_PyObject_IsTrue(__pyx_t_12); if (unlikely(__pyx_t_43 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 294; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+                __pyx_t_43 = __Pyx_PyObject_IsTrue(__pyx_t_12); if (unlikely(__pyx_t_43 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 297; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
                 __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
                 if (__pyx_t_43) {
                 } else {
@@ -7647,18 +7749,18 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_22ornlm(CYTHON_UNUSED PyObject *
                 }
                 if (unlikely(__pyx_v_var1 == 0)) {
                   PyErr_SetString(PyExc_ZeroDivisionError, "float division");
-                  {__pyx_filename = __pyx_f[0]; __pyx_lineno = 294; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+                  {__pyx_filename = __pyx_f[0]; __pyx_lineno = 297; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
                 }
-                __pyx_t_12 = PyFloat_FromDouble((1.0 / __pyx_v_var1)); if (unlikely(!__pyx_t_12)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 294; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+                __pyx_t_12 = PyFloat_FromDouble((1.0 / __pyx_v_var1)); if (unlikely(!__pyx_t_12)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 297; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
                 __Pyx_GOTREF(__pyx_t_12);
-                __pyx_t_2 = PyObject_RichCompare(__pyx_v_t2, __pyx_t_12, Py_LT); __Pyx_XGOTREF(__pyx_t_2); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 294; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+                __pyx_t_2 = PyObject_RichCompare(__pyx_v_t2, __pyx_t_12, Py_LT); __Pyx_XGOTREF(__pyx_t_2); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 297; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
                 __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
-                __pyx_t_43 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely(__pyx_t_43 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 294; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+                __pyx_t_43 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely(__pyx_t_43 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 297; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
                 __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
                 __pyx_t_39 = __pyx_t_43;
                 __pyx_L39_bool_binop_done:;
 
-                /* "dipy/denoise/ornlm.pyx":293
+                /* "dipy/denoise/ornlm.pyx":296
  *                                 t1 = (means[j,i,k])/(means[nj,ni,nk])
  *                                 t2 = (variances[j,i,k])/(variances[nj,ni,nk])
  *                                 if ((t1>mu1) and (t1<(1/mu1)) and             # <<<<<<<<<<<<<<
@@ -7667,30 +7769,30 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_22ornlm(CYTHON_UNUSED PyObject *
  */
                 if (__pyx_t_39) {
 
-                  /* "dipy/denoise/ornlm.pyx":295
+                  /* "dipy/denoise/ornlm.pyx":298
  *                                 if ((t1>mu1) and (t1<(1/mu1)) and
  *                                         (t2>var1) and (t2<(1/var1))):
  *                                     d=_distance(image, i, j, k, ni, nj, nk, f)             # <<<<<<<<<<<<<<
  *                                     w=math.exp(-d/(h*h))
  *                                     if(w>wmax):
  */
-                  __pyx_t_12 = __Pyx_GetModuleGlobalName(__pyx_n_s_distance); if (unlikely(!__pyx_t_12)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 295; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+                  __pyx_t_12 = __Pyx_GetModuleGlobalName(__pyx_n_s_distance); if (unlikely(!__pyx_t_12)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 298; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
                   __Pyx_GOTREF(__pyx_t_12);
-                  __pyx_t_49 = __pyx_memoryview_fromslice(__pyx_v_image, 3, (PyObject *(*)(char *)) __pyx_memview_get_double, (int (*)(char *, PyObject *)) __pyx_memview_set_double, 0);; if (unlikely(!__pyx_t_49)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 295; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+                  __pyx_t_49 = __pyx_memoryview_fromslice(__pyx_v_image, 3, (PyObject *(*)(char *)) __pyx_memview_get_double, (int (*)(char *, PyObject *)) __pyx_memview_set_double, 0);; if (unlikely(!__pyx_t_49)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 298; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
                   __Pyx_GOTREF(__pyx_t_49);
-                  __pyx_t_24 = __Pyx_PyInt_From_int(__pyx_v_i); if (unlikely(!__pyx_t_24)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 295; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+                  __pyx_t_24 = __Pyx_PyInt_From_int(__pyx_v_i); if (unlikely(!__pyx_t_24)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 298; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
                   __Pyx_GOTREF(__pyx_t_24);
-                  __pyx_t_32 = __Pyx_PyInt_From_int(__pyx_v_j); if (unlikely(!__pyx_t_32)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 295; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+                  __pyx_t_32 = __Pyx_PyInt_From_int(__pyx_v_j); if (unlikely(!__pyx_t_32)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 298; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
                   __Pyx_GOTREF(__pyx_t_32);
-                  __pyx_t_11 = __Pyx_PyInt_From_int(__pyx_v_k); if (unlikely(!__pyx_t_11)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 295; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+                  __pyx_t_11 = __Pyx_PyInt_From_int(__pyx_v_k); if (unlikely(!__pyx_t_11)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 298; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
                   __Pyx_GOTREF(__pyx_t_11);
-                  __pyx_t_13 = __Pyx_PyInt_From_int(__pyx_v_ni); if (unlikely(!__pyx_t_13)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 295; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+                  __pyx_t_13 = __Pyx_PyInt_From_int(__pyx_v_ni); if (unlikely(!__pyx_t_13)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 298; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
                   __Pyx_GOTREF(__pyx_t_13);
-                  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_nj); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 295; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+                  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_nj); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 298; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
                   __Pyx_GOTREF(__pyx_t_1);
-                  __pyx_t_23 = __Pyx_PyInt_From_int(__pyx_v_nk); if (unlikely(!__pyx_t_23)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 295; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+                  __pyx_t_23 = __Pyx_PyInt_From_int(__pyx_v_nk); if (unlikely(!__pyx_t_23)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 298; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
                   __Pyx_GOTREF(__pyx_t_23);
-                  __pyx_t_26 = __Pyx_PyInt_From_int(__pyx_v_f); if (unlikely(!__pyx_t_26)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 295; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+                  __pyx_t_26 = __Pyx_PyInt_From_int(__pyx_v_f); if (unlikely(!__pyx_t_26)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 298; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
                   __Pyx_GOTREF(__pyx_t_26);
                   __pyx_t_47 = NULL;
                   __pyx_t_25 = 0;
@@ -7704,7 +7806,7 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_22ornlm(CYTHON_UNUSED PyObject *
                       __pyx_t_25 = 1;
                     }
                   }
-                  __pyx_t_48 = PyTuple_New(8+__pyx_t_25); if (unlikely(!__pyx_t_48)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 295; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+                  __pyx_t_48 = PyTuple_New(8+__pyx_t_25); if (unlikely(!__pyx_t_48)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 298; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
                   __Pyx_GOTREF(__pyx_t_48);
                   if (__pyx_t_47) {
                     __Pyx_GIVEREF(__pyx_t_47); PyTuple_SET_ITEM(__pyx_t_48, 0, __pyx_t_47); __pyx_t_47 = NULL;
@@ -7733,33 +7835,33 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_22ornlm(CYTHON_UNUSED PyObject *
                   __pyx_t_1 = 0;
                   __pyx_t_23 = 0;
                   __pyx_t_26 = 0;
-                  __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_12, __pyx_t_48, NULL); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 295; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+                  __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_12, __pyx_t_48, NULL); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 298; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
                   __Pyx_GOTREF(__pyx_t_2);
                   __Pyx_DECREF(__pyx_t_48); __pyx_t_48 = 0;
                   __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
-                  __pyx_t_27 = __pyx_PyFloat_AsDouble(__pyx_t_2); if (unlikely((__pyx_t_27 == (double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 295; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+                  __pyx_t_27 = __pyx_PyFloat_AsDouble(__pyx_t_2); if (unlikely((__pyx_t_27 == (double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 298; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
                   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
                   __pyx_v_d = __pyx_t_27;
 
-                  /* "dipy/denoise/ornlm.pyx":296
+                  /* "dipy/denoise/ornlm.pyx":299
  *                                         (t2>var1) and (t2<(1/var1))):
  *                                     d=_distance(image, i, j, k, ni, nj, nk, f)
  *                                     w=math.exp(-d/(h*h))             # <<<<<<<<<<<<<<
  *                                     if(w>wmax):
  *                                         wmax = w
  */
-                  __pyx_t_12 = __Pyx_GetModuleGlobalName(__pyx_n_s_math); if (unlikely(!__pyx_t_12)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 296; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+                  __pyx_t_12 = __Pyx_GetModuleGlobalName(__pyx_n_s_math); if (unlikely(!__pyx_t_12)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 299; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
                   __Pyx_GOTREF(__pyx_t_12);
-                  __pyx_t_48 = __Pyx_PyObject_GetAttrStr(__pyx_t_12, __pyx_n_s_exp); if (unlikely(!__pyx_t_48)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 296; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+                  __pyx_t_48 = __Pyx_PyObject_GetAttrStr(__pyx_t_12, __pyx_n_s_exp); if (unlikely(!__pyx_t_48)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 299; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
                   __Pyx_GOTREF(__pyx_t_48);
                   __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
                   __pyx_t_27 = (-__pyx_v_d);
                   __pyx_t_71 = (__pyx_v_h * __pyx_v_h);
                   if (unlikely(__pyx_t_71 == 0)) {
                     PyErr_SetString(PyExc_ZeroDivisionError, "float division");
-                    {__pyx_filename = __pyx_f[0]; __pyx_lineno = 296; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+                    {__pyx_filename = __pyx_f[0]; __pyx_lineno = 299; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
                   }
-                  __pyx_t_12 = PyFloat_FromDouble((__pyx_t_27 / __pyx_t_71)); if (unlikely(!__pyx_t_12)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 296; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+                  __pyx_t_12 = PyFloat_FromDouble((__pyx_t_27 / __pyx_t_71)); if (unlikely(!__pyx_t_12)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 299; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
                   __Pyx_GOTREF(__pyx_t_12);
                   __pyx_t_26 = NULL;
                   if (CYTHON_COMPILING_IN_CPYTHON && unlikely(PyMethod_Check(__pyx_t_48))) {
@@ -7772,26 +7874,26 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_22ornlm(CYTHON_UNUSED PyObject *
                     }
                   }
                   if (!__pyx_t_26) {
-                    __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_48, __pyx_t_12); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 296; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+                    __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_48, __pyx_t_12); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 299; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
                     __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
                     __Pyx_GOTREF(__pyx_t_2);
                   } else {
-                    __pyx_t_23 = PyTuple_New(1+1); if (unlikely(!__pyx_t_23)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 296; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+                    __pyx_t_23 = PyTuple_New(1+1); if (unlikely(!__pyx_t_23)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 299; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
                     __Pyx_GOTREF(__pyx_t_23);
                     __Pyx_GIVEREF(__pyx_t_26); PyTuple_SET_ITEM(__pyx_t_23, 0, __pyx_t_26); __pyx_t_26 = NULL;
                     __Pyx_GIVEREF(__pyx_t_12);
                     PyTuple_SET_ITEM(__pyx_t_23, 0+1, __pyx_t_12);
                     __pyx_t_12 = 0;
-                    __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_48, __pyx_t_23, NULL); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 296; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+                    __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_48, __pyx_t_23, NULL); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 299; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
                     __Pyx_GOTREF(__pyx_t_2);
                     __Pyx_DECREF(__pyx_t_23); __pyx_t_23 = 0;
                   }
                   __Pyx_DECREF(__pyx_t_48); __pyx_t_48 = 0;
-                  __pyx_t_71 = __pyx_PyFloat_AsDouble(__pyx_t_2); if (unlikely((__pyx_t_71 == (double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 296; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+                  __pyx_t_71 = __pyx_PyFloat_AsDouble(__pyx_t_2); if (unlikely((__pyx_t_71 == (double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 299; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
                   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
                   __pyx_v_w = __pyx_t_71;
 
-                  /* "dipy/denoise/ornlm.pyx":297
+                  /* "dipy/denoise/ornlm.pyx":300
  *                                     d=_distance(image, i, j, k, ni, nj, nk, f)
  *                                     w=math.exp(-d/(h*h))
  *                                     if(w>wmax):             # <<<<<<<<<<<<<<
@@ -7801,7 +7903,7 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_22ornlm(CYTHON_UNUSED PyObject *
                   __pyx_t_39 = ((__pyx_v_w > __pyx_v_wmax) != 0);
                   if (__pyx_t_39) {
 
-                    /* "dipy/denoise/ornlm.pyx":298
+                    /* "dipy/denoise/ornlm.pyx":301
  *                                     w=math.exp(-d/(h*h))
  *                                     if(w>wmax):
  *                                         wmax = w             # <<<<<<<<<<<<<<
@@ -7810,7 +7912,7 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_22ornlm(CYTHON_UNUSED PyObject *
  */
                     __pyx_v_wmax = __pyx_v_w;
 
-                    /* "dipy/denoise/ornlm.pyx":297
+                    /* "dipy/denoise/ornlm.pyx":300
  *                                     d=_distance(image, i, j, k, ni, nj, nk, f)
  *                                     w=math.exp(-d/(h*h))
  *                                     if(w>wmax):             # <<<<<<<<<<<<<<
@@ -7819,26 +7921,26 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_22ornlm(CYTHON_UNUSED PyObject *
  */
                   }
 
-                  /* "dipy/denoise/ornlm.pyx":299
+                  /* "dipy/denoise/ornlm.pyx":302
  *                                     if(w>wmax):
  *                                         wmax = w
  *                                     _average_block(image, ni, nj, nk, average, w)             # <<<<<<<<<<<<<<
  *                                     totalWeight+=w
  * 
  */
-                  __pyx_t_48 = __Pyx_GetModuleGlobalName(__pyx_n_s_average_block); if (unlikely(!__pyx_t_48)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 299; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+                  __pyx_t_48 = __Pyx_GetModuleGlobalName(__pyx_n_s_average_block); if (unlikely(!__pyx_t_48)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 302; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
                   __Pyx_GOTREF(__pyx_t_48);
-                  __pyx_t_23 = __pyx_memoryview_fromslice(__pyx_v_image, 3, (PyObject *(*)(char *)) __pyx_memview_get_double, (int (*)(char *, PyObject *)) __pyx_memview_set_double, 0);; if (unlikely(!__pyx_t_23)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 299; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+                  __pyx_t_23 = __pyx_memoryview_fromslice(__pyx_v_image, 3, (PyObject *(*)(char *)) __pyx_memview_get_double, (int (*)(char *, PyObject *)) __pyx_memview_set_double, 0);; if (unlikely(!__pyx_t_23)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 302; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
                   __Pyx_GOTREF(__pyx_t_23);
-                  __pyx_t_12 = __Pyx_PyInt_From_int(__pyx_v_ni); if (unlikely(!__pyx_t_12)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 299; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+                  __pyx_t_12 = __Pyx_PyInt_From_int(__pyx_v_ni); if (unlikely(!__pyx_t_12)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 302; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
                   __Pyx_GOTREF(__pyx_t_12);
-                  __pyx_t_26 = __Pyx_PyInt_From_int(__pyx_v_nj); if (unlikely(!__pyx_t_26)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 299; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+                  __pyx_t_26 = __Pyx_PyInt_From_int(__pyx_v_nj); if (unlikely(!__pyx_t_26)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 302; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
                   __Pyx_GOTREF(__pyx_t_26);
-                  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_nk); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 299; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+                  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_nk); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 302; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
                   __Pyx_GOTREF(__pyx_t_1);
-                  __pyx_t_13 = __pyx_memoryview_fromslice(__pyx_v_average, 3, (PyObject *(*)(char *)) __pyx_memview_get_double, (int (*)(char *, PyObject *)) __pyx_memview_set_double, 0);; if (unlikely(!__pyx_t_13)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 299; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+                  __pyx_t_13 = __pyx_memoryview_fromslice(__pyx_v_average, 3, (PyObject *(*)(char *)) __pyx_memview_get_double, (int (*)(char *, PyObject *)) __pyx_memview_set_double, 0);; if (unlikely(!__pyx_t_13)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 302; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
                   __Pyx_GOTREF(__pyx_t_13);
-                  __pyx_t_11 = PyFloat_FromDouble(__pyx_v_w); if (unlikely(!__pyx_t_11)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 299; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+                  __pyx_t_11 = PyFloat_FromDouble(__pyx_v_w); if (unlikely(!__pyx_t_11)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 302; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
                   __Pyx_GOTREF(__pyx_t_11);
                   __pyx_t_32 = NULL;
                   __pyx_t_25 = 0;
@@ -7852,7 +7954,7 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_22ornlm(CYTHON_UNUSED PyObject *
                       __pyx_t_25 = 1;
                     }
                   }
-                  __pyx_t_24 = PyTuple_New(6+__pyx_t_25); if (unlikely(!__pyx_t_24)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 299; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+                  __pyx_t_24 = PyTuple_New(6+__pyx_t_25); if (unlikely(!__pyx_t_24)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 302; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
                   __Pyx_GOTREF(__pyx_t_24);
                   if (__pyx_t_32) {
                     __Pyx_GIVEREF(__pyx_t_32); PyTuple_SET_ITEM(__pyx_t_24, 0, __pyx_t_32); __pyx_t_32 = NULL;
@@ -7875,13 +7977,13 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_22ornlm(CYTHON_UNUSED PyObject *
                   __pyx_t_1 = 0;
                   __pyx_t_13 = 0;
                   __pyx_t_11 = 0;
-                  __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_48, __pyx_t_24, NULL); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 299; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+                  __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_48, __pyx_t_24, NULL); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 302; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
                   __Pyx_GOTREF(__pyx_t_2);
                   __Pyx_DECREF(__pyx_t_24); __pyx_t_24 = 0;
                   __Pyx_DECREF(__pyx_t_48); __pyx_t_48 = 0;
                   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-                  /* "dipy/denoise/ornlm.pyx":300
+                  /* "dipy/denoise/ornlm.pyx":303
  *                                         wmax = w
  *                                     _average_block(image, ni, nj, nk, average, w)
  *                                     totalWeight+=w             # <<<<<<<<<<<<<<
@@ -7890,7 +7992,7 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_22ornlm(CYTHON_UNUSED PyObject *
  */
                   __pyx_v_totalWeight = (__pyx_v_totalWeight + __pyx_v_w);
 
-                  /* "dipy/denoise/ornlm.pyx":293
+                  /* "dipy/denoise/ornlm.pyx":296
  *                                 t1 = (means[j,i,k])/(means[nj,ni,nk])
  *                                 t2 = (variances[j,i,k])/(variances[nj,ni,nk])
  *                                 if ((t1>mu1) and (t1<(1/mu1)) and             # <<<<<<<<<<<<<<
@@ -7903,48 +8005,48 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_22ornlm(CYTHON_UNUSED PyObject *
             }
           }
 
-          /* "dipy/denoise/ornlm.pyx":302
+          /* "dipy/denoise/ornlm.pyx":305
  *                                     totalWeight+=w
  * 
  *                     if(totalWeight != 0.0):             # <<<<<<<<<<<<<<
  *                         _value_block(Estimate, Label, i, j, k,
- *                                      average, totalWeight, hh)
+ *                                      average, totalWeight, hh, rician)
  */
           __pyx_t_39 = ((__pyx_v_totalWeight != 0.0) != 0);
           if (__pyx_t_39) {
 
-            /* "dipy/denoise/ornlm.pyx":303
+            /* "dipy/denoise/ornlm.pyx":306
  * 
  *                     if(totalWeight != 0.0):
  *                         _value_block(Estimate, Label, i, j, k,             # <<<<<<<<<<<<<<
- *                                      average, totalWeight, hh)
+ *                                      average, totalWeight, hh, rician)
  *     for k in range(0, image.shape[2]):
  */
-            __pyx_t_48 = __Pyx_GetModuleGlobalName(__pyx_n_s_value_block); if (unlikely(!__pyx_t_48)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 303; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+            __pyx_t_48 = __Pyx_GetModuleGlobalName(__pyx_n_s_value_block); if (unlikely(!__pyx_t_48)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 306; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
             __Pyx_GOTREF(__pyx_t_48);
-            __pyx_t_24 = __pyx_memoryview_fromslice(__pyx_v_Estimate, 3, (PyObject *(*)(char *)) __pyx_memview_get_double, (int (*)(char *, PyObject *)) __pyx_memview_set_double, 0);; if (unlikely(!__pyx_t_24)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 303; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+            __pyx_t_24 = __pyx_memoryview_fromslice(__pyx_v_Estimate, 3, (PyObject *(*)(char *)) __pyx_memview_get_double, (int (*)(char *, PyObject *)) __pyx_memview_set_double, 0);; if (unlikely(!__pyx_t_24)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 306; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
             __Pyx_GOTREF(__pyx_t_24);
-            __pyx_t_11 = __pyx_memoryview_fromslice(__pyx_v_Label, 3, (PyObject *(*)(char *)) __pyx_memview_get_double, (int (*)(char *, PyObject *)) __pyx_memview_set_double, 0);; if (unlikely(!__pyx_t_11)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 303; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+            __pyx_t_11 = __pyx_memoryview_fromslice(__pyx_v_Label, 3, (PyObject *(*)(char *)) __pyx_memview_get_double, (int (*)(char *, PyObject *)) __pyx_memview_set_double, 0);; if (unlikely(!__pyx_t_11)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 306; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
             __Pyx_GOTREF(__pyx_t_11);
-            __pyx_t_13 = __Pyx_PyInt_From_int(__pyx_v_i); if (unlikely(!__pyx_t_13)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 303; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+            __pyx_t_13 = __Pyx_PyInt_From_int(__pyx_v_i); if (unlikely(!__pyx_t_13)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 306; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
             __Pyx_GOTREF(__pyx_t_13);
-            __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_j); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 303; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+            __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_j); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 306; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
             __Pyx_GOTREF(__pyx_t_1);
-            __pyx_t_26 = __Pyx_PyInt_From_int(__pyx_v_k); if (unlikely(!__pyx_t_26)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 303; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+            __pyx_t_26 = __Pyx_PyInt_From_int(__pyx_v_k); if (unlikely(!__pyx_t_26)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 306; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
             __Pyx_GOTREF(__pyx_t_26);
 
-            /* "dipy/denoise/ornlm.pyx":304
+            /* "dipy/denoise/ornlm.pyx":307
  *                     if(totalWeight != 0.0):
  *                         _value_block(Estimate, Label, i, j, k,
- *                                      average, totalWeight, hh)             # <<<<<<<<<<<<<<
+ *                                      average, totalWeight, hh, rician)             # <<<<<<<<<<<<<<
  *     for k in range(0, image.shape[2]):
  *         for i in range(0, image.shape[1]):
  */
-            __pyx_t_12 = __pyx_memoryview_fromslice(__pyx_v_average, 3, (PyObject *(*)(char *)) __pyx_memview_get_double, (int (*)(char *, PyObject *)) __pyx_memview_set_double, 0);; if (unlikely(!__pyx_t_12)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 304; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+            __pyx_t_12 = __pyx_memoryview_fromslice(__pyx_v_average, 3, (PyObject *(*)(char *)) __pyx_memview_get_double, (int (*)(char *, PyObject *)) __pyx_memview_set_double, 0);; if (unlikely(!__pyx_t_12)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 307; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
             __Pyx_GOTREF(__pyx_t_12);
-            __pyx_t_23 = PyFloat_FromDouble(__pyx_v_totalWeight); if (unlikely(!__pyx_t_23)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 304; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+            __pyx_t_23 = PyFloat_FromDouble(__pyx_v_totalWeight); if (unlikely(!__pyx_t_23)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 307; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
             __Pyx_GOTREF(__pyx_t_23);
-            __pyx_t_32 = PyFloat_FromDouble(__pyx_v_hh); if (unlikely(!__pyx_t_32)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 304; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+            __pyx_t_32 = PyFloat_FromDouble(__pyx_v_hh); if (unlikely(!__pyx_t_32)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 307; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
             __Pyx_GOTREF(__pyx_t_32);
             __pyx_t_49 = NULL;
             __pyx_t_25 = 0;
@@ -7958,7 +8060,7 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_22ornlm(CYTHON_UNUSED PyObject *
                 __pyx_t_25 = 1;
               }
             }
-            __pyx_t_47 = PyTuple_New(8+__pyx_t_25); if (unlikely(!__pyx_t_47)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 303; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+            __pyx_t_47 = PyTuple_New(9+__pyx_t_25); if (unlikely(!__pyx_t_47)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 306; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
             __Pyx_GOTREF(__pyx_t_47);
             if (__pyx_t_49) {
               __Pyx_GIVEREF(__pyx_t_49); PyTuple_SET_ITEM(__pyx_t_47, 0, __pyx_t_49); __pyx_t_49 = NULL;
@@ -7979,6 +8081,9 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_22ornlm(CYTHON_UNUSED PyObject *
             PyTuple_SET_ITEM(__pyx_t_47, 6+__pyx_t_25, __pyx_t_23);
             __Pyx_GIVEREF(__pyx_t_32);
             PyTuple_SET_ITEM(__pyx_t_47, 7+__pyx_t_25, __pyx_t_32);
+            __Pyx_INCREF(__pyx_v_rician);
+            __Pyx_GIVEREF(__pyx_v_rician);
+            PyTuple_SET_ITEM(__pyx_t_47, 8+__pyx_t_25, __pyx_v_rician);
             __pyx_t_24 = 0;
             __pyx_t_11 = 0;
             __pyx_t_13 = 0;
@@ -7987,18 +8092,18 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_22ornlm(CYTHON_UNUSED PyObject *
             __pyx_t_12 = 0;
             __pyx_t_23 = 0;
             __pyx_t_32 = 0;
-            __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_48, __pyx_t_47, NULL); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 303; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+            __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_48, __pyx_t_47, NULL); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 306; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
             __Pyx_GOTREF(__pyx_t_2);
             __Pyx_DECREF(__pyx_t_47); __pyx_t_47 = 0;
             __Pyx_DECREF(__pyx_t_48); __pyx_t_48 = 0;
             __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-            /* "dipy/denoise/ornlm.pyx":302
+            /* "dipy/denoise/ornlm.pyx":305
  *                                     totalWeight+=w
  * 
  *                     if(totalWeight != 0.0):             # <<<<<<<<<<<<<<
  *                         _value_block(Estimate, Label, i, j, k,
- *                                      average, totalWeight, hh)
+ *                                      average, totalWeight, hh, rician)
  */
           }
         }
@@ -8007,9 +8112,9 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_22ornlm(CYTHON_UNUSED PyObject *
     }
   }
 
-  /* "dipy/denoise/ornlm.pyx":305
+  /* "dipy/denoise/ornlm.pyx":308
  *                         _value_block(Estimate, Label, i, j, k,
- *                                      average, totalWeight, hh)
+ *                                      average, totalWeight, hh, rician)
  *     for k in range(0, image.shape[2]):             # <<<<<<<<<<<<<<
  *         for i in range(0, image.shape[1]):
  *             for j in range(0, image.shape[0]):
@@ -8018,8 +8123,8 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_22ornlm(CYTHON_UNUSED PyObject *
   for (__pyx_t_5 = 0; __pyx_t_5 < __pyx_t_25; __pyx_t_5+=1) {
     __pyx_v_k = __pyx_t_5;
 
-    /* "dipy/denoise/ornlm.pyx":306
- *                                      average, totalWeight, hh)
+    /* "dipy/denoise/ornlm.pyx":309
+ *                                      average, totalWeight, hh, rician)
  *     for k in range(0, image.shape[2]):
  *         for i in range(0, image.shape[1]):             # <<<<<<<<<<<<<<
  *             for j in range(0, image.shape[0]):
@@ -8029,7 +8134,7 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_22ornlm(CYTHON_UNUSED PyObject *
     for (__pyx_t_16 = 0; __pyx_t_16 < __pyx_t_78; __pyx_t_16+=1) {
       __pyx_v_i = __pyx_t_16;
 
-      /* "dipy/denoise/ornlm.pyx":307
+      /* "dipy/denoise/ornlm.pyx":310
  *     for k in range(0, image.shape[2]):
  *         for i in range(0, image.shape[1]):
  *             for j in range(0, image.shape[0]):             # <<<<<<<<<<<<<<
@@ -8040,7 +8145,7 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_22ornlm(CYTHON_UNUSED PyObject *
       for (__pyx_t_18 = 0; __pyx_t_18 < __pyx_t_79; __pyx_t_18+=1) {
         __pyx_v_j = __pyx_t_18;
 
-        /* "dipy/denoise/ornlm.pyx":308
+        /* "dipy/denoise/ornlm.pyx":311
  *         for i in range(0, image.shape[1]):
  *             for j in range(0, image.shape[0]):
  *                 if(Label[j,i,k]==0.0):             # <<<<<<<<<<<<<<
@@ -8065,12 +8170,12 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_22ornlm(CYTHON_UNUSED PyObject *
         } else if (unlikely(__pyx_t_82 >= __pyx_v_Label.shape[2])) __pyx_t_19 = 2;
         if (unlikely(__pyx_t_19 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_19);
-          {__pyx_filename = __pyx_f[0]; __pyx_lineno = 308; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+          {__pyx_filename = __pyx_f[0]; __pyx_lineno = 311; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         }
         __pyx_t_39 = (((*((double *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_Label.data + __pyx_t_80 * __pyx_v_Label.strides[0]) ) + __pyx_t_81 * __pyx_v_Label.strides[1]) ) + __pyx_t_82 * __pyx_v_Label.strides[2]) ))) == 0.0) != 0);
         if (__pyx_t_39) {
 
-          /* "dipy/denoise/ornlm.pyx":309
+          /* "dipy/denoise/ornlm.pyx":312
  *             for j in range(0, image.shape[0]):
  *                 if(Label[j,i,k]==0.0):
  *                     fima[j,i,k]=image[j,i,k]             # <<<<<<<<<<<<<<
@@ -8095,7 +8200,7 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_22ornlm(CYTHON_UNUSED PyObject *
           } else if (unlikely(__pyx_t_85 >= __pyx_v_image.shape[2])) __pyx_t_19 = 2;
           if (unlikely(__pyx_t_19 != -1)) {
             __Pyx_RaiseBufferIndexError(__pyx_t_19);
-            {__pyx_filename = __pyx_f[0]; __pyx_lineno = 309; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+            {__pyx_filename = __pyx_f[0]; __pyx_lineno = 312; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
           }
           __pyx_t_86 = __pyx_v_j;
           __pyx_t_87 = __pyx_v_i;
@@ -8115,11 +8220,11 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_22ornlm(CYTHON_UNUSED PyObject *
           } else if (unlikely(__pyx_t_88 >= __pyx_v_fima.shape[2])) __pyx_t_19 = 2;
           if (unlikely(__pyx_t_19 != -1)) {
             __Pyx_RaiseBufferIndexError(__pyx_t_19);
-            {__pyx_filename = __pyx_f[0]; __pyx_lineno = 309; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+            {__pyx_filename = __pyx_f[0]; __pyx_lineno = 312; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
           }
           *((double *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_fima.data + __pyx_t_86 * __pyx_v_fima.strides[0]) ) + __pyx_t_87 * __pyx_v_fima.strides[1]) ) + __pyx_t_88 * __pyx_v_fima.strides[2]) )) = (*((double *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_image.data + __pyx_t_83 * __pyx_v_image.strides[0]) ) + __pyx_t_84 * __pyx_v_image.strides[1]) ) + __pyx_t_85 * __pyx_v_image.strides[2]) )));
 
-          /* "dipy/denoise/ornlm.pyx":308
+          /* "dipy/denoise/ornlm.pyx":311
  *         for i in range(0, image.shape[1]):
  *             for j in range(0, image.shape[0]):
  *                 if(Label[j,i,k]==0.0):             # <<<<<<<<<<<<<<
@@ -8129,7 +8234,7 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_22ornlm(CYTHON_UNUSED PyObject *
           goto __pyx_L51;
         }
 
-        /* "dipy/denoise/ornlm.pyx":311
+        /* "dipy/denoise/ornlm.pyx":314
  *                     fima[j,i,k]=image[j,i,k]
  *                 else:
  *                     fima[j,i,k]=Estimate[j,i,k]/Label[j,i,k]             # <<<<<<<<<<<<<<
@@ -8154,7 +8259,7 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_22ornlm(CYTHON_UNUSED PyObject *
           } else if (unlikely(__pyx_t_91 >= __pyx_v_Estimate.shape[2])) __pyx_t_19 = 2;
           if (unlikely(__pyx_t_19 != -1)) {
             __Pyx_RaiseBufferIndexError(__pyx_t_19);
-            {__pyx_filename = __pyx_f[0]; __pyx_lineno = 311; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+            {__pyx_filename = __pyx_f[0]; __pyx_lineno = 314; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
           }
           __pyx_t_71 = (*((double *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_Estimate.data + __pyx_t_89 * __pyx_v_Estimate.strides[0]) ) + __pyx_t_90 * __pyx_v_Estimate.strides[1]) ) + __pyx_t_91 * __pyx_v_Estimate.strides[2]) )));
           __pyx_t_92 = __pyx_v_j;
@@ -8175,12 +8280,12 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_22ornlm(CYTHON_UNUSED PyObject *
           } else if (unlikely(__pyx_t_94 >= __pyx_v_Label.shape[2])) __pyx_t_19 = 2;
           if (unlikely(__pyx_t_19 != -1)) {
             __Pyx_RaiseBufferIndexError(__pyx_t_19);
-            {__pyx_filename = __pyx_f[0]; __pyx_lineno = 311; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+            {__pyx_filename = __pyx_f[0]; __pyx_lineno = 314; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
           }
           __pyx_t_27 = (*((double *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_Label.data + __pyx_t_92 * __pyx_v_Label.strides[0]) ) + __pyx_t_93 * __pyx_v_Label.strides[1]) ) + __pyx_t_94 * __pyx_v_Label.strides[2]) )));
           if (unlikely(__pyx_t_27 == 0)) {
             PyErr_SetString(PyExc_ZeroDivisionError, "float division");
-            {__pyx_filename = __pyx_f[0]; __pyx_lineno = 311; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+            {__pyx_filename = __pyx_f[0]; __pyx_lineno = 314; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
           }
           __pyx_t_95 = __pyx_v_j;
           __pyx_t_96 = __pyx_v_i;
@@ -8200,7 +8305,7 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_22ornlm(CYTHON_UNUSED PyObject *
           } else if (unlikely(__pyx_t_97 >= __pyx_v_fima.shape[2])) __pyx_t_19 = 2;
           if (unlikely(__pyx_t_19 != -1)) {
             __Pyx_RaiseBufferIndexError(__pyx_t_19);
-            {__pyx_filename = __pyx_f[0]; __pyx_lineno = 311; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+            {__pyx_filename = __pyx_f[0]; __pyx_lineno = 314; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
           }
           *((double *) ( /* dim=2 */ (( /* dim=1 */ (( /* dim=0 */ (__pyx_v_fima.data + __pyx_t_95 * __pyx_v_fima.strides[0]) ) + __pyx_t_96 * __pyx_v_fima.strides[1]) ) + __pyx_t_97 * __pyx_v_fima.strides[2]) )) = (__pyx_t_71 / __pyx_t_27);
         }
@@ -8209,22 +8314,22 @@ static PyObject *__pyx_pf_4dipy_7denoise_5ornlm_22ornlm(CYTHON_UNUSED PyObject *
     }
   }
 
-  /* "dipy/denoise/ornlm.pyx":312
+  /* "dipy/denoise/ornlm.pyx":315
  *                 else:
  *                     fima[j,i,k]=Estimate[j,i,k]/Label[j,i,k]
  *     return fima             # <<<<<<<<<<<<<<
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_2 = __pyx_memoryview_fromslice(__pyx_v_fima, 3, (PyObject *(*)(char *)) __pyx_memview_get_double, (int (*)(char *, PyObject *)) __pyx_memview_set_double, 0);; if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 312; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __pyx_memoryview_fromslice(__pyx_v_fima, 3, (PyObject *(*)(char *)) __pyx_memview_get_double, (int (*)(char *, PyObject *)) __pyx_memview_set_double, 0);; if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 315; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_r = __pyx_t_2;
   __pyx_t_2 = 0;
   goto __pyx_L0;
 
-  /* "dipy/denoise/ornlm.pyx":225
+  /* "dipy/denoise/ornlm.pyx":228
  *     return filtered
  * 
- * def ornlm(double [:,:,:]image, int v, int f, double h):             # <<<<<<<<<<<<<<
+ * def ornlm(double [:,:,:]image, int v, int f, double h, rician = True):             # <<<<<<<<<<<<<<
  *     '''
  *     Filters the given 3D image using optimized non-local means, proposed by
  */
@@ -20595,6 +20700,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_pyx_vtable, __pyx_k_pyx_vtable, sizeof(__pyx_k_pyx_vtable), 0, 0, 1, 1},
   {&__pyx_n_s_pz, __pyx_k_pz, sizeof(__pyx_k_pz), 0, 0, 1, 1},
   {&__pyx_n_s_range, __pyx_k_range, sizeof(__pyx_k_range), 0, 0, 1, 1},
+  {&__pyx_n_s_rician, __pyx_k_rician, sizeof(__pyx_k_rician), 0, 0, 1, 1},
   {&__pyx_n_s_shape, __pyx_k_shape, sizeof(__pyx_k_shape), 0, 0, 1, 1},
   {&__pyx_n_s_size, __pyx_k_size, sizeof(__pyx_k_size), 0, 0, 1, 1},
   {&__pyx_n_s_sqrt, __pyx_k_sqrt, sizeof(__pyx_k_sqrt), 0, 0, 1, 1},
@@ -20655,45 +20761,45 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__Pyx_InitCachedConstants", 0);
 
-  /* "dipy/denoise/ornlm.pyx":159
+  /* "dipy/denoise/ornlm.pyx":162
  * 
  * def _local_mean(double [:,:,:]ima, int x, int y, int z):
  *     cdef int[:] dims=cvarray((3,), itemsize=sizeof(int), format="i")             # <<<<<<<<<<<<<<
  *     dims[0]=ima.shape[0]
  *     dims[1]=ima.shape[1]
  */
-  __pyx_tuple_ = PyTuple_Pack(1, __pyx_int_3); if (unlikely(!__pyx_tuple_)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 159; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_tuple_ = PyTuple_Pack(1, __pyx_int_3); if (unlikely(!__pyx_tuple_)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 162; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_tuple_);
   __Pyx_GIVEREF(__pyx_tuple_);
-  __pyx_tuple__2 = PyTuple_Pack(1, __pyx_tuple_); if (unlikely(!__pyx_tuple__2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 159; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_tuple__2 = PyTuple_Pack(1, __pyx_tuple_); if (unlikely(!__pyx_tuple__2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 162; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_tuple__2);
   __Pyx_GIVEREF(__pyx_tuple__2);
 
-  /* "dipy/denoise/ornlm.pyx":175
+  /* "dipy/denoise/ornlm.pyx":178
  * 
  * def _local_variance(double[:,:,:] ima, double mean, int x, int y, int z):
  *     cdef int[:] dims=cvarray((3,), itemsize=sizeof(int), format="i")             # <<<<<<<<<<<<<<
  *     dims[0]=ima.shape[0]
  *     dims[1]=ima.shape[1]
  */
-  __pyx_tuple__3 = PyTuple_Pack(1, __pyx_int_3); if (unlikely(!__pyx_tuple__3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 175; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_tuple__3 = PyTuple_Pack(1, __pyx_int_3); if (unlikely(!__pyx_tuple__3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 178; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_tuple__3);
   __Pyx_GIVEREF(__pyx_tuple__3);
-  __pyx_tuple__4 = PyTuple_Pack(1, __pyx_tuple__3); if (unlikely(!__pyx_tuple__4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 175; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_tuple__4 = PyTuple_Pack(1, __pyx_tuple__3); if (unlikely(!__pyx_tuple__4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 178; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_tuple__4);
   __Pyx_GIVEREF(__pyx_tuple__4);
 
-  /* "dipy/denoise/ornlm.pyx":242
+  /* "dipy/denoise/ornlm.pyx":245
  *             distribution, with mean=0 and standard deviation=h
  *     '''
  *     cdef int[:] dims=cvarray((3,), itemsize=sizeof(int), format="i")             # <<<<<<<<<<<<<<
  *     dims[0]=image.shape[0]
  *     dims[1]=image.shape[1]
  */
-  __pyx_tuple__5 = PyTuple_Pack(1, __pyx_int_3); if (unlikely(!__pyx_tuple__5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 242; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_tuple__5 = PyTuple_Pack(1, __pyx_int_3); if (unlikely(!__pyx_tuple__5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 245; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_tuple__5);
   __Pyx_GIVEREF(__pyx_tuple__5);
-  __pyx_tuple__6 = PyTuple_Pack(1, __pyx_tuple__5); if (unlikely(!__pyx_tuple__6)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 242; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_tuple__6 = PyTuple_Pack(1, __pyx_tuple__5); if (unlikely(!__pyx_tuple__6)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 245; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_tuple__6);
   __Pyx_GIVEREF(__pyx_tuple__6);
 
@@ -20907,61 +21013,61 @@ static int __Pyx_InitCachedConstants(void) {
  *                     average[a,b,c]+= weight*(ima[y_pos,x_pos,z_pos]**2)
  * 
  * def _value_block(double[:,:,:] estimate, double[:,:,:] Label, int x, int y,             # <<<<<<<<<<<<<<
- *                  int z, double[:,:,:] average, double global_sum, double hh):
+ *                  int z, double[:,:,:] average, double global_sum, double hh, rician = True):
  *     cdef int is_outside, a, b, c, x_pos, y_pos, z_pos, count=0
  */
-  __pyx_tuple__30 = PyTuple_Pack(20, __pyx_n_s_estimate, __pyx_n_s_Label, __pyx_n_s_x, __pyx_n_s_y, __pyx_n_s_z, __pyx_n_s_average, __pyx_n_s_global_sum, __pyx_n_s_hh, __pyx_n_s_is_outside, __pyx_n_s_a, __pyx_n_s_b, __pyx_n_s_c, __pyx_n_s_x_pos, __pyx_n_s_y_pos, __pyx_n_s_z_pos, __pyx_n_s_count, __pyx_n_s_value, __pyx_n_s_denoised_value, __pyx_n_s_label, __pyx_n_s_neighborhoodsize); if (unlikely(!__pyx_tuple__30)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 88; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_tuple__30 = PyTuple_Pack(21, __pyx_n_s_estimate, __pyx_n_s_Label, __pyx_n_s_x, __pyx_n_s_y, __pyx_n_s_z, __pyx_n_s_average, __pyx_n_s_global_sum, __pyx_n_s_hh, __pyx_n_s_rician, __pyx_n_s_is_outside, __pyx_n_s_a, __pyx_n_s_b, __pyx_n_s_c, __pyx_n_s_x_pos, __pyx_n_s_y_pos, __pyx_n_s_z_pos, __pyx_n_s_count, __pyx_n_s_value, __pyx_n_s_denoised_value, __pyx_n_s_label, __pyx_n_s_neighborhoodsize); if (unlikely(!__pyx_tuple__30)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 88; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_tuple__30);
   __Pyx_GIVEREF(__pyx_tuple__30);
-  __pyx_codeobj__31 = (PyObject*)__Pyx_PyCode_New(8, 0, 20, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__30, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_Riddhish_Documents_GSOC_D, __pyx_n_s_value_block, 88, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__31)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 88; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_codeobj__31 = (PyObject*)__Pyx_PyCode_New(9, 0, 21, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__30, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_Riddhish_Documents_GSOC_D, __pyx_n_s_value_block, 88, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__31)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 88; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
-  /* "dipy/denoise/ornlm.pyx":120
+  /* "dipy/denoise/ornlm.pyx":123
  *                     Label[y_pos, x_pos, z_pos] = label +1
  * 
  * def _distance(double[:,:,:] image, int x, int y, int z,             # <<<<<<<<<<<<<<
  *               int nx, int ny, int nz, int f):
  *     '''
  */
-  __pyx_tuple__32 = PyTuple_Pack(23, __pyx_n_s_image, __pyx_n_s_x, __pyx_n_s_y, __pyx_n_s_z, __pyx_n_s_nx, __pyx_n_s_ny, __pyx_n_s_nz, __pyx_n_s_f, __pyx_n_s_d, __pyx_n_s_acu, __pyx_n_s_distancetotal, __pyx_n_s_i, __pyx_n_s_j, __pyx_n_s_k, __pyx_n_s_ni1, __pyx_n_s_nj1, __pyx_n_s_ni2, __pyx_n_s_nj2, __pyx_n_s_nk1, __pyx_n_s_nk2, __pyx_n_s_sx, __pyx_n_s_sy, __pyx_n_s_sz); if (unlikely(!__pyx_tuple__32)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 120; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_tuple__32 = PyTuple_Pack(23, __pyx_n_s_image, __pyx_n_s_x, __pyx_n_s_y, __pyx_n_s_z, __pyx_n_s_nx, __pyx_n_s_ny, __pyx_n_s_nz, __pyx_n_s_f, __pyx_n_s_d, __pyx_n_s_acu, __pyx_n_s_distancetotal, __pyx_n_s_i, __pyx_n_s_j, __pyx_n_s_k, __pyx_n_s_ni1, __pyx_n_s_nj1, __pyx_n_s_ni2, __pyx_n_s_nj2, __pyx_n_s_nk1, __pyx_n_s_nk2, __pyx_n_s_sx, __pyx_n_s_sy, __pyx_n_s_sz); if (unlikely(!__pyx_tuple__32)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 123; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_tuple__32);
   __Pyx_GIVEREF(__pyx_tuple__32);
-  __pyx_codeobj__33 = (PyObject*)__Pyx_PyCode_New(8, 0, 23, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__32, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_Riddhish_Documents_GSOC_D, __pyx_n_s_distance, 120, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__33)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 120; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_codeobj__33 = (PyObject*)__Pyx_PyCode_New(8, 0, 23, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__32, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_Riddhish_Documents_GSOC_D, __pyx_n_s_distance, 123, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__33)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 123; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
-  /* "dipy/denoise/ornlm.pyx":158
+  /* "dipy/denoise/ornlm.pyx":161
  *     return d
  * 
  * def _local_mean(double [:,:,:]ima, int x, int y, int z):             # <<<<<<<<<<<<<<
  *     cdef int[:] dims=cvarray((3,), itemsize=sizeof(int), format="i")
  *     dims[0]=ima.shape[0]
  */
-  __pyx_tuple__34 = PyTuple_Pack(15, __pyx_n_s_ima, __pyx_n_s_x, __pyx_n_s_y, __pyx_n_s_z, __pyx_n_s_dims, __pyx_n_s_ss, __pyx_n_s_px, __pyx_n_s_py, __pyx_n_s_pz, __pyx_n_s_dx, __pyx_n_s_dy, __pyx_n_s_dz, __pyx_n_s_nx, __pyx_n_s_ny, __pyx_n_s_nz); if (unlikely(!__pyx_tuple__34)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 158; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_tuple__34 = PyTuple_Pack(15, __pyx_n_s_ima, __pyx_n_s_x, __pyx_n_s_y, __pyx_n_s_z, __pyx_n_s_dims, __pyx_n_s_ss, __pyx_n_s_px, __pyx_n_s_py, __pyx_n_s_pz, __pyx_n_s_dx, __pyx_n_s_dy, __pyx_n_s_dz, __pyx_n_s_nx, __pyx_n_s_ny, __pyx_n_s_nz); if (unlikely(!__pyx_tuple__34)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 161; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_tuple__34);
   __Pyx_GIVEREF(__pyx_tuple__34);
-  __pyx_codeobj__35 = (PyObject*)__Pyx_PyCode_New(4, 0, 15, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__34, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_Riddhish_Documents_GSOC_D, __pyx_n_s_local_mean, 158, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__35)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 158; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_codeobj__35 = (PyObject*)__Pyx_PyCode_New(4, 0, 15, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__34, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_Riddhish_Documents_GSOC_D, __pyx_n_s_local_mean, 161, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__35)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 161; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
-  /* "dipy/denoise/ornlm.pyx":174
+  /* "dipy/denoise/ornlm.pyx":177
  *     return ss/27.0
  * 
  * def _local_variance(double[:,:,:] ima, double mean, int x, int y, int z):             # <<<<<<<<<<<<<<
  *     cdef int[:] dims=cvarray((3,), itemsize=sizeof(int), format="i")
  *     dims[0]=ima.shape[0]
  */
-  __pyx_tuple__36 = PyTuple_Pack(17, __pyx_n_s_ima, __pyx_n_s_mean, __pyx_n_s_x, __pyx_n_s_y, __pyx_n_s_z, __pyx_n_s_dims, __pyx_n_s_cnt, __pyx_n_s_ss, __pyx_n_s_dx, __pyx_n_s_dy, __pyx_n_s_dz, __pyx_n_s_nx, __pyx_n_s_ny, __pyx_n_s_nz, __pyx_n_s_px, __pyx_n_s_py, __pyx_n_s_pz); if (unlikely(!__pyx_tuple__36)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 174; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_tuple__36 = PyTuple_Pack(17, __pyx_n_s_ima, __pyx_n_s_mean, __pyx_n_s_x, __pyx_n_s_y, __pyx_n_s_z, __pyx_n_s_dims, __pyx_n_s_cnt, __pyx_n_s_ss, __pyx_n_s_dx, __pyx_n_s_dy, __pyx_n_s_dz, __pyx_n_s_nx, __pyx_n_s_ny, __pyx_n_s_nz, __pyx_n_s_px, __pyx_n_s_py, __pyx_n_s_pz); if (unlikely(!__pyx_tuple__36)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 177; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_tuple__36);
   __Pyx_GIVEREF(__pyx_tuple__36);
-  __pyx_codeobj__37 = (PyObject*)__Pyx_PyCode_New(5, 0, 17, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__36, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_Riddhish_Documents_GSOC_D, __pyx_n_s_local_variance, 174, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__37)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 174; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_codeobj__37 = (PyObject*)__Pyx_PyCode_New(5, 0, 17, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__36, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_Riddhish_Documents_GSOC_D, __pyx_n_s_local_variance, 177, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__37)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 177; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
-  /* "dipy/denoise/ornlm.pyx":225
+  /* "dipy/denoise/ornlm.pyx":228
  *     return filtered
  * 
- * def ornlm(double [:,:,:]image, int v, int f, double h):             # <<<<<<<<<<<<<<
+ * def ornlm(double [:,:,:]image, int v, int f, double h, rician = True):             # <<<<<<<<<<<<<<
  *     '''
  *     Filters the given 3D image using optimized non-local means, proposed by
  */
-  __pyx_tuple__38 = PyTuple_Pack(30, __pyx_n_s_image, __pyx_n_s_v, __pyx_n_s_f, __pyx_n_s_h, __pyx_n_s_dims, __pyx_n_s_hh, __pyx_n_s_Ndims, __pyx_n_s_nvox, __pyx_n_s_average, __pyx_n_s_fima, __pyx_n_s_means, __pyx_n_s_variances, __pyx_n_s_Estimate, __pyx_n_s_Label, __pyx_n_s_i, __pyx_n_s_j, __pyx_n_s_k, __pyx_n_s_ni, __pyx_n_s_nj, __pyx_n_s_nk, __pyx_n_s_mm, __pyx_n_s_epsilon, __pyx_n_s_mu1, __pyx_n_s_var1, __pyx_n_s_totalWeight, __pyx_n_s_wmax, __pyx_n_s_d, __pyx_n_s_w, __pyx_n_s_t1, __pyx_n_s_t2); if (unlikely(!__pyx_tuple__38)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 225; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_tuple__38 = PyTuple_Pack(31, __pyx_n_s_image, __pyx_n_s_v, __pyx_n_s_f, __pyx_n_s_h, __pyx_n_s_rician, __pyx_n_s_dims, __pyx_n_s_hh, __pyx_n_s_Ndims, __pyx_n_s_nvox, __pyx_n_s_average, __pyx_n_s_fima, __pyx_n_s_means, __pyx_n_s_variances, __pyx_n_s_Estimate, __pyx_n_s_Label, __pyx_n_s_i, __pyx_n_s_j, __pyx_n_s_k, __pyx_n_s_ni, __pyx_n_s_nj, __pyx_n_s_nk, __pyx_n_s_mm, __pyx_n_s_epsilon, __pyx_n_s_mu1, __pyx_n_s_var1, __pyx_n_s_totalWeight, __pyx_n_s_wmax, __pyx_n_s_d, __pyx_n_s_w, __pyx_n_s_t1, __pyx_n_s_t2); if (unlikely(!__pyx_tuple__38)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 228; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_tuple__38);
   __Pyx_GIVEREF(__pyx_tuple__38);
-  __pyx_codeobj__39 = (PyObject*)__Pyx_PyCode_New(4, 0, 30, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__38, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_Riddhish_Documents_GSOC_D, __pyx_n_s_ornlm, 225, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__39)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 225; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_codeobj__39 = (PyObject*)__Pyx_PyCode_New(5, 0, 31, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__38, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_Riddhish_Documents_GSOC_D, __pyx_n_s_ornlm, 228, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__39)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 228; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
   /* "View.MemoryView":278
  *         return self.name
@@ -21271,7 +21377,7 @@ PyMODINIT_FUNC PyInit_ornlm(void)
  *                     average[a,b,c]+= weight*(ima[y_pos,x_pos,z_pos]**2)
  * 
  * def _value_block(double[:,:,:] estimate, double[:,:,:] Label, int x, int y,             # <<<<<<<<<<<<<<
- *                  int z, double[:,:,:] average, double global_sum, double hh):
+ *                  int z, double[:,:,:] average, double global_sum, double hh, rician = True):
  *     cdef int is_outside, a, b, c, x_pos, y_pos, z_pos, count=0
  */
   __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_4dipy_7denoise_5ornlm_11_value_block, NULL, __pyx_n_s_dipy_denoise_ornlm); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 88; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -21279,52 +21385,52 @@ PyMODINIT_FUNC PyInit_ornlm(void)
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_value_block, __pyx_t_1) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 88; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "dipy/denoise/ornlm.pyx":120
+  /* "dipy/denoise/ornlm.pyx":123
  *                     Label[y_pos, x_pos, z_pos] = label +1
  * 
  * def _distance(double[:,:,:] image, int x, int y, int z,             # <<<<<<<<<<<<<<
  *               int nx, int ny, int nz, int f):
  *     '''
  */
-  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_4dipy_7denoise_5ornlm_13_distance, NULL, __pyx_n_s_dipy_denoise_ornlm); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 120; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_4dipy_7denoise_5ornlm_13_distance, NULL, __pyx_n_s_dipy_denoise_ornlm); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 123; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_distance, __pyx_t_1) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 120; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_distance, __pyx_t_1) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 123; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "dipy/denoise/ornlm.pyx":158
+  /* "dipy/denoise/ornlm.pyx":161
  *     return d
  * 
  * def _local_mean(double [:,:,:]ima, int x, int y, int z):             # <<<<<<<<<<<<<<
  *     cdef int[:] dims=cvarray((3,), itemsize=sizeof(int), format="i")
  *     dims[0]=ima.shape[0]
  */
-  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_4dipy_7denoise_5ornlm_15_local_mean, NULL, __pyx_n_s_dipy_denoise_ornlm); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 158; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_4dipy_7denoise_5ornlm_15_local_mean, NULL, __pyx_n_s_dipy_denoise_ornlm); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 161; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_local_mean, __pyx_t_1) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 158; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_local_mean, __pyx_t_1) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 161; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "dipy/denoise/ornlm.pyx":174
+  /* "dipy/denoise/ornlm.pyx":177
  *     return ss/27.0
  * 
  * def _local_variance(double[:,:,:] ima, double mean, int x, int y, int z):             # <<<<<<<<<<<<<<
  *     cdef int[:] dims=cvarray((3,), itemsize=sizeof(int), format="i")
  *     dims[0]=ima.shape[0]
  */
-  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_4dipy_7denoise_5ornlm_17_local_variance, NULL, __pyx_n_s_dipy_denoise_ornlm); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 174; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_4dipy_7denoise_5ornlm_17_local_variance, NULL, __pyx_n_s_dipy_denoise_ornlm); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 177; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_local_variance, __pyx_t_1) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 174; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_local_variance, __pyx_t_1) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 177; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "dipy/denoise/ornlm.pyx":225
+  /* "dipy/denoise/ornlm.pyx":228
  *     return filtered
  * 
- * def ornlm(double [:,:,:]image, int v, int f, double h):             # <<<<<<<<<<<<<<
+ * def ornlm(double [:,:,:]image, int v, int f, double h, rician = True):             # <<<<<<<<<<<<<<
  *     '''
  *     Filters the given 3D image using optimized non-local means, proposed by
  */
-  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_4dipy_7denoise_5ornlm_23ornlm, NULL, __pyx_n_s_dipy_denoise_ornlm); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 225; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_4dipy_7denoise_5ornlm_23ornlm, NULL, __pyx_n_s_dipy_denoise_ornlm); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 228; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_ornlm, __pyx_t_1) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 225; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_ornlm, __pyx_t_1) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 228; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
   /* "dipy/denoise/ornlm.pyx":1

@@ -38,7 +38,7 @@ def nlmeans(arr, sigma, mask=None, patch_radius=1, block_radius=5,
 
         if type == 'blockwise':
             sigma = estimate_sigma(arr, N=4)
-            return np.array(ornlm(np.double(arr), patch_radius, block_radius, sigma[0]))
+            return np.array(ornlm(np.double(arr), patch_radius, block_radius, sigma[0], rician))
         else:    
             sigma = np.ones(arr.shape, dtype=np.float64) * sigma
             return nlmeans_3d(arr, mask, sigma,
