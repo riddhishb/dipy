@@ -27,6 +27,10 @@ def nlmeans(arr, sigma, mask=None, patch_radius=1, block_radius=5,
     num_threads : int
         Number of threads. If None (default) then all available threads
         will be used (all CPU cores).
+    type : string
+        Denotes the type of nlmeans approach followed, we have two options
+        the 'voxelwise' averaging which is the default and the 'blockwise'
+        averaging.
 
     Returns
     -------
