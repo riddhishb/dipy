@@ -6,11 +6,11 @@ from dipy.data import read_sherbrooke_3shell
 from dipy.denoise.noise_estimate import estimate_sigma
 from time import time
 from dipy.denoise.nlmeans import nlmeans
-from dipy.denoise import ornlm
+from dipy.denoise import nlmeans_block
 from dipy.denoise import ascm
 
 
-def nlmeans_ornlm_comparision(S0, patch_size, block_size):
+def nlmeans_block_comparision(S0, patch_size, block_size):
     axial = S0.shape[2] / 2
     sigma = estimate_sigma(S0, N=4)
     # the nlmeans
@@ -30,7 +30,7 @@ def nlmeans_ornlm_comparision(S0, patch_size, block_size):
     #     mask=None,
     #     patch_radius=3,
     #     block_radius=3)
-    f = np.array(ornlm.ornlm(S0, 1, 1, sigma[0]))
+    f = np.array(nlmeans_block.nlmeans_block(S0, 1, 1, sigma[0]))
     print(time() - t)
     plt.figure("Output of ornlm")
     plt.imshow(f[:, :, axial].T, cmap='gray')
@@ -85,7 +85,7 @@ if __name__ == '__main__':
 
     ################# Test 2: Comparision between the nlmeans and the ornlm ##
 
-    [f1, den1] = nlmeans_ornlm_comparision(S0, 3, 1)
+    [f1, den1] = nlmeans_block_comparision(S0, 3, 1)
 
     ################# Test 3: nlmeans+ascm and ornlm+ascm comparision ########
 

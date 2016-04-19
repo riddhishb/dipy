@@ -2,12 +2,13 @@ from __future__ import division, print_function
 
 import numpy as np
 from dipy.denoise.denspeed import nlmeans_3d
-from dipy.denoise.ornlm import ornlm
+from dipy.denoise.nlmeans_block import nlmeans_block
 from dipy.denoise.noise_estimate import estimate_sigma
 
 
 def nlmeans(arr, sigma, mask=None, patch_radius=1, block_radius=5,
             rician=True, num_threads=None,type='voxelwise'):
+
     """ Non-local means for denoising 3D and 4D images
 
     Parameters
@@ -42,7 +43,7 @@ def nlmeans(arr, sigma, mask=None, patch_radius=1, block_radius=5,
 
         if type == 'blockwise':
             sigma = estimate_sigma(arr, N=4)
-            return np.array(ornlm(np.double(arr), patch_radius, block_radius, sigma[0], rician))
+            return np.array(nlmeans_block(np.double(arr), patch_radius, block_radius, sigma[0], rician))
         else:    
             sigma = np.ones(arr.shape, dtype=np.float64) * sigma
             return nlmeans_3d(arr, mask, sigma,
@@ -55,7 +56,7 @@ def nlmeans(arr, sigma, mask=None, patch_radius=1, block_radius=5,
         if type == 'blockwise':
             for i in range(arr.shape[-1]):
                 sigma = estimate_sigma(arr[..., i], N=4)
-                denoised_arr[..., i] = np.array(ornlm(np.double(arr[..., i]),patch_radius,block_radius,sigma[0]))
+                denoised_arr[..., i] = np.array(nlmeans_block(np.double(arr[..., i]),patch_radius,block_radius,sigma[0]))
 
             return denoised_arr    
         else:

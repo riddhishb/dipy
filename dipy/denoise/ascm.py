@@ -4,8 +4,11 @@ from dipy.core import wavelet
 
 
 def ascm(ima, fimau, fimao, h):
+
+
     '''
-    Adaptive Soft (wavelet) Coefficient Mixing proposed by P. Coupe et al.
+    Adaptive Soft Coefficient Matching
+
     Combines two filtered 3D-images at different resolutions and the orginal
     image. Returns the resulting combined image.
     Parameters
@@ -25,18 +28,11 @@ def ascm(ima, fimau, fimao, h):
             standard deviation=h
     References
     ----------
-    Pierrick Coupe - pierrick.coupe@gmail.com
-    Jose V. Manjon - jmanjon@fis.upv.es
-    Brain Imaging Center, Montreal Neurological Institute.
-    Mc Gill University
-
-    Copyright (C) 2008 Pierrick Coupe and Jose V. Manjon
-
-    ************************************************************************
-    *              3D Adaptive Multiresolution Non-Local Means Filter      *
-    *           P. Coupe a, J. V. Manjon, M. Robles , D. L. Collin         *
-    ************************************************************************
+    3D Adaptive Multiresolution Non-Local Means Filter, P. Coupe a, 
+    J. V. Manjon,M. Robles, D. L. Collin         
+    
     '''
+    
     s = fimau.shape
     p = [0, 0, 0]
     p[0] = 2**math.ceil(math.log(s[0], 2))
